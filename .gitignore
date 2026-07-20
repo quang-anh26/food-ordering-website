@@ -1,0 +1,20 @@
+# Hệ điều hành
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# File tạm / backup
+*.log
+*.tmp
+*.bak
+*~
+
+# Nếu sau này có dùng Node (Live Server, v.v.)
+node_modules/
+package-lock.json
