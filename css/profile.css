@@ -1,4 +1,356 @@
 /* =========================================================
-   profile.css
-   TODO: Thành viên phụ trách viết CSS tại đây
+   PROFILE / ORDER HISTORY
    ========================================================= */
+
+.profile-layout {
+   display: grid;
+   grid-template-columns: 280px 1fr;
+   gap: 32px;
+   align-items: start;
+}
+
+.profile-card {
+   background: var(--c-white);
+   border-radius: var(--r-md);
+   box-shadow: var(--shadow-sm);
+   padding: 30px 24px;
+   text-align: center;
+   position: sticky;
+   top: 110px;
+}
+
+.profile-avatar {
+   width: 92px;
+   height: 92px;
+   border-radius: 50%;
+   margin: 0 auto 16px;
+   background: linear-gradient(135deg, var(--c-orange), var(--c-orange-dark));
+   color: #fff;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-family: var(--f-display);
+   font-size: 32px;
+   font-weight: 700;
+   box-shadow: var(--shadow-orange);
+}
+
+.profile-card h4 {
+   font-size: 17px;
+   margin-bottom: 4px;
+}
+
+.profile-card p {
+   font-size: 13px;
+   color: var(--c-gray-600);
+   margin-bottom: 20px;
+}
+
+.profile-nav {
+   display: flex;
+   flex-direction: column;
+   gap: 4px;
+   text-align: left;
+   margin-top: 10px;
+}
+
+.profile-nav a {
+   display: flex;
+   align-items: center;
+   gap: 12px;
+   padding: 12px 16px;
+   border-radius: var(--r-sm);
+   font-size: 14px;
+   font-weight: 600;
+   color: var(--c-gray-600);
+}
+
+.profile-nav a svg {
+   width: 17px;
+   height: 17px;
+}
+
+.profile-nav a.active,
+.profile-nav a:hover {
+   background: var(--c-orange-light);
+   color: var(--c-orange-dark);
+}
+
+.profile-panel {
+   background: var(--c-white);
+   border-radius: var(--r-md);
+   box-shadow: var(--shadow-sm);
+   padding: 32px;
+}
+
+.profile-panel h3 {
+   font-size: 19px;
+   margin-bottom: 24px;
+}
+
+.order-card {
+   border: 1.5px solid var(--c-gray-100);
+   border-radius: var(--r-md);
+   padding: 22px;
+   margin-bottom: 16px;
+}
+
+.order-card__head {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   margin-bottom: 14px;
+   flex-wrap: wrap;
+   gap: 10px;
+}
+
+.order-card__head b {
+   font-family: var(--f-display);
+}
+
+.order-status {
+   font-size: 11.5px;
+   font-weight: 700;
+   padding: 5px 14px;
+   border-radius: var(--r-pill);
+}
+
+.order-status.delivered {
+   background: #E7F6EC;
+   color: #1B7A3D;
+}
+
+.order-status.processing {
+   background: #FFF3D6;
+   color: #B8860B;
+}
+
+.order-status.cancelled {
+   background: #FDEDEA;
+   color: #C7391D;
+}
+
+.order-card__items {
+   display: flex;
+   gap: 10px;
+   margin-bottom: 14px;
+}
+
+.order-card__items img {
+   width: 52px;
+   height: 52px;
+   border-radius: 10px;
+   object-fit: cover;
+}
+
+.order-card__foot {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding-top: 14px;
+   border-top: 1px solid var(--c-gray-100);
+   font-size: 14px;
+}
+
+.order-card__foot .price {
+   font-family: var(--f-display);
+   font-weight: 700;
+   color: var(--c-orange-dark);
+}
+
+.wishlist-grid {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 20px;
+}
+
+/* ---- Auth pages (login/register) ---- */
+.auth-wrap {
+   min-height: 100vh;
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+}
+
+.auth-visual {
+   position: relative;
+   background: linear-gradient(160deg, var(--c-black), #2C1D14);
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   padding: 60px;
+   overflow: hidden;
+}
+
+.auth-visual::before {
+   content: '';
+   position: absolute;
+   width: 480px;
+   height: 480px;
+   border-radius: 50%;
+   background: radial-gradient(circle, rgba(255, 90, 31, .35), transparent 70%);
+   bottom: -200px;
+   left: -150px;
+}
+
+.auth-visual .logo {
+   color: #fff;
+   position: relative;
+   z-index: 1;
+}
+
+.auth-visual .quote {
+   color: #fff;
+   position: relative;
+   z-index: 1;
+}
+
+.auth-visual .quote p {
+   font-size: 22px;
+   font-family: var(--f-display);
+   font-weight: 600;
+   line-height: 1.4;
+   margin-bottom: 18px;
+}
+
+.auth-visual .quote span {
+   color: rgba(255, 255, 255, .6);
+   font-size: 13.5px;
+}
+
+.auth-visual img {
+   position: absolute;
+   z-index: 0;
+   border-radius: var(--r-lg);
+   box-shadow: var(--shadow-lg);
+}
+
+.auth-form-side {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 40px;
+}
+
+.auth-form {
+   width: 100%;
+   max-width: 400px;
+}
+
+.auth-form h2 {
+   font-size: 28px;
+   margin-bottom: 8px;
+}
+
+.auth-form>p {
+   color: var(--c-gray-600);
+   margin-bottom: 32px;
+   font-size: 14.5px;
+}
+
+.auth-form .divider {
+   display: flex;
+   align-items: center;
+   gap: 14px;
+   margin: 24px 0;
+   color: var(--c-gray-400);
+   font-size: 12.5px;
+}
+
+.auth-form .divider::before,
+.auth-form .divider::after {
+   content: '';
+   flex: 1;
+   height: 1px;
+   background: var(--c-gray-200);
+}
+
+.social-row {
+   display: flex;
+   gap: 12px;
+}
+
+.social-btn {
+   flex: 1;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 10px;
+   padding: 12px;
+   border-radius: var(--r-sm);
+   border: 1.5px solid var(--c-gray-200);
+   font-weight: 600;
+   font-size: 13.5px;
+}
+
+.social-btn:hover {
+   border-color: var(--c-orange);
+}
+
+.auth-form .foot-link {
+   text-align: center;
+   margin-top: 26px;
+   font-size: 14px;
+   color: var(--c-gray-600);
+}
+
+.auth-form .foot-link a {
+   color: var(--c-orange);
+   font-weight: 600;
+}
+
+.remember-row {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   margin-bottom: 22px;
+   font-size: 13.5px;
+}
+
+.remember-row label {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   color: var(--c-gray-600);
+}
+
+.remember-row a {
+   color: var(--c-orange);
+   font-weight: 600;
+}
+
+.pass-toggle {
+   position: relative;
+}
+
+.pass-toggle button {
+   position: absolute;
+   right: 14px;
+   top: 50%;
+   transform: translateY(-50%);
+   color: var(--c-gray-400);
+}
+
+.pass-strength {
+   display: flex;
+   gap: 4px;
+   margin-top: 8px;
+}
+
+.pass-strength span {
+   height: 4px;
+   flex: 1;
+   border-radius: 2px;
+   background: var(--c-gray-200);
+}
+
+.pass-strength span.on-weak {
+   background: #C7391D;
+}
+
+.pass-strength span.on-mid {
+   background: #E1A22D;
+}
+
+.pass-strength span.on-strong {
+   background: #1B7A3D;
+}
