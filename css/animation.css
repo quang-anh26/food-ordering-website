@@ -1,4 +1,190 @@
 /* =========================================================
-   animation.css
-   TODO: Thành viên phụ trách viết CSS tại đây
+   ANIMATION HELPERS
    ========================================================= */
+
+@keyframes fadeUp {
+   from {
+      opacity: 0;
+      transform: translateY(24px);
+   }
+
+   to {
+      opacity: 1;
+      transform: translateY(0);
+   }
+}
+
+@keyframes fadeIn {
+   from {
+      opacity: 0;
+   }
+
+   to {
+      opacity: 1;
+   }
+}
+
+@keyframes scaleIn {
+   from {
+      opacity: 0;
+      transform: scale(.92);
+   }
+
+   to {
+      opacity: 1;
+      transform: scale(1);
+   }
+}
+
+@keyframes slideInRight {
+   from {
+      opacity: 0;
+      transform: translateX(40px);
+   }
+
+   to {
+      opacity: 1;
+      transform: translateX(0);
+   }
+}
+
+@keyframes pulseRing {
+   0% {
+      box-shadow: 0 0 0 0 rgba(255, 90, 31, .45);
+   }
+
+   100% {
+      box-shadow: 0 0 0 14px rgba(255, 90, 31, 0);
+   }
+}
+
+@keyframes shimmer {
+   0% {
+      background-position: -400px 0;
+   }
+
+   100% {
+      background-position: 400px 0;
+   }
+}
+
+.hero-copy h1,
+.hero-copy p,
+.hero-search,
+.hero-stats {
+   animation: fadeUp .8s var(--ease) both;
+}
+
+.hero-copy p {
+   animation-delay: .1s;
+}
+
+.hero-search {
+   animation-delay: .2s;
+}
+
+.hero-stats {
+   animation-delay: .3s;
+}
+
+.hero-visual {
+   animation: scaleIn .9s var(--ease) both;
+   animation-delay: .15s;
+}
+
+.pulse {
+   animation: pulseRing 1.6s ease-out infinite;
+}
+
+.skeleton {
+   background: linear-gradient(90deg, var(--c-gray-100) 25%, var(--c-gray-200) 37%, var(--c-gray-100) 63%);
+   background-size: 400px 100%;
+   animation: shimmer 1.4s linear infinite;
+   border-radius: var(--r-sm);
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+
+   *,
+   *::before,
+   *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+   }
+}
+
+/* Smooth, non-jarring theme toggle across every themed surface */
+body,
+#site-header,
+#site-header.scrolled,
+#site-footer,
+.food-card,
+.checkout-card,
+.cart-summary,
+.cart-list,
+.cart-item,
+.profile-card,
+.profile-panel,
+.order-card,
+.menu-sidebar,
+.restaurant-card,
+.auth-form-side,
+.category-item,
+.why-card,
+.review-card,
+.payment-opt,
+.faq-item,
+.icon-btn,
+.btn-outline,
+.field input,
+.field select,
+.field textarea,
+.modal-box,
+.user-dropdown,
+.toast,
+.mobile-nav,
+.search-box input,
+.tag,
+.eyebrow,
+.empty-state,
+.promo-input input,
+.sort-select {
+   transition: background-color .4s var(--ease), color .4s var(--ease),
+      border-color .4s var(--ease), box-shadow .4s var(--ease);
+}
+
+.dark-toggle {
+   position: relative;
+   width: 44px;
+   height: 44px;
+   border-radius: 50%;
+   background: var(--c-gray-100);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.dark-toggle svg {
+   width: 18px;
+   height: 18px;
+   transition: all .3s var(--ease);
+}
+
+.dark-toggle .sun {
+   display: block;
+}
+
+.dark-toggle .moon {
+   display: none;
+}
+
+body.dark-mode .dark-toggle .sun {
+   display: none;
+}
+
+body.dark-mode .dark-toggle .moon {
+   display: block;
+}
