@@ -1,4 +1,54 @@
 /* =========================================================
-   login.css
-   TODO: Thành viên phụ trách viết CSS tại đây
+   LOGIN / REGISTER — supplementary tweaks
+   (Shared auth layout lives in profile.css → .auth-wrap)
    ========================================================= */
+
+.auth-benefits {
+   display: flex;
+   flex-direction: column;
+   gap: 16px;
+   position: relative;
+   z-index: 1;
+}
+
+.auth-benefits div {
+   display: flex;
+   align-items: center;
+   gap: 12px;
+   color: rgba(255, 255, 255, .85);
+   font-size: 13.5px;
+}
+
+.auth-benefits .b-icon {
+   width: 34px;
+   height: 34px;
+   border-radius: 50%;
+   background: rgba(255, 90, 31, .25);
+   color: var(--c-orange);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-shrink: 0;
+}
+
+.terms-row {
+   display: flex;
+   align-items: flex-start;
+   gap: 10px;
+   font-size: 13px;
+   color: var(--c-gray-600);
+   margin-bottom: 22px;
+}
+
+.terms-row input {
+   margin-top: 3px;
+   width: 16px;
+   height: 16px;
+   accent-color: var(--c-orange);
+   flex-shrink: 0;
+}
+
+.terms-row a {
+   color: var(--c-orange);
+   font-weight: 600;
+}

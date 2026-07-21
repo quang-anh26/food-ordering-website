@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thực đơn — Foodio</title>
-
+    <meta name="description"
+        content="Khám phá toàn bộ thực đơn món ăn Việt trên Foodio, lọc theo danh mục, giá và đánh giá.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/header.css">
@@ -17,31 +19,264 @@
     <link rel="stylesheet" href="css/animation.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
-<body>
 
-    <!-- ========================================================= -->
-    <!-- HEADER (Thành viên 1 phụ trách)                            -->
-    <!-- Sao chép cùng 1 đoạn header này vào TẤT CẢ các trang        -->
-    <!-- ========================================================= -->
+<body>
+    <div id="loading-screen">
+        <div class="loader-mark"></div>
+    </div>
+    <div id="scroll-progress"></div>
+
     <header id="site-header">
-        <!-- TODO: Logo, Navigation, Search, Cart, Auth -->
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <span class="mark">
+                    <svg class="bowl-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M8.5 2.2c-.6 1 .5 1.4-.2 2.6M12 1.8c-.6 1 .5 1.4-.2 2.6M15.5 2.2c-.6 1 .5 1.4-.2 2.6"
+                            stroke-width="1.6" />
+                        <path
+                            d="M3 11h18a8.5 8.5 0 01-7.5 8.4v.4a1.2 1.2 0 01-1.2 1.2h-.6A1.2 1.2 0 0110.5 19.8v-.4A8.5 8.5 0 013 11z" />
+                        <ellipse cx="12" cy="11" rx="9" ry="2.1" />
+                        <path d="M14.5 9.3l6.5-4M16.3 10.2l6-3.2" stroke-width="1.6" />
+                    </svg>
+                </span>
+                Food<span class="accent">io</span>
+            </a>
+
+            <nav class="main-nav" id="main-nav">
+                <a href="index.html" data-nav="index">Trang chủ</a>
+                <a href="menu.html" data-nav="menu">Thực đơn</a>
+                <a href="restaurant.html" data-nav="restaurant">Nhà hàng</a>
+                <a href="about.html" data-nav="about">Giới thiệu</a>
+                <a href="contact.html" data-nav="contact">Liên hệ</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="search-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="M21 21l-4.35-4.35" />
+                    </svg>
+                    <input type="text" id="header-search-input" placeholder="Tìm món ăn...">
+                    <div id="search-suggestions"></div>
+                </div>
+
+                <button class="dark-toggle" id="dark-toggle-btn" aria-label="Chuyển chế độ sáng/tối">
+                    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5" />
+                        <path
+                            d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
+                    </svg>
+                    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>
+                </button>
+
+                <a href="cart.html" class="icon-btn" aria-label="Giỏ hàng">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1" />
+                        <circle cx="20" cy="21" r="1" />
+                        <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6" />
+                    </svg>
+                    <span class="cart-count">0</span>
+                </a>
+
+                <div id="auth-slot"></div>
+
+                <button class="mobile-toggle" id="mobile-toggle" aria-label="Mở menu">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 6h18M3 12h18M3 18h18" />
+                    </svg>
+                </button>
+            </div>
+        </div>
     </header>
 
-    <!-- ========================================================= -->
-    <!-- NỘI DUNG TRANG: Thực đơn                                    -->
-    <!-- TODO: Thành viên phụ trách trang này viết nội dung vào <main> -->
-    <!-- ========================================================= -->
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+    <nav class="mobile-nav" id="mobile-nav">
+        <button class="close-mobile" id="close-mobile" aria-label="Đóng menu">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+        </button>
+        <a href="index.html">Trang chủ</a>
+        <a href="menu.html">Thực đơn</a>
+        <a href="restaurant.html">Nhà hàng</a>
+        <a href="cart.html">Giỏ hàng</a>
+        <a href="about.html">Giới thiệu</a>
+        <a href="contact.html">Liên hệ</a>
+        <a href="login.html">Đăng nhập</a>
+        <a href="register.html">Đăng ký</a>
+    </nav>
+
     <main>
+        <div class="page-banner">
+            <div class="container">
+                <h1>Thực đơn</h1>
+                <div class="breadcrumb"><a href="index.html">Trang chủ</a><span class="sep">/</span><span>Thực
+                        đơn</span></div>
+            </div>
+        </div>
+
+        <section>
+            <div class="container">
+                <div class="filter-tabs" style="margin-bottom:32px">
+                    <button class="menu-tab active" data-cat="all">Tất cả</button>
+                    <button class="menu-tab" data-cat="pho-bun">Phở & Bún</button>
+                    <button class="menu-tab" data-cat="com">Cơm</button>
+                    <button class="menu-tab" data-cat="banh">Bánh Mì & Bánh</button>
+                    <button class="menu-tab" data-cat="cuon">Món Cuốn</button>
+                    <button class="menu-tab" data-cat="lau-haisan">Lẩu & Hải Sản</button>
+                    <button class="menu-tab" data-cat="trang-mieng">Chè & Tráng Miệng</button>
+                    <button class="menu-tab" data-cat="ca-phe">Cà Phê</button>
+                    <button class="menu-tab" data-cat="nuoc-uong">Trà Sữa & Nước Ép</button>
+                </div>
+
+                <div class="menu-layout">
+                    <aside class="menu-sidebar">
+                        <h4>Bộ lọc</h4>
+
+                        <div class="sidebar-block">
+                            <h4 style="font-size:13px;color:var(--c-gray-600)">Danh mục</h4>
+                            <label class="check-row"><input type="checkbox" class="cat-check" value="pho-bun"> Phở &
+                                Bún</label>
+                            <label class="check-row"><input type="checkbox" class="cat-check" value="com"> Cơm</label>
+                            <label class="check-row"><input type="checkbox" class="cat-check" value="banh"> Bánh Mì &
+                                Bánh</label>
+                            <label class="check-row"><input type="checkbox" class="cat-check" value="cuon"> Món
+                                Cuốn</label>
+                            <label class="check-row"><input type="checkbox" class="cat-check" value="lau-haisan"> Lẩu &
+                                Hải Sản</label>
+                            <label class="check-row"><input type="checkbox" class="cat-check" value="trang-mieng"> Chè &
+                                Tráng Miệng</label>
+                            <label class="check-row"><input type="checkbox" class="cat-check" value="ca-phe"> Cà
+                                Phê</label>
+                            <label class="check-row"><input type="checkbox" class="cat-check" value="nuoc-uong"> Trà Sữa
+                                & Nước Ép</label>
+                        </div>
+
+                        <div class="sidebar-block">
+                            <h4 style="font-size:13px;color:var(--c-gray-600)">Khoảng giá tối đa</h4>
+                            <input type="range" id="price-range" min="15000" max="200000" value="200000" step="1000">
+                            <div class="price-range"><span>0₫</span><span id="price-range-label">200.000₫</span></div>
+                        </div>
+
+                        <div class="sidebar-block">
+                            <h4 style="font-size:13px;color:var(--c-gray-600)">Đánh giá</h4>
+                            <div class="rating-filter">
+                                <label class="check-row"><input type="checkbox" class="rating-check" value="4.5"> 4.5+
+                                    ⭐</label>
+                                <label class="check-row"><input type="checkbox" class="rating-check" value="4"> 4.0+
+                                    ⭐</label>
+                                <label class="check-row"><input type="checkbox" class="rating-check" value="3.5"> 3.5+
+                                    ⭐</label>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <div>
+                        <div class="section-tools">
+                            <span class="results-count" id="results-count">Tìm thấy 16 món ăn</span>
+                            <select class="sort-select field" id="sort-select"
+                                style="width:200px;padding:10px 14px;border-radius:var(--r-pill);border:1.5px solid var(--c-gray-200)">
+                                <option value="popular">Phổ biến nhất</option>
+                                <option value="price-asc">Giá: Thấp đến cao</option>
+                                <option value="price-desc">Giá: Cao đến thấp</option>
+                                <option value="rating">Đánh giá cao nhất</option>
+                            </select>
+                        </div>
+                        <div class="foods-grid" id="menu-grid"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </main>
-
-    <!-- ========================================================= -->
-    <!-- FOOTER (Thành viên 1 phụ trách)                            -->
-    <!-- Sao chép cùng 1 đoạn footer này vào TẤT CẢ các trang        -->
-    <!-- ========================================================= -->
     <footer id="site-footer">
-        <!-- TODO: Thông tin liên hệ, liên kết nhanh -->
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <span class="mark">
+                            <svg class="bowl-icon" viewBox="0 0 24 24" width="20" height="20" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M8.5 2.2c-.6 1 .5 1.4-.2 2.6M12 1.8c-.6 1 .5 1.4-.2 2.6M15.5 2.2c-.6 1 .5 1.4-.2 2.6"
+                                    stroke-width="1.6" />
+                                <path
+                                    d="M3 11h18a8.5 8.5 0 01-7.5 8.4v.4a1.2 1.2 0 01-1.2 1.2h-.6A1.2 1.2 0 0110.5 19.8v-.4A8.5 8.5 0 013 11z" />
+                                <ellipse cx="12" cy="11" rx="9" ry="2.1" />
+                                <path d="M14.5 9.3l6.5-4M16.3 10.2l6-3.2" stroke-width="1.6" />
+                            </svg>
+                        </span>
+                        Food<span class="accent">io</span>
+                    </a>
+                    <p>Đặt món ăn yêu thích từ hàng trăm nhà hàng chỉ trong vài phút. Giao hàng nhanh — nóng hổi — trọn
+                        vị.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M14 9h3V6h-3c-1.7 0-3 1.3-3 3v2H8v3h3v7h3v-7h3l1-3h-4v-2c0-.6.4-1 1-1z" />
+                            </svg></a>
+                        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" />
+                                <circle cx="12" cy="12" r="4" />
+                                <circle cx="17.5" cy="6.5" r="1" />
+                            </svg></a>
+                        <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5 0-.28 0-.55-.05-.83A7.72 7.72 0 0023 3z" />
+                            </svg></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h5>Khám phá</h5>
+                    <ul>
+                        <li><a href="menu.html">Thực đơn</a></li>
+                        <li><a href="restaurant.html">Nhà hàng</a></li>
+                        <li><a href="about.html">Về chúng tôi</a></li>
+                        <li><a href="contact.html">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Tài khoản</h5>
+                    <ul>
+                        <li><a href="login.html">Đăng nhập</a></li>
+                        <li><a href="register.html">Đăng ký</a></li>
+                        <li><a href="profile.html">Hồ sơ của tôi</a></li>
+                        <li><a href="orders.html">Đơn hàng của tôi</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Liên hệ</h5>
+                    <ul class="footer-contact">
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z" />
+                                <circle cx="12" cy="10" r="3" />
+                            </svg> 123 Nguyễn Huệ, Q1, TP.HCM</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z" />
+                            </svg> +84 28 1234 5678</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16v16H4z" />
+                                <path d="M22 6l-10 7L2 6" />
+                            </svg> hello@foodio.vn</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 Foodio. Đồ án môn Cơ sở Lập trình Web.</span>
+                <div class="pay-icons"><span>VISA</span><span>MOMO</span><span>COD</span></div>
+            </div>
+        </div>
     </footer>
+
+    <button id="scroll-top" aria-label="Cuộn lên đầu trang">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M12 19V5M5 12l7-7 7 7" />
+        </svg>
+    </button>
 
     <script src="js/app.js"></script>
     <script src="js/auth.js"></script>
@@ -52,5 +287,7 @@
     <script src="js/animation.js"></script>
     <script src="js/validation.js"></script>
     <script src="js/darkmode.js"></script>
+
 </body>
+
 </html>
