@@ -18,14 +18,14 @@ const CATEGORIES = [
 ];
 
 const RESTAURANTS = [
-   { id: 'r1', name: 'Phở Ông Đạt', cuisine: 'Phở • Bún Việt', rating: 4.8, time: '20-30 phút', distance: '1.2 km', status: 'open', image: 'https://picsum.photos/seed/rest1/640/400' },
-   { id: 'r2', name: 'Cơm Tấm Dì Ba', cuisine: 'Cơm Tấm • Cơm Gà', rating: 4.7, time: '15-25 phút', distance: '2.0 km', status: 'open', image: 'https://picsum.photos/seed/rest2/640/400' },
-   { id: 'r3', name: 'Bánh Mì Cô Tấm', cuisine: 'Bánh Mì • Bánh Xèo', rating: 4.9, time: '10-20 phút', distance: '0.8 km', status: 'open', image: 'https://picsum.photos/seed/rest3/640/400' },
-   { id: 'r4', name: 'Cuốn Sài Gòn Xưa', cuisine: 'Gỏi Cuốn • Nem Rán', rating: 4.6, time: '15-20 phút', distance: '1.5 km', status: 'open', image: 'https://picsum.photos/seed/rest4/640/400' },
-   { id: 'r5', name: 'Lẩu Hải Sản Biển Đông', cuisine: 'Lẩu • Hải Sản', rating: 4.8, time: '25-35 phút', distance: '1.8 km', status: 'open', image: 'https://picsum.photos/seed/rest5/640/400' },
-   { id: 'r6', name: 'Chè Cô Hoa', cuisine: 'Chè • Tráng Miệng', rating: 4.9, time: '10-20 phút', distance: '0.6 km', status: 'closed', image: 'https://picsum.photos/seed/rest6/640/400' },
-   { id: 'r7', name: 'Cà Phê Sương Sớm', cuisine: 'Cà Phê Việt', rating: 4.7, time: '10-15 phút', distance: '0.9 km', status: 'open', image: 'https://picsum.photos/seed/rest7/640/400' },
-   { id: 'r8', name: 'Trà Sữa Ngọc Trai', cuisine: 'Trà Sữa • Nước Ép', rating: 4.6, time: '10-15 phút', distance: '1.1 km', status: 'open', image: 'https://picsum.photos/seed/rest8/640/400' },
+   { id: 'r1', name: 'Phở Ông Hùng', cuisine: 'Phở • Bún Việt', rating: 4.8, time: '20-30 phút', distance: '1.2 km', status: 'open', image: './images/restaurants/phoonghung.png' },
+   { id: 'r2', name: 'Cơm Tấm Hưng Phát', cuisine: 'Cơm Tấm • Cơm Gà', rating: 4.7, time: '15-25 phút', distance: '2.0 km', status: 'open', image: './images/restaurants/comtamhungphat.png' },
+   { id: 'r3', name: 'Bánh Mì Cô Lành', cuisine: 'Bánh Mì • Bánh Xèo', rating: 4.9, time: '10-20 phút', distance: '0.8 km', status: 'open', image: './images/restaurants/banhmicolanh.png' },
+   { id: 'r4', name: 'Cuốn Sài Gòn Xưa', cuisine: 'Gỏi Cuốn • Nem Rán', rating: 4.6, time: '15-20 phút', distance: '1.5 km', status: 'open', image: './images/restaurants/banhcuonxua.png' },
+   { id: 'r5', name: 'Lẩu Hải Sản Biển Đông', cuisine: 'Lẩu • Hải Sản', rating: 4.8, time: '25-35 phút', distance: '1.8 km', status: 'open', image: './images/restaurants/lauhaisanbiendong.png' },
+   { id: 'r6', name: 'Chè Cô Hoa', cuisine: 'Chè • Tráng Miệng', rating: 4.9, time: '10-20 phút', distance: '0.6 km', status: 'closed', image: './images/restaurants/checohoa.png' },
+   { id: 'r7', name: 'Cà Phê Sương Sớm', cuisine: 'Cà Phê Việt', rating: 4.7, time: '10-15 phút', distance: '0.9 km', status: 'open', image: './images/restaurants/caphesuongwsom.png' },
+   { id: 'r8', name: 'Trà Sữa Ngọc Trai', cuisine: 'Trà Sữa • Nước Ép', rating: 4.6, time: '10-15 phút', distance: '1.1 km', status: 'open', image: './images/restaurants/trasuangoctrai.png' },
 ];
 
 const FOODS = [
