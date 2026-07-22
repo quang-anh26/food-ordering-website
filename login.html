@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hồ sơ cá nhân — Foodio</title>
-    <meta name="description" content="Quản lý thông tin cá nhân và món ăn yêu thích của bạn trên Foodio.">
+    <title>Đăng nhập — Foodio</title>
+    <meta name="description" content="Đăng nhập vào tài khoản Foodio để đặt món, theo dõi đơn hàng và nhận ưu đãi.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/header.css">
@@ -109,130 +109,79 @@
     </nav>
 
     <main>
-        <div class="page-banner">
-            <div class="container">
-                <h1>Hồ sơ cá nhân</h1>
-                <div class="breadcrumb"><a href="index.html">Trang chủ</a><span class="sep">/</span><span>Hồ sơ</span>
+        <div class="auth-wrap">
+            <div class="auth-visual">
+                <a href="index.html" class="logo">
+                    <span class="mark"><svg class="bowl-icon" viewBox="0 0 24 24" width="20" height="20" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M8.5 2.2c-.6 1 .5 1.4-.2 2.6M12 1.8c-.6 1 .5 1.4-.2 2.6M15.5 2.2c-.6 1 .5 1.4-.2 2.6"
+                                stroke-width="1.6" />
+                            <path
+                                d="M3 11h18a8.5 8.5 0 01-7.5 8.4v.4a1.2 1.2 0 01-1.2 1.2h-.6A1.2 1.2 0 0110.5 19.8v-.4A8.5 8.5 0 013 11z" />
+                            <ellipse cx="12" cy="11" rx="9" ry="2.1" />
+                            <path d="M14.5 9.3l6.5-4M16.3 10.2l6-3.2" stroke-width="1.6" />
+                        </svg></span>
+                    Food<span class="accent">io</span>
+                </a>
+                <div class="auth-benefits">
+                    <div><span class="b-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path d="M20 6L9 17l-5-5" />
+                            </svg></span> Theo dõi đơn hàng theo thời gian thực</div>
+                    <div><span class="b-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path d="M20 6L9 17l-5-5" />
+                            </svg></span> Lưu món ăn yêu thích</div>
+                    <div><span class="b-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path d="M20 6L9 17l-5-5" />
+                            </svg></span> Nhận ưu đãi độc quyền</div>
+                </div>
+                <div class="quote">
+                    <p>"Foodio đã thay đổi hoàn toàn cách mình đặt món mỗi ngày."</p>
+                    <span>— Minh Anh, Người sành ăn</span>
+                </div>
+            </div>
+
+            <div class="auth-form-side">
+                <div class="auth-form">
+                    <h2>Chào mừng trở lại 👋</h2>
+                    <p>Đăng nhập để tiếp tục đặt món ăn yêu thích của bạn.</p>
+
+                    <form id="login-form" novalidate>
+                        <div class="field">
+                            <label>Email</label>
+                            <input type="email" id="login-email" placeholder="ban@example.com" value="demo@foodio.com">
+                            <span class="error-msg"></span>
+                        </div>
+                        <div class="field">
+                            <label>Mật khẩu</label>
+                            <div class="pass-toggle">
+                                <input type="password" id="login-password" placeholder="••••••••" value="123456">
+                                <button type="button" aria-label="Hiện/ẩn mật khẩu">👁</button>
+                            </div>
+                            <span class="error-msg"></span>
+                        </div>
+                        <div class="remember-row">
+                            <label><input type="checkbox" id="login-remember" checked> Ghi nhớ đăng nhập</label>
+                            <a href="#">Quên mật khẩu?</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+                    </form>
+
+                    <div class="divider">hoặc</div>
+                    <div class="social-row">
+                        <button class="social-btn" type="button">🔵 Google</button>
+                        <button class="social-btn" type="button">🔷 Facebook</button>
+                    </div>
+
+                    <p class="foot-link">Chưa có tài khoản? <a href="register.html">Đăng ký ngay</a></p>
+                    <p class="foot-link" style="margin-top:6px;font-size:12.5px;color:var(--c-gray-400)">Demo:
+                        demo@foodio.com / 123456</p>
                 </div>
             </div>
         </div>
-
-        <section>
-            <div class="container">
-                <div class="profile-layout">
-                    <div class="profile-card">
-                        <div class="profile-avatar" id="profile-avatar-initials">?</div>
-                        <h4 id="profile-name-display">—</h4>
-                        <p id="profile-email-display">—</p>
-                        <nav class="profile-nav">
-                            <a href="#info" class="active" data-ptab="info"><svg viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2">
-                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                                    <circle cx="12" cy="7" r="4" />
-                                </svg> Thông tin cá nhân</a>
-                            <a href="#wishlist" data-ptab="wishlist"><svg viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2">
-                                    <path
-                                        d="M12 21s-7.5-4.5-10-9.5C.5 6.5 3 3 6.5 3c2 0 3.5 1 5.5 3 2-2 3.5-3 5.5-3C21 3 23.5 6.5 22 11.5 19.5 16.5 12 21 12 21z" />
-                                </svg> Món yêu thích</a>
-                            <a href="orders.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M3 3h18v18H3z" />
-                                    <path d="M3 9h18M9 21V9" />
-                                </svg> Lịch sử đơn hàng</a>
-                            <a href="#" id="profile-logout-link"><svg viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2">
-                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
-                                </svg> Đăng xuất</a>
-                        </nav>
-                    </div>
-
-                    <div>
-                        <div class="profile-panel" id="panel-info">
-                            <h3>Thông tin cá nhân</h3>
-                            <form id="profile-info-form">
-                                <div class="field-row">
-                                    <div class="field"><label>Họ và tên</label><input type="text" id="pf-name"></div>
-                                    <div class="field"><label>Email</label><input type="email" id="pf-email" disabled>
-                                    </div>
-                                </div>
-                                <div class="field-row">
-                                    <div class="field"><label>Số điện thoại</label><input type="tel" id="pf-phone">
-                                    </div>
-                                    <div class="field"><label>Thành viên từ</label><input type="text" id="pf-joined"
-                                            disabled></div>
-                                </div>
-                                <div class="field"><label>Địa chỉ giao hàng</label><input type="text" id="pf-address">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
-                            </form>
-                        </div>
-
-                        <div class="profile-panel" id="panel-wishlist" style="display:none;margin-top:24px">
-                            <h3>Món ăn yêu thích</h3>
-                            <div class="wishlist-grid" id="wishlist-grid"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                guardPage();
-                const user = getCurrentUser();
-                if (!user) return;
-
-                const initials = user.name.split(' ').map(p => p[0]).slice(0, 2).join('').toUpperCase();
-                document.getElementById('profile-avatar-initials').textContent = initials;
-                document.getElementById('profile-name-display').textContent = user.name;
-                document.getElementById('profile-email-display').textContent = user.email;
-                document.getElementById('pf-name').value = user.name;
-                document.getElementById('pf-email').value = user.email;
-                document.getElementById('pf-phone').value = user.phone || '';
-                document.getElementById('pf-joined').value = user.joined || '';
-                document.getElementById('pf-address').value = user.address || '';
-
-                document.getElementById('profile-info-form').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    const users = getStore(LS.USERS, []);
-                    const u = users.find(x => x.email === user.email);
-                    if (u) {
-                        u.name = document.getElementById('pf-name').value.trim() || u.name;
-                        u.phone = document.getElementById('pf-phone').value.trim();
-                        u.address = document.getElementById('pf-address').value.trim();
-                        setStore(LS.USERS, users);
-                        showToast('Cập nhật thông tin thành công!', 'success');
-                        document.getElementById('profile-name-display').textContent = u.name;
-                    }
-                });
-
-                document.getElementById('profile-logout-link').addEventListener('click', (e) => { e.preventDefault(); logoutUser(); });
-
-                function renderWishlist() {
-                    const ids = getStore(LS.WISHLIST, []);
-                    const grid = document.getElementById('wishlist-grid');
-                    const foods = ids.map(id => findFood(id)).filter(Boolean);
-                    if (!foods.length) {
-                        grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><h3>Chưa có món yêu thích</h3><p>Nhấn biểu tượng trái tim trên món ăn để lưu vào đây.</p><a href="menu.html" class="btn btn-primary">Khám phá thực đơn</a></div>`;
-                        return;
-                    }
-                    renderFoodGrid(grid, foods);
-                }
-                renderWishlist();
-
-                const tabs = document.querySelectorAll('[data-ptab]');
-                function activate(tab) {
-                    tabs.forEach(t => t.classList.remove('active'));
-                    document.querySelector(`[data-ptab="${tab}"]`)?.classList.add('active');
-                    document.getElementById('panel-info').style.display = tab === 'info' ? 'block' : 'none';
-                    document.getElementById('panel-wishlist').style.display = tab === 'wishlist' ? 'block' : 'none';
-                    if (tab === 'wishlist') renderWishlist();
-                }
-                tabs.forEach(t => t.addEventListener('click', (e) => { e.preventDefault(); activate(t.dataset.ptab); }));
-                if (window.location.hash === '#wishlist') activate('wishlist');
-            });
-        </script>
 
     </main>
     <footer id="site-footer">
