@@ -493,6 +493,7 @@ body.dark-mode .hero-stats .stat b {
 
 .faq-item {
    background: var(--c-white);
+   border: 1px solid var(--c-gray-200);
    border-radius: var(--r-md);
    box-shadow: var(--shadow-sm);
    overflow: hidden;
