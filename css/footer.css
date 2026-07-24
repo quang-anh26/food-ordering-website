@@ -1,4 +1,116 @@
 /* =========================================================
-   footer.css
-   TODO: Thành viên phụ trách viết CSS tại đây
+   FOOTER
    ========================================================= */
+
+#site-footer {
+   background: var(--c-black);
+   color: rgba(255, 255, 255, .7);
+   padding: 80px 0 0;
+   margin-top: 60px;
+}
+
+.footer-grid {
+   display: grid;
+   grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+   gap: 40px;
+   padding-bottom: 50px;
+   border-bottom: 1px solid rgba(255, 255, 255, .1);
+}
+
+.footer-brand .logo {
+   color: #fff;
+   margin-bottom: 16px;
+}
+
+.footer-brand p {
+   font-size: 13.5px;
+   line-height: 1.7;
+   max-width: 280px;
+   margin-bottom: 22px;
+}
+
+.footer-social {
+   display: flex;
+   gap: 10px;
+}
+
+.footer-social a {
+   width: 38px;
+   height: 38px;
+   border-radius: 50%;
+   background: rgba(255, 255, 255, .08);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   transition: all .25s;
+}
+
+.footer-social a:hover {
+   background: var(--c-orange);
+}
+
+.footer-social svg {
+   width: 16px;
+   height: 16px;
+}
+
+.footer-col h5 {
+   color: #fff;
+   font-family: var(--f-display);
+   font-size: 15px;
+   margin-bottom: 20px;
+}
+
+.footer-col ul {
+   display: flex;
+   flex-direction: column;
+   gap: 12px;
+}
+
+.footer-col a {
+   font-size: 13.5px;
+   transition: color .2s;
+}
+
+.footer-col a:hover {
+   color: var(--c-orange);
+}
+
+.footer-contact li {
+   display: flex;
+   align-items: flex-start;
+   gap: 10px;
+   font-size: 13.5px;
+   margin-bottom: 14px;
+}
+
+.footer-contact svg {
+   width: 16px;
+   height: 16px;
+   color: var(--c-orange);
+   flex-shrink: 0;
+   margin-top: 2px;
+}
+
+.footer-bottom {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 24px 0;
+   font-size: 13px;
+   flex-wrap: wrap;
+   gap: 12px;
+}
+
+.footer-bottom .pay-icons {
+   display: flex;
+   gap: 10px;
+   opacity: .7;
+}
+
+.footer-bottom .pay-icons span {
+   padding: 4px 10px;
+   border: 1px solid rgba(255, 255, 255, .2);
+   border-radius: 6px;
+   font-size: 11px;
+}
