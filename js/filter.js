@@ -27,11 +27,14 @@ function initHomeFilterTabs() {
 /* ---------------------------------------------------------
    MENU PAGE — full filter/sort sidebar
    --------------------------------------------------------- */
-const menuState = { categories: [], maxPrice: 200000, minRating: 0, sort: 'popular', query: '' };
+const menuState = { categories: [], maxPrice: 200000, minRating: 0, sort: 'popular', query: '', restaurant: null };
 
 function applyMenuFilters() {
    let results = FOODS.slice();
 
+   if (menuState.restaurant) {
+      results = results.filter(f => f.restaurantId === menuState.restaurant);
+   }
    if (menuState.query) {
       const q = menuState.query.toLowerCase();
       results = results.filter(f => f.name.toLowerCase().includes(q) || f.category.toLowerCase().includes(q));
@@ -57,14 +60,44 @@ function applyMenuFilters() {
    if (countEl) countEl.textContent = `Tìm thấy ${results.length} món ăn`;
 }
 
+function renderRestaurantBanner() {
+   const old = document.getElementById('restaurant-filter-banner');
+   if (old) old.remove();
+   if (!menuState.restaurant) return;
+
+   const rest = findRestaurant(menuState.restaurant);
+   const anchor = document.querySelector('.filter-tabs');
+   if (!rest || !anchor) return;
+
+   anchor.insertAdjacentHTML('beforebegin', `
+      <div class="restaurant-filter-banner" id="restaurant-filter-banner">
+        <span>🏬 Đang xem món của <strong>${rest.name}</strong></span>
+        <button type="button" id="clear-restaurant-filter">Xóa bộ lọc ✕</button>
+      </div>`);
+
+   const clearBtn = document.getElementById('clear-restaurant-filter');
+   if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+         menuState.restaurant = null;
+         const url = new URL(window.location.href);
+         url.searchParams.delete('restaurant');
+         window.history.replaceState({}, '', url);
+         renderRestaurantBanner();
+         applyMenuFilters();
+      });
+   }
+}
+
 function initMenuPage() {
    const grid = document.getElementById('menu-grid');
    if (!grid) return;
 
-   // Read ?q= and ?category= from URL
+   // Read ?q=, ?category= and ?restaurant= from URL
    const params = new URLSearchParams(window.location.search);
    if (params.get('q')) menuState.query = params.get('q');
    if (params.get('category')) menuState.categories = [params.get('category')];
+   if (params.get('restaurant')) menuState.restaurant = params.get('restaurant');
+   renderRestaurantBanner();
 
    const searchField = document.getElementById('menu-search-field');
    if (searchField) {

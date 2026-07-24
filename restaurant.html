@@ -135,7 +135,7 @@
                 const grid = document.getElementById('restaurant-page-grid');
                 function render(list) {
                     grid.innerHTML = list.map(r => `
-          <a href="menu.html" id="${r.id}" class="restaurant-card reveal">
+          <a href="menu.html?restaurant=${r.id}" id="${r.id}" class="restaurant-card reveal">
             <div class="restaurant-card__media">
               <img src="${r.image}" alt="${r.name}">
               <span class="restaurant-card__status ${r.status === 'closed' ? 'closed' : ''}">${r.status === 'closed' ? 'Đã đóng cửa' : 'Đang mở cửa'}</span>
