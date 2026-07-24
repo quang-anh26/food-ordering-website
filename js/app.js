@@ -24,7 +24,6 @@ const RESTAURANTS = [
    { id: 'r8', name: 'Trà Sữa Ngọc Trai', cuisine: 'Trà Sữa • Nước Ép', rating: 4.6, time: '10-15 phút', distance: '1.1 km', status: 'open', image: './images/restaurants/trasuangoctrai.png' },
    { id: 'r9', name: 'Bún Chả Hà Nội', cuisine: 'Bún Chả • Nem Cua Bể', rating: 4.8, time: '15-25 phút', distance: '1.3 km', status: 'open', image: './images/restaurants/bunchahanoi.png' },
    { id: 'r10', name: 'Hủ Tiếu Nam Vang', cuisine: 'Hủ Tiếu • Bánh Canh', rating: 4.7, time: '15-25 phút', distance: '1.0 km', status: 'open', image: './images/restaurants/hutieu.png' },
-
 ];
 
 const FOODS = [
@@ -290,4 +289,3 @@ document.addEventListener('DOMContentLoaded', () => {
    initHomePage();
    initReveal();
 });
-

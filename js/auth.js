@@ -1,13 +1,3 @@
-/* =========================================================
-   FOODIO — auth.js
-   Handles register / login / logout, session persistence via
-   localStorage, header state rendering, and the "Login Required"
-   modal shown to guests attempting restricted actions.
-   ========================================================= */
-
-/* ---------------------------------------------------------
-   SESSION HELPERS
-   --------------------------------------------------------- */
 function getCurrentUser() {
    const session = getStore(LS.SESSION, null);
    if (!session) return null;
@@ -84,11 +74,15 @@ function renderAuthHeader() {
    const user = getCurrentUser();
 
    if (!user) {
+      const page = window.location.pathname.split('/').pop();
+      const onAuthPage = page === 'login.html' || page === 'register.html';
+      const showLogin = !onAuthPage;
+      const showRegister = !onAuthPage;
       authSlot.innerHTML = `
-      <div class="auth-links">
-        <a href="login.html" class="btn btn-ghost">Đăng nhập</a>
-        <a href="register.html" class="btn btn-primary btn-sm">Đăng ký</a>
-      </div>`;
+         <div class="auth-links">
+            ${showLogin ? '<a href="login.html" class="btn btn-outline btn-sm">Đăng nhập</a>' : ''}
+            ${showRegister ? '<a href="register.html" class="btn btn-primary btn-sm">Đăng ký</a>' : ''}
+         </div>`;
       return;
    }
 

@@ -43,7 +43,7 @@
 /* ---- Dark mode tokens ---- */
 body.dark-mode {
    --c-cream: #14100E;
-   --c-white: #1B1614;
+   --c-white: #241E1A;
    --c-gray-900: #F5F1EC;
    --c-gray-600: #C9C2BB;
    --c-gray-200: #35302B;
@@ -89,6 +89,7 @@ button {
    cursor: pointer;
    border: none;
    background: none;
+   color: inherit;
 }
 
 input,
