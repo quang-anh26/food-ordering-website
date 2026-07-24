@@ -41,6 +41,47 @@
    color: #fff;
 }
 
+/* ---- Active restaurant filter banner (menu.html?restaurant=...) ---- */
+.restaurant-filter-banner {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: 16px;
+   flex-wrap: wrap;
+   background: var(--c-orange-light);
+   border: 1.5px solid var(--c-orange);
+   color: var(--c-orange-dark);
+   padding: 12px 20px;
+   border-radius: var(--r-pill);
+   font-family: var(--f-display);
+   font-weight: 600;
+   font-size: 13.5px;
+   margin-bottom: 20px;
+}
+
+.restaurant-filter-banner strong {
+   color: var(--c-black);
+}
+
+.restaurant-filter-banner button {
+   background: var(--c-white);
+   color: var(--c-orange-dark);
+   border: none;
+   border-radius: var(--r-pill);
+   padding: 6px 14px;
+   font-family: var(--f-display);
+   font-weight: 600;
+   font-size: 12.5px;
+   cursor: pointer;
+   box-shadow: var(--shadow-sm);
+   transition: all .2s var(--ease);
+}
+
+.restaurant-filter-banner button:hover {
+   background: var(--c-orange);
+   color: #fff;
+}
+
 /* ---- Menu page layout ---- */
 .menu-layout {
    display: grid;
