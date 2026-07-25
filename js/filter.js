@@ -114,10 +114,18 @@ function initMenuPage() {
       });
    });
 
-   // Price range
+   // Price range — sync slider ceiling with the actual highest-priced item,
+   // so items never become unreachable if a pricier dish is added later.
    const priceRange = document.getElementById('price-range');
    const priceLabel = document.getElementById('price-range-label');
    if (priceRange) {
+      const highestPrice = Math.max(...FOODS.map(f => f.price));
+      const sliderMax = Math.max(200000, Math.ceil(highestPrice / 10000) * 10000);
+      priceRange.max = sliderMax;
+      priceRange.value = sliderMax;
+      menuState.maxPrice = sliderMax;
+      if (priceLabel) priceLabel.textContent = formatPrice(sliderMax);
+
       priceRange.addEventListener('input', () => {
          menuState.maxPrice = Number(priceRange.value);
          if (priceLabel) priceLabel.textContent = formatPrice(priceRange.value);
