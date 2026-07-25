@@ -113,13 +113,52 @@ function initPassToggles() {
       });
    });
 }
+/* ---------------------------------------------------------
+   CHECKOUT FORM — tự động điền thông tin từ tài khoản đã đăng ký
+   (Họ tên, SĐT, Địa chỉ được lấy từ user đang đăng nhập, nhưng
+   người dùng vẫn có thể sửa tay bình thường vì input không khoá)
+   --------------------------------------------------------- */
+function prefillCheckoutForm() {
+   const form = document.getElementById('checkout-form');
+   if (!form) return;
 
+   const user = typeof getCurrentUser === 'function' ? getCurrentUser() : null;
+   if (!user) return; // Khách chưa đăng nhập → để trống, không tự điền
+
+   const nameEl = document.getElementById('ck-fullname');
+   const phoneEl = document.getElementById('ck-phone');
+   const addressEl = document.getElementById('ck-address');
+   const cityEl = document.getElementById('ck-city');
+
+   if (nameEl && !nameEl.value.trim()) {
+      nameEl.value = user.name || '';
+   }
+   if (phoneEl && !phoneEl.value.trim()) {
+      phoneEl.value = user.phone || '';
+   }
+
+   if (user.address && user.address.trim()) {
+      const parts = user.address.split(',').map(s => s.trim()).filter(Boolean);
+      if (parts.length > 1) {
+         const city = parts.pop();
+         if (addressEl && !addressEl.value.trim()) addressEl.value = parts.join(', ');
+         if (cityEl && !cityEl.value.trim()) cityEl.value = city;
+      } else if (addressEl && !addressEl.value.trim()) {
+         addressEl.value = user.address;
+      }
+   }
+
+   [nameEl, phoneEl, addressEl, cityEl].forEach(el => {
+      if (el && el.value.trim()) setFieldState(el.closest('.field'), true);
+   });
+}
 /* ---------------------------------------------------------
    CHECKOUT FORM
    --------------------------------------------------------- */
 function initCheckoutForm() {
    const form = document.getElementById('checkout-form');
    if (!form) return;
+     prefillCheckoutForm();
 
    form.addEventListener('submit', (e) => {
       e.preventDefault();
