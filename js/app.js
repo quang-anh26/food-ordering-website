@@ -27,106 +27,1981 @@ const RESTAURANTS = [
 ];
 
 const FOODS = [
-   { id: 'f1', name: 'Phở Bò Tái Nạm', category: 'pho-bun', restaurantId: 'r1', price: 45000, oldPrice: 55000, rating: 4.9, ratingCount: 341, time: '20-30', desc: 'Nước dùng hầm xương 12 tiếng, bánh phở dai mềm, thịt bò tái nạm thái mỏng.', image: 'images/foods/f1-pho-bo-tai-nam.jpg', badge: 'Bán Chạy' },
-   { id: 'f2', name: 'Phở Gà Ta', category: 'pho-bun', restaurantId: 'r1', price: 42000, rating: 4.7, ratingCount: 198, time: '15-25', desc: 'Gà ta thả vườn luộc chín tới, nước dùng ngọt thanh, da giòn thịt chắc.', image: 'images/foods/f2-pho-ga-ta.webp' },
-   { id: 'f3', name: 'Bún Bò Huế Đặc Biệt', category: 'pho-bun', restaurantId: 'r1', price: 49000, rating: 4.8, ratingCount: 258, time: '20-30', desc: 'Đậm vị sả ớt đặc trưng xứ Huế, đầy đủ giò heo, chả cua, huyết.', image: 'images/foods/f3-bun-bo-hue-dac-biet.jpeg', badge: 'Nổi Bật' },
-   { id: 'f4', name: 'Bún Riêu Cua', category: 'pho-bun', restaurantId: 'r1', price: 40000, rating: 4.6, ratingCount: 167, time: '15-20', desc: 'Gạch cua đồng thơm béo, cà chua chua dịu, đậu phụ chiên giòn.', image: 'images/foods/f4-bun-rieu-cua.jpg' },
-   { id: 'f5', name: 'Bún Mọc', category: 'pho-bun', restaurantId: 'r1', price: 38000, rating: 4.5, ratingCount: 120, time: '15-20', desc: 'Mọc viên dai giòn, nước dùng xương ngọt thanh, măng khô giòn sần sật.', image: 'images/foods/f5-bun-moc.webp' },
-   { id: 'f6', name: 'Phở Tái Lăn', category: 'pho-bun', restaurantId: 'r1', price: 47000, rating: 4.7, ratingCount: 143, time: '20-25', desc: 'Thịt bò lăn tỏi thơm lừng, nước phở đậm đà, hành lá tươi mát.', image: 'images/foods/f6-pho-tai-lan.jpg' },
-   { id: 'f7', name: 'Bún Ốc Nguội', category: 'pho-bun', restaurantId: 'r1', price: 39000, rating: 4.6, ratingCount: 110, time: '15-20', desc: 'Vị chua thanh của giấm bỗng, ốc giòn sần sật, đậu phụ rán vàng.', image: 'images/foods/f7-bun-oc-nguoi.jpg' },
-   { id: 'f8', name: 'Phở Sốt Vang', category: 'pho-bun', restaurantId: 'r1', price: 50000, rating: 4.8, ratingCount: 176, time: '20-30', desc: 'Bò hầm sốt vang đậm vị quế hồi, thịt mềm rục, nước sốt sánh thơm.', image: 'images/foods/f8-pho-sot-vang.png' },
-   { id: 'f9', name: 'Bún Thang Hà Nội', category: 'pho-bun', restaurantId: 'r1', price: 46000, rating: 4.7, ratingCount: 98, time: '20-25', desc: 'Trứng chiên thái chỉ, giò lụa, thịt gà xé, nước dùng thanh ngọt tinh tế.', image: 'images/foods/f9-bun-thang-ha-noi.jpg' },
-   { id: 'f10', name: 'Phở Gà Xé Phay', category: 'pho-bun', restaurantId: 'r1', price: 43000, rating: 4.6, ratingCount: 132, time: '15-25', desc: 'Ức gà xé mỏng, hành phi thơm giòn, nước dùng trong veo đậm vị.', image: 'images/foods/f10-pho-ga-xe-phay.jpg' },
-   { id: 'f11', name: 'Cơm Tấm Sườn Bì Chả', category: 'com', restaurantId: 'r2', price: 55000, oldPrice: 65000, rating: 4.9, ratingCount: 302, time: '15-20', desc: 'Sườn nướng mật ong, bì heo, chả trứng hấp, ăn kèm nước mắm chua ngọt.', image: 'images/foods/f11-com-tam-suon-bi-cha.webp', badge: 'Bán Chạy' },
-   { id: 'f12', name: 'Cơm Gà Xối Mỡ', category: 'com', restaurantId: 'r2', price: 48000, rating: 4.6, ratingCount: 154, time: '15-20', desc: 'Đùi gà chiên giòn rụm, cơm dẻo thơm, dưa leo và nước mắm gừng.', image: 'images/foods/f12-com-ga-xoi-mo.webp' },
-   { id: 'f13', name: 'Cơm Tấm Sườn Nướng', category: 'com', restaurantId: 'r2', price: 50000, rating: 4.7, ratingCount: 189, time: '15-20', desc: 'Sườn cốt lết ướp sả ớt nướng than hoa, cơm tấm hạt tơi bùi béo.', image: 'images/foods/f13-com-tam-suon-nuong.jpg' },
-   { id: 'f14', name: 'Cơm Gà Hải Nam', category: 'com', restaurantId: 'r2', price: 52000, rating: 4.8, ratingCount: 145, time: '15-20', desc: 'Gà luộc da vàng óng, cơm nấu nước luộc gà béo thơm, chấm xì dầu gừng.', image: 'images/foods/f14-com-ga-hai-nam.png', badge: 'Nổi Bật' },
-   { id: 'f15', name: 'Cơm Chiên Dương Châu', category: 'com', restaurantId: 'r2', price: 45000, rating: 4.5, ratingCount: 133, time: '10-15', desc: 'Cơm chiên tôm, xúc xích, trứng và rau củ, hạt cơm săn tơi không dính.', image: 'images/foods/f15-com-chien-duong-chau.webp' },
-   { id: 'f16', name: 'Cơm Tấm Bì Chả', category: 'com', restaurantId: 'r2', price: 44000, rating: 4.6, ratingCount: 121, time: '15-20', desc: 'Bì heo trộn thính thơm bùi, chả trứng hấp mềm, mỡ hành béo ngậy.', image: 'images/foods/f16-com-tam-bi-cha.webp' },
-   { id: 'f17', name: 'Cơm Sườn Cốt Lết', category: 'com', restaurantId: 'r2', price: 46000, rating: 4.6, ratingCount: 108, time: '15-20', desc: 'Cốt lết chiên áp chảo giòn cạnh, ăn kèm đồ chua và nước mắm pha.', image: 'images/foods/f17-com-suon-cot-let.jpeg' },
-   { id: 'f18', name: 'Cơm Gà Nướng Mật Ong', category: 'com', restaurantId: 'r2', price: 49000, rating: 4.7, ratingCount: 116, time: '15-20', desc: 'Đùi gà ướp mật ong nướng thơm phức, lớp da caramel giòn ngọt.', image: 'images/foods/f18-com-ga-nuong-mat-ong.jpg' },
-   { id: 'f19', name: 'Cơm Tấm Sườn Ốp La', category: 'com', restaurantId: 'r2', price: 35000, rating: 4.4, ratingCount: 94, time: '10-15', desc: 'Trứng ốp la lòng đào béo mịn, chả trứng, mỡ hành, dưa leo tươi mát.', image: 'images/foods/f19-com-tam-suon-op-la.jpg' },
-   { id: 'f20', name: 'Cơm Rang Thập Cẩm', category: 'com', restaurantId: 'r2', price: 43000, rating: 4.5, ratingCount: 87, time: '10-15', desc: 'Cơm rang cùng lạp xưởng, tôm khô, trứng và rau củ thập cẩm đầy đặn.', image: 'images/foods/f20-com-rang-thap-cam.jpg' },
-   { id: 'f21', name: 'Bánh Mì Thịt Nướng', category: 'banh', restaurantId: 'r3', price: 25000, rating: 4.7, ratingCount: 276, time: '10-20', desc: 'Bánh mì giòn rụm, thịt nướng thơm lừng, pate béo ngậy, rau thơm tươi.', image: 'images/foods/f21-banh-mi-thit-nuong.jpg', badge: 'Bán Chạy' },
-   { id: 'f22', name: 'Bánh Xèo Miền Tây', category: 'banh', restaurantId: 'r3', price: 39000, rating: 4.7, ratingCount: 168, time: '15-25', desc: 'Vỏ bánh giòn tan vàng ươm, nhân tôm thịt giá đỗ, cuốn rau sống chấm mắm.', image: 'images/foods/f22-banh-xeo-mien-tay.webp' },
-   { id: 'f23', name: 'Bánh Mì Chả Cá', category: 'banh', restaurantId: 'r3', price: 28000, rating: 4.6, ratingCount: 142, time: '10-15', desc: 'Chả cá chiên vàng thơm nức mùi thì là, ăn kèm đồ chua giòn tan.', image: 'images/foods/f23-banh-mi-cha-ca.jpg' },
-   { id: 'f24', name: 'Bánh Mì Xíu Mại', category: 'banh', restaurantId: 'r3', price: 26000, rating: 4.6, ratingCount: 119, time: '10-15', desc: 'Viên xíu mại sốt cà chua đậm đà, chan cùng bánh mì giòn nóng hổi.', image: 'images/foods/f24-banh-mi-xiu-mai.jpg' },
-   { id: 'f25', name: 'Bánh Mì Ốp La', category: 'banh', restaurantId: 'r3', price: 24000, rating: 4.5, ratingCount: 101, time: '10-15', desc: 'Trứng ốp la lòng đào, pate, thịt nguội, rau thơm kẹp bánh mì nóng giòn.', image: 'images/foods/f25-banh-mi-op-la.webp' },
-   { id: 'f26', name: 'Bánh Mì Pate Trứng', category: 'banh', restaurantId: 'r3', price: 22000, rating: 4.5, ratingCount: 88, time: '5-10', desc: 'Pate gan béo thơm, trứng chiên mềm, đồ chua giòn giòn chua ngọt.', image: 'images/foods/f26-banh-mi-pate-trung.jpg' },
-   { id: 'f27', name: 'Bánh Khọt Vũng Tàu', category: 'banh', restaurantId: 'r3', price: 42000, rating: 4.8, ratingCount: 134, time: '15-20', desc: 'Bánh khọt giòn rụm nhân tôm tươi, nước cốt dừa béo, rau sống ăn kèm.', image: 'images/foods/f27-banh-khot-vung-tau.webp', badge: 'Nổi Bật' },
-   { id: 'f28', name: 'Bánh Bao Nhân Thịt', category: 'banh', restaurantId: 'r3', price: 18000, rating: 4.4, ratingCount: 76, time: '5-10', desc: 'Vỏ bánh bao mềm xốp, nhân thịt băm trứng cút đậm đà, hấp nóng hổi.', image: 'images/foods/f28-banh-bao-nhan-thit.jpg' },
-   { id: 'f29', name: 'Bánh Mì Gà Xé', category: 'banh', restaurantId: 'r3', price: 27000, rating: 4.6, ratingCount: 95, time: '10-15', desc: 'Gà xé phay trộn rau răm, mayonnaise béo nhẹ, bánh mì vỏ giòn ruột xốp.', image: 'images/foods/f29-banh-mi-ga-xe.jpg' },
-   { id: 'f30', name: 'Bánh Cuốn Nóng', category: 'banh', restaurantId: 'r3', price: 32000, rating: 4.7, ratingCount: 112, time: '10-20', desc: 'Bánh cuốn tráng mỏng nhân thịt mộc nhĩ, hành phi thơm, chả lụa kèm theo.', image: 'images/foods/f30-banh-cuon-nong.jpg' },
-   { id: 'f31', name: 'Gỏi Cuốn Tôm Thịt', category: 'cuon', restaurantId: 'r4', price: 35000, rating: 4.8, ratingCount: 201, time: '10-15', desc: 'Cuốn tươi mát với tôm, thịt luộc, bún và rau sống, chấm tương đậu phộng.', image: 'images/foods/f31-goi-cuon-tom-thit.jpg' },
-   { id: 'f32', name: 'Nem Rán Hà Nội', category: 'cuon', restaurantId: 'r4', price: 38000, rating: 4.7, ratingCount: 145, time: '15-20', desc: 'Nem rán giòn tan nhân thịt, miến, mộc nhĩ, chấm nước mắm chua ngọt.', image: 'images/foods/f32-nem-ran-ha-noi.webp' },
-   { id: 'f33', name: 'Bò Bía', category: 'cuon', restaurantId: 'r4', price: 22000, rating: 4.5, ratingCount: 98, time: '10-15', desc: 'Bánh tráng cuốn lạp xưởng, trứng, củ sắn giòn, chấm tương ngọt béo.', image: 'images/foods/f33-bo-bia.webp' },
-   { id: 'f34', name: 'Cuốn Diếp Cá Tai Heo', category: 'cuon', restaurantId: 'r4', price: 34000, rating: 4.4, ratingCount: 72, time: '10-15', desc: 'Diếp cá tươi giòn cuốn cùng thịt heo luộc, bún, chấm mắm nêm đậm đà.', image: 'images/foods/f34-cuon-diep-ca-tai-heo.jpg' },
-   { id: 'f35', name: 'Chả Giò Rế', category: 'cuon', restaurantId: 'r4', price: 40000, rating: 4.7, ratingCount: 127, time: '15-20', desc: 'Vỏ rế mỏng giòn tan, nhân tôm thịt cua đầy đặn, chấm mắm chua ngọt.', image: 'images/foods/f35-cha-gio-re.jpg', badge: 'Bán Chạy' },
-   { id: 'f36', name: 'Nem Nướng Cuốn Bánh Tráng', category: 'cuon', restaurantId: 'r4', price: 45000, rating: 4.8, ratingCount: 156, time: '15-25', desc: 'Nem nướng thơm lừng cuốn bánh tráng, rau sống, chấm tương me đặc trưng.', image: 'images/foods/f36-nem-nuong-cuon-banh-trang.webp', badge: 'Nổi Bật' },
-   { id: 'f37', name: 'Gỏi Cuốn Chay', category: 'cuon', restaurantId: 'r4', price: 30000, rating: 4.5, ratingCount: 64, time: '10-15', desc: 'Đậu hũ chiên, nấm và rau củ tươi cuốn bánh tráng, thanh đạm nhẹ nhàng.', image: 'images/foods/f37-goi-cuon-chay.webp' },
-   { id: 'f38', name: 'Cuốn Diếp Tôm Nướng', category: 'cuon', restaurantId: 'r4', price: 37000, rating: 4.6, ratingCount: 81, time: '10-15', desc: 'Tôm nướng thơm cuốn cùng diếp cá, bún tươi, chấm nước mắm tỏi ớt.', image: 'images/foods/f38-uon-diep-tom-nuong.jpg' },
-   { id: 'f39', name: 'Bánh Tráng Trộn', category: 'cuon', restaurantId: 'r4', price: 20000, rating: 4.6, ratingCount: 143, time: '5-10', desc: 'Bánh tráng trộn khô bò, xoài xanh, rau răm, đậu phộng và sa tế cay nồng.', image: 'images/foods/f39-banh-trang-tron.jpg' },
-   { id: 'f40', name: 'Nem Lụi Huế', category: 'cuon', restaurantId: 'r4', price: 42000, rating: 4.7, ratingCount: 105, time: '15-20', desc: 'Nem lụi nướng xiên sả thơm, cuốn bánh tráng, chấm nước lèo đặc trưng Huế.', image: 'images/foods/f40-nem-lui-hue.webp' },
-   { id: 'f41', name: 'Lẩu Thái Hải Sản', category: 'lau-haisan', restaurantId: 'r5', price: 189000, rating: 4.9, ratingCount: 128, time: '25-35', desc: 'Vị chua cay đặc trưng, đầy ắp tôm mực cá, ăn kèm rau và bún tươi.', image: 'images/foods/f41-lau-thai-hai-san.jpg', badge: 'Cao Cấp' },
-   { id: 'f42', name: 'Hải Sản Nướng Mỡ Hành', category: 'lau-haisan', restaurantId: 'r5', price: 149000, rating: 4.7, ratingCount: 96, time: '25-35', desc: 'Set hải sản tươi sống nướng mỡ hành, thơm béo và đậm đà hương biển.', image: 'images/foods/f42-hai-san-nuong-mo-hanh.jpg' },
-   { id: 'f43', name: 'Lẩu Cá Kèo', category: 'lau-haisan', restaurantId: 'r5', price: 159000, rating: 4.7, ratingCount: 84, time: '25-30', desc: 'Cá kèo tươi, nước lẩu chua lá giang thanh mát, rau đắng ăn kèm.', image: 'images/foods/f43-lau-ca-keo.webp' },
-   { id: 'f44', name: 'Tôm Hấp Nước Dừa', category: 'lau-haisan', restaurantId: 'r5', price: 129000, rating: 4.8, ratingCount: 102, time: '15-20', desc: 'Tôm sú tươi hấp cùng nước dừa xiêm ngọt béo, chấm muối tiêu chanh.', image: 'images/foods/f44-tom-hap-nuoc-dua.jpg' },
-   { id: 'f45', name: 'Mực Nướng Sa Tế', category: 'lau-haisan', restaurantId: 'r5', price: 139000, rating: 4.7, ratingCount: 91, time: '15-20', desc: 'Mực tươi nướng sa tế cay nồng, dai giòn sần sật, thơm lừng hấp dẫn.', image: 'images/foods/f45-muc-nuong-sa-te.jpg', badge: 'Bán Chạy' },
-   { id: 'f46', name: 'Lẩu Riêu Cua Hải Sản', category: 'lau-haisan', restaurantId: 'r5', price: 179000, rating: 4.8, ratingCount: 77, time: '25-35', desc: 'Gạch cua béo ngậy hoà cùng hải sản tươi, nước lẩu chua thanh đậm vị.', image: 'images/foods/f46-lau-rieu-cua-hai-san.jpg' },
-   { id: 'f47', name: 'Ốc Hương Rang Muối', category: 'lau-haisan', restaurantId: 'r5', price: 119000, rating: 4.6, ratingCount: 88, time: '15-20', desc: 'Ốc hương rang muối ớt thơm giòn, thịt ốc dai ngọt đậm đà.', image: 'images/foods/f47-oc-huong-rang-muoi.webp' },
-   { id: 'f48', name: 'Cua Rang Me', category: 'lau-haisan', restaurantId: 'r5', price: 219000, rating: 4.9, ratingCount: 65, time: '20-30', desc: 'Cua thịt chắc rang cùng sốt me chua ngọt sánh quyện, đậm đà khó cưỡng.', image: 'images/foods/f48-cua-rang-me.jpg', badge: 'Cao Cấp' },
-   { id: 'f49', name: 'Lẩu Cua Đồng', category: 'lau-haisan', restaurantId: 'r5', price: 169000, rating: 4.7, ratingCount: 73, time: '25-35', desc: 'Riêu cua đồng nguyên chất, cà chua, đậu phụ, rau muống tươi ăn kèm.', image: 'images/foods/f49-lau-cua-dong.jpg' },
-   { id: 'f50', name: 'Ghẹ Hấp Bia', category: 'lau-haisan', restaurantId: 'r5', price: 189000, rating: 4.8, ratingCount: 69, time: '15-25', desc: 'Ghẹ tươi hấp bia sả thơm lừng, thịt ngọt chắc, chấm muối tiêu chanh.', image: 'images/foods/f50-ghe-hap-bia.webp' },
-   { id: 'f51', name: 'Chè Thái Trân Châu', category: 'trang-mieng', restaurantId: 'r6', price: 29000, rating: 4.8, ratingCount: 210, time: '10-15', desc: 'Thạch nhiều màu, trân châu dai giòn, nước cốt dừa béo ngậy mát lạnh.', image: 'images/foods/f51-che-thai-tran-chau.jpg', badge: 'Ngọt Ngào' },
-   { id: 'f52', name: 'Chè Khúc Bạch', category: 'trang-mieng', restaurantId: 'r6', price: 32000, rating: 4.7, ratingCount: 154, time: '10-15', desc: 'Khúc bạch béo mềm, hạnh nhân giòn tan, nhãn tươi và nước đường thơm mát.', image: 'images/foods/f52-che-khuc-bach.jpg' },
-   { id: 'f53', name: 'Chè Bưởi', category: 'trang-mieng', restaurantId: 'r6', price: 27000, rating: 4.6, ratingCount: 132, time: '10-15', desc: 'Cùi bưởi giòn sần sật, đậu xanh bùi béo, nước cốt dừa thơm ngậy.', image: 'images/foods/f53-che-buoi.webp' },
-   { id: 'f54', name: 'Chè Đậu Xanh Nước Cốt Dừa', category: 'trang-mieng', restaurantId: 'r6', price: 24000, rating: 4.5, ratingCount: 98, time: '10-15', desc: 'Đậu xanh nấu nhuyễn ngọt bùi, nước cốt dừa béo thơm, mát lạnh dịu nhẹ.', image: 'images/foods/f54-che-dau-xanh-nuoc-cot-dua.jpg' },
-   { id: 'f55', name: 'Chè Ba Màu', category: 'trang-mieng', restaurantId: 'r6', price: 26000, rating: 4.6, ratingCount: 121, time: '10-15', desc: 'Đậu đỏ, đậu xanh, thạch dừa hoà quyện cùng nước cốt dừa béo ngậy.', image: 'images/foods/f55-che-ba-mau.jpg', badge: 'Bán Chạy' },
-   { id: 'f56', name: 'Sữa Chua Nếp Cẩm', category: 'trang-mieng', restaurantId: 'r6', price: 28000, rating: 4.7, ratingCount: 143, time: '10-15', desc: 'Sữa chua mịn béo hoà cùng nếp cẩm dẻo thơm, ngọt thanh dễ chịu.', image: 'images/foods/f56-sua-chua-nep-cam.webp' },
-   { id: 'f57', name: 'Chè Sương Sa Hạt Lựu', category: 'trang-mieng', restaurantId: 'r6', price: 25000, rating: 4.5, ratingCount: 87, time: '10-15', desc: 'Hạt lựu giòn sần sật, sương sa mát lạnh, nước cốt dừa thơm béo.', image: 'images/foods/f57-che-suong-sa-hat-luu.webp' },
-   { id: 'f58', name: 'Rau Câu Dừa', category: 'trang-mieng', restaurantId: 'r6', price: 22000, rating: 4.4, ratingCount: 65, time: '10-15', desc: 'Rau câu mềm mịn vị dừa tự nhiên, thanh mát, ngọt dịu vừa phải.', image: 'images/foods/f58-rau-cau-dua.jpg' },
-   { id: 'f59', name: 'Chè Đậu Đỏ', category: 'trang-mieng', restaurantId: 'r6', price: 23000, rating: 4.5, ratingCount: 79, time: '10-15', desc: 'Đậu đỏ ninh mềm bùi, nước đường thơm gừng, ăn kèm dừa nạo.', image: 'images/foods/f59-che-dau-do.webp' },
-   { id: 'f60', name: 'Bánh Flan Caramel', category: 'trang-mieng', restaurantId: 'r6', price: 20000, rating: 4.8, ratingCount: 167, time: '5-10', desc: 'Flan mềm mịn tan trong miệng, lớp caramel đắng nhẹ hài hoà vị ngọt.', image: 'images/foods/f60-banh-flan-caramel.jpg', badge: 'Nổi Bật' },
-   { id: 'f61', name: 'Cà Phê Sữa Đá', category: 'ca-phe', restaurantId: 'r7', price: 25000, rating: 4.8, ratingCount: 288, time: '5-10', desc: 'Cà phê phin nguyên chất, sữa đặc béo ngậy, đá mát lạnh đúng chất Việt.', image: 'images/foods/f61-ca-phe-sua-da.webp', badge: 'Bán Chạy' },
-   { id: 'f62', name: 'Cà Phê Đen Đá', category: 'ca-phe', restaurantId: 'r7', price: 20000, rating: 4.6, ratingCount: 176, time: '5-10', desc: 'Cà phê phin đậm đà nguyên bản, vị đắng nhẹ hậu ngọt, đá mát lạnh.', image: 'images/foods/f62-ca-phe-den-da.jpeg' },
-   { id: 'f63', name: 'Bạc Xỉu', category: 'ca-phe', restaurantId: 'r7', price: 27000, rating: 4.7, ratingCount: 154, time: '5-10', desc: 'Nhiều sữa ít cà phê, vị béo ngọt dịu nhẹ, thích hợp cho người mới uống.', image: 'images/foods/f63-bac-xiu.jpg' },
-   { id: 'f64', name: 'Cà Phê Trứng', category: 'ca-phe', restaurantId: 'r7', price: 32000, rating: 4.8, ratingCount: 132, time: '5-10', desc: 'Lớp kem trứng đánh bông béo mịn phủ trên cà phê đậm đà, thơm ngậy.', image: 'images/foods/f64-ca-phe-trung.webp', badge: 'Nổi Bật' },
-   { id: 'f65', name: 'Cà Phê Cốt Dừa', category: 'ca-phe', restaurantId: 'r7', price: 35000, rating: 4.7, ratingCount: 121, time: '5-10', desc: 'Cà phê hoà cùng nước cốt dừa béo mát, đá xay mịn, thơm lừng hấp dẫn.', image: 'images/foods/f65-ca-phe-cot-dua.jpg' },
-   { id: 'f66', name: 'Cà Phê Muối', category: 'ca-phe', restaurantId: 'r7', price: 29000, rating: 4.6, ratingCount: 98, time: '5-10', desc: 'Vị mặn nhẹ của muối hoà cùng cà phê sữa béo, lạ miệng và cuốn hút.', image: 'images/foods/f66-ca-phe-muoi.png' },
-   { id: 'f67', name: 'Espresso', category: 'ca-phe', restaurantId: 'r7', price: 30000, rating: 4.5, ratingCount: 64, time: '5-10', desc: 'Cà phê Ý nguyên chất, chiết xuất đậm đặc, hương thơm nồng nàn.', image: 'images/foods/f67-espresso.jpeg' },
-   { id: 'f68', name: 'Cappuccino', category: 'ca-phe', restaurantId: 'r7', price: 38000, rating: 4.6, ratingCount: 87, time: '5-10', desc: 'Espresso hoà cùng sữa tươi đánh bông mịn màng, phủ bột cacao thơm.', image: 'images/foods/f68-cappuccino.jpg' },
-   { id: 'f69', name: 'Cà Phê Sữa Nóng', category: 'ca-phe', restaurantId: 'r7', price: 24000, rating: 4.6, ratingCount: 76, time: '5-10', desc: 'Cà phê phin nóng hổi hoà quyện sữa đặc béo ngậy, ấm áp mỗi sáng.', image: 'images/foods/f69-ca-phe-sua-nong.jpg' },
-   { id: 'f70', name: 'Freeze Cà Phê', category: 'ca-phe', restaurantId: 'r7', price: 36000, rating: 4.7, ratingCount: 109, time: '5-10', desc: 'Cà phê xay đá mịn tan, phủ kem tươi béo mát, sảng khoái ngày hè.', image: 'images/foods/f70-freeze-ca-phe.webp' },
-   { id: 'f71', name: 'Trà Sữa Trân Châu Đường Đen', category: 'nuoc-uong', restaurantId: 'r8', price: 39000, rating: 4.7, ratingCount: 233, time: '5-10', desc: 'Trân châu đường đen dẻo thơm, trà sữa béo mịn, topping đầy đặn.', image: 'images/foods/f71-tra-sua-tran-chau-duong-den.webp', badge: 'Nổi Bật' },
-   { id: 'f72', name: 'Trà Sữa Matcha', category: 'nuoc-uong', restaurantId: 'r8', price: 42000, rating: 4.6, ratingCount: 145, time: '5-10', desc: 'Vị matcha Nhật đậm đà hoà cùng sữa béo mịn, topping trân châu dai giòn.', image: 'images/foods/f72-tra-sua-matcha.jpg' },
-   { id: 'f73', name: 'Trà Đào Cam Sả', category: 'nuoc-uong', restaurantId: 'r8', price: 35000, rating: 4.8, ratingCount: 198, time: '5-10', desc: 'Trà thơm hoà quyện đào ngâm giòn ngọt, cam tươi và sả thanh mát.', image: 'images/foods/f73-tra-dao-cam-sa.jpg', badge: 'Bán Chạy' },
-   { id: 'f74', name: 'Nước Ép Cam', category: 'nuoc-uong', restaurantId: 'r8', price: 30000, rating: 4.7, ratingCount: 112, time: '5-10', desc: 'Cam tươi ép nguyên chất, vị chua ngọt tự nhiên, giàu vitamin C.', image: 'images/foods/f74-nuoc-ep-cam.webp' },
-   { id: 'f75', name: 'Sinh Tố Bơ', category: 'nuoc-uong', restaurantId: 'r8', price: 34000, rating: 4.8, ratingCount: 134, time: '5-10', desc: 'Bơ sáp béo mịn xay cùng sữa đặc, đá mát lạnh, thơm béo đúng điệu.', image: 'images/foods/f75-sinh-to-bo.webp' },
-   { id: 'f76', name: 'Trà Sữa Socola', category: 'nuoc-uong', restaurantId: 'r8', price: 40000, rating: 4.5, ratingCount: 89, time: '5-10', desc: 'Socola đậm đà hoà cùng trà sữa béo ngậy, topping thạch dai giòn.', image: 'images/foods/f76-tra-sua-socola.webp' },
-   { id: 'f77', name: 'Nước Ép Dưa Hấu', category: 'nuoc-uong', restaurantId: 'r8', price: 28000, rating: 4.6, ratingCount: 97, time: '5-10', desc: 'Dưa hấu tươi ép mát lạnh, vị ngọt thanh tự nhiên, giải khát tức thì.', image: 'images/foods/f77-nuoc-ep-dua-hau.webp' },
-   { id: 'f78', name: 'Trà Vải', category: 'nuoc-uong', restaurantId: 'r8', price: 33000, rating: 4.7, ratingCount: 121, time: '5-10', desc: 'Trà thơm hoà cùng vải ngâm ngọt thanh, đá mát lạnh sảng khoái.', image: 'images/foods/f78-tra-vai.avif' },
-   { id: 'f79', name: 'Sinh Tố Xoài', category: 'nuoc-uong', restaurantId: 'r8', price: 34000, rating: 4.7, ratingCount: 108, time: '5-10', desc: 'Xoài chín xay mịn cùng sữa chua, vị chua ngọt hài hoà, mát lạnh.', image: 'images/foods/f79-sinh-to-xoai.webp' },
-   { id: 'f80', name: 'Trà Sữa Thái Xanh', category: 'nuoc-uong', restaurantId: 'r8', price: 38000, rating: 4.6, ratingCount: 143, time: '5-10', desc: 'Trà Thái xanh thơm béo đặc trưng, hoà cùng sữa và trân châu đen dai giòn.', image: 'images/foods/f80-tra-sua-thai-xanh.jpg' },
-   { id: 'f81', name: 'Bún Chả Hà Nội Truyền Thống', category: 'pho-bun', restaurantId: 'r9', price: 45000, rating: 4.9, ratingCount: 212, time: '15-20', desc: 'Chả viên và chả miếng nướng than hoa, ăn kèm bún tươi và nước chấm chua ngọt đúng vị Hà Nội.', image: 'images/foods/f81-bun-cha-ha-noi-truyen-thong.jpg', badge: 'Bán Chạy' },
-   { id: 'f82', name: 'Bún Chả Nem Cua Bể', category: 'pho-bun', restaurantId: 'r9', price: 55000, rating: 4.8, ratingCount: 178, time: '15-25', desc: 'Combo bún chả kèm nem cua bể giòn rụm, đầy đủ thịt cua và trứng, chấm cùng nước mắm pha chuẩn vị.', image: 'images/foods/f82-bun-cha-nem-cua-be.jpg', badge: 'Nổi Bật' },
-   { id: 'f83', name: 'Bún Chả Chả Cốm', category: 'pho-bun', restaurantId: 'r9', price: 48000, rating: 4.7, ratingCount: 96, time: '15-20', desc: 'Chả cốm thơm bùi kết hợp thịt nướng than hoa, lạ miệng mà vẫn giữ trọn hương vị bún chả truyền thống.', image: 'images/foods/f83-bun-cha-cha-com.jpg' },
-   { id: 'f84', name: 'Nem Cua Bể Hải Phòng', category: 'pho-bun', restaurantId: 'r9', price: 50000, rating: 4.8, ratingCount: 134, time: '15-20', desc: 'Nem cua bể cỡ lớn, vỏ giòn tan, nhân đầy thịt cua và tôm, ăn kèm bún và rau sống.', image: 'images/foods/f84-nem-cua-be-hai-phong.jpg' },
-   { id: 'f85', name: 'Bún Đậu Mắm Tôm', category: 'pho-bun', restaurantId: 'r9', price: 42000, rating: 4.6, ratingCount: 87, time: '15-20', desc: 'Bún tươi, đậu phụ chiên giòn, chả cốm, dồi sụn, ăn kèm mắm tôm pha chuẩn vị Bắc.', image: 'images/foods/f85-bun-dau-mam-tom.jpg' },
-   { id: 'f86', name: 'Bún Chả Combo Đặc Biệt', category: 'pho-bun', restaurantId: 'r9', price: 65000, rating: 4.9, ratingCount: 251, time: '20-25', desc: 'Đầy đủ chả viên, chả miếng, nem cua bể và bún trong một suất — lựa chọn no bụng nhất thực đơn.', image: 'images/foods/f86-bun-cha-combo-dac-biet.jpg', badge: 'Cao Cấp' },
-   { id: 'f87', name: 'Nem Rán Truyền Thống', category: 'pho-bun', restaurantId: 'r9', price: 40000, rating: 4.6, ratingCount: 73, time: '15-20', desc: 'Nem rán vàng giòn nhân thịt, miến, mộc nhĩ, cà rốt — món ăn kèm quen thuộc của bún chả Hà Nội.', image: 'images/foods/f87-nem-ran-truyen-thong.jpg' },
-   { id: 'f88', name: 'Bún Chả Chay', category: 'pho-bun', restaurantId: 'r9', price: 40000, rating: 4.5, ratingCount: 41, time: '15-20', desc: 'Phiên bản chay từ đậu phụ và nấm nướng, giữ trọn hương vị nước chấm bún chả đặc trưng.', image: 'images/foods/f88-bun-cha-chay.jpg' },
-   { id: 'f89', name: 'Chả Cốm Hà Nội', category: 'pho-bun', restaurantId: 'r9', price: 46000, rating: 4.7, ratingCount: 68, time: '15-20', desc: 'Chả cốm xanh thơm mùi cốm non, ăn kèm bún và dưa góp chua ngọt.', image: 'images/foods/f89-cha-com-ha-noi.jpg' },
-   { id: 'f90', name: 'Bún Nem Thịt Nướng', category: 'pho-bun', restaurantId: 'r9', price: 47000, rating: 4.6, ratingCount: 59, time: '15-20', desc: 'Kết hợp nem rán và thịt nướng than hoa trên nền bún tươi, chấm nước mắm chua ngọt.', image: 'images/foods/f90-bun-nem-thit-nuong.jpg' },
-   { id: 'f91', name: 'Hủ Tiếu Nam Vang Đặc Biệt', category: 'pho-bun', restaurantId: 'r10', price: 50000, rating: 4.8, ratingCount: 189, time: '15-25', desc: 'Nước dùng ninh xương ngọt thanh, đầy đủ tôm, thịt bằm, gan, trứng cút và tóp mỡ giòn.', image: 'images/foods/f91-hu-tieu-nam-vang-dac-biet.jpg', badge: 'Bán Chạy' },
-   { id: 'f92', name: 'Hủ Tiếu Khô Nam Vang', category: 'pho-bun', restaurantId: 'r10', price: 50000, rating: 4.7, ratingCount: 122, time: '15-25', desc: 'Sợi hủ tiếu trộn sốt đặc trưng, ăn kèm chén nước dùng riêng, đậm đà và lạ miệng.', image: 'images/foods/f92-hu-tieu-kho-nam-vang.jpg' },
-   { id: 'f93', name: 'Hủ Tiếu Nam Vang Sườn Non', category: 'pho-bun', restaurantId: 'r10', price: 58000, rating: 4.8, ratingCount: 145, time: '20-25', desc: 'Sườn non hầm mềm rục, kết hợp nước dùng ngọt xương và sợi hủ tiếu dai vừa.', image: 'images/foods/f93-hu-tieu-nam-vang-suon-non.jpg', badge: 'Nổi Bật' },
-   { id: 'f94', name: 'Bánh Canh Cua', category: 'pho-bun', restaurantId: 'r10', price: 55000, rating: 4.7, ratingCount: 98, time: '20-25', desc: 'Sợi bánh canh bột lọc dai mềm, nước dùng cua đồng béo ngậy, thêm chả cua và trứng cút.', image: 'images/foods/f94-banh-canh-cua.png' },
-   { id: 'f95', name: 'Bánh Canh Giò Heo', category: 'pho-bun', restaurantId: 'r10', price: 52000, rating: 4.6, ratingCount: 87, time: '20-25', desc: 'Giò heo hầm mềm, nước dùng đậm đà ăn cùng sợi bánh canh bột gạo dai mềm.', image: 'images/foods/f95-banh-canh-gio-heo.jpg' },
-   { id: 'f96', name: 'Hủ Tiếu Mì Sa Tế', category: 'pho-bun', restaurantId: 'r10', price: 53000, rating: 4.6, ratingCount: 76, time: '15-25', desc: 'Kết hợp sợi hủ tiếu và mì trong nước dùng sa tế cay nhẹ, thơm nồng đặc trưng Nam Vang.', image: 'images/foods/f96-hu-tieu-mi-sa-te.webp' },
-   { id: 'f97', name: 'Hủ Tiếu Nam Vang Tôm Mực', category: 'pho-bun', restaurantId: 'r10', price: 62000, rating: 4.9, ratingCount: 156, time: '20-25', desc: 'Phiên bản hải sản với tôm tươi và mực giòn sật, nước dùng ngọt thanh tự nhiên.', image: 'images/foods/f97-hu-tieu-nam-vang-tom-muc.jpg', badge: 'Cao Cấp' },
-   { id: 'f98', name: 'Bánh Canh Chả Cá', category: 'pho-bun', restaurantId: 'r10', price: 50000, rating: 4.6, ratingCount: 64, time: '20-25', desc: 'Chả cá dai ngọt, nước dùng thanh nhẹ, ăn cùng sợi bánh canh trắng mềm.', image: 'images/foods/f98-banh-canh-cha-ca.jpg' },
-   { id: 'f99', name: 'Hủ Tiếu Xương', category: 'pho-bun', restaurantId: 'r10', price: 48000, rating: 4.5, ratingCount: 53, time: '15-20', desc: 'Xương heo hầm ngọt nước, ăn kèm sợi hủ tiếu dai và rau giá đặc trưng miền Nam.', image: 'images/foods/f99-hu-tieu-xuong.jpg' },
-   { id: 'f100', name: 'Bánh Canh Bột Xắt', category: 'pho-bun', restaurantId: 'r10', price: 49000, rating: 4.6, ratingCount: 61, time: '20-25', desc: 'Sợi bánh canh bột xắt dày dặn, nước dùng heo ngọt thanh, ăn kèm chả lụa và huyết.', image: 'images/foods/f100-banh-canh-bot-xat.webp' },
+   {
+      id: 'f1', name: 'Phở Bò Tái Nạm', category: 'pho-bun', restaurantId: 'r1', price: 45000, oldPrice: 55000, rating: 4.9, ratingCount: 341, time: '20-30', desc: 'Nước dùng hầm xương 12 tiếng, bánh phở dai mềm, thịt bò tái nạm thái mỏng.', image: 'images/foods/f1-pho-bo-tai-nam.jpg', badge: 'Bán Chạy',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trứng trần', price: 5000 },
+               { label: 'Thêm thịt bò', price: 15000 },
+               { label: 'Bò viên', price: 10000 },
+               { label: 'Quẩy giòn', price: 5000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f2', name: 'Phở Gà Ta', category: 'pho-bun', restaurantId: 'r1', price: 42000, rating: 4.7, ratingCount: 198, time: '15-25', desc: 'Gà ta thả vườn luộc chín tới, nước dùng ngọt thanh, da giòn thịt chắc.', image: 'images/foods/f2-pho-ga-ta.webp',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm chả', price: 10000 },
+               { label: 'Thêm giò', price: 10000 },
+               { label: 'Trứng cút', price: 5000 },
+               { label: 'Rau sống thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f3', name: 'Bún Bò Huế Đặc Biệt', category: 'pho-bun', restaurantId: 'r1', price: 49000, rating: 4.8, ratingCount: 258, time: '20-30', desc: 'Đậm vị sả ớt đặc trưng xứ Huế, đầy đủ giò heo, chả cua, huyết.', image: 'images/foods/f3-bun-bo-hue-dac-biet.jpeg', badge: 'Nổi Bật',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trứng trần', price: 5000 },
+               { label: 'Thêm thịt bò', price: 15000 },
+               { label: 'Bò viên', price: 10000 },
+               { label: 'Quẩy giòn', price: 5000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f4', name: 'Bún Riêu Cua', category: 'pho-bun', restaurantId: 'r1', price: 40000, rating: 4.6, ratingCount: 167, time: '15-20', desc: 'Gạch cua đồng thơm béo, cà chua chua dịu, đậu phụ chiên giòn.', image: 'images/foods/f4-bun-rieu-cua.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm chả', price: 10000 },
+               { label: 'Thêm giò', price: 10000 },
+               { label: 'Trứng cút', price: 5000 },
+               { label: 'Rau sống thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f5', name: 'Bún Mọc', category: 'pho-bun', restaurantId: 'r1', price: 38000, rating: 4.5, ratingCount: 120, time: '15-20', desc: 'Mọc viên dai giòn, nước dùng xương ngọt thanh, măng khô giòn sần sật.', image: 'images/foods/f5-bun-moc.webp',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trứng trần', price: 5000 },
+               { label: 'Thêm thịt bò', price: 15000 },
+               { label: 'Bò viên', price: 10000 },
+               { label: 'Quẩy giòn', price: 5000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f6', name: 'Phở Tái Lăn', category: 'pho-bun', restaurantId: 'r1', price: 47000, rating: 4.7, ratingCount: 143, time: '20-25', desc: 'Thịt bò lăn tỏi thơm lừng, nước phở đậm đà, hành lá tươi mát.', image: 'images/foods/f6-pho-tai-lan.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm chả', price: 10000 },
+               { label: 'Thêm giò', price: 10000 },
+               { label: 'Trứng cút', price: 5000 },
+               { label: 'Rau sống thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f7', name: 'Bún Ốc Nguội', category: 'pho-bun', restaurantId: 'r1', price: 39000, rating: 4.6, ratingCount: 110, time: '15-20', desc: 'Vị chua thanh của giấm bỗng, ốc giòn sần sật, đậu phụ rán vàng.', image: 'images/foods/f7-bun-oc-nguoi.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trứng trần', price: 5000 },
+               { label: 'Thêm thịt bò', price: 15000 },
+               { label: 'Bò viên', price: 10000 },
+               { label: 'Quẩy giòn', price: 5000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f8', name: 'Phở Sốt Vang', category: 'pho-bun', restaurantId: 'r1', price: 50000, rating: 4.8, ratingCount: 176, time: '20-30', desc: 'Bò hầm sốt vang đậm vị quế hồi, thịt mềm rục, nước sốt sánh thơm.', image: 'images/foods/f8-pho-sot-vang.png',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm chả', price: 10000 },
+               { label: 'Thêm giò', price: 10000 },
+               { label: 'Trứng cút', price: 5000 },
+               { label: 'Rau sống thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f9', name: 'Bún Thang Hà Nội', category: 'pho-bun', restaurantId: 'r1', price: 46000, rating: 4.7, ratingCount: 98, time: '20-25', desc: 'Trứng chiên thái chỉ, giò lụa, thịt gà xé, nước dùng thanh ngọt tinh tế.', image: 'images/foods/f9-bun-thang-ha-noi.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trứng trần', price: 5000 },
+               { label: 'Thêm thịt bò', price: 15000 },
+               { label: 'Bò viên', price: 10000 },
+               { label: 'Quẩy giòn', price: 5000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f10', name: 'Phở Gà Xé Phay', category: 'pho-bun', restaurantId: 'r1', price: 43000, rating: 4.6, ratingCount: 132, time: '15-25', desc: 'Ức gà xé mỏng, hành phi thơm giòn, nước dùng trong veo đậm vị.', image: 'images/foods/f10-pho-ga-xe-phay.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm chả', price: 10000 },
+               { label: 'Thêm giò', price: 10000 },
+               { label: 'Trứng cút', price: 5000 },
+               { label: 'Rau sống thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f11', name: 'Cơm Tấm Sườn Bì Chả', category: 'com', restaurantId: 'r2', price: 55000, oldPrice: 65000, rating: 4.9, ratingCount: 302, time: '15-20', desc: 'Sườn nướng mật ong, bì heo, chả trứng hấp, ăn kèm nước mắm chua ngọt.', image: 'images/foods/f11-com-tam-suon-bi-cha.webp', badge: 'Bán Chạy',
+      options: [
+         {
+            name: 'Khẩu phần', choices: [
+               { label: 'Suất thường', price: 0 },
+               { label: 'Suất đầy đủ', price: 8000 },
+               { label: 'Suất lớn (thêm cơm)', price: 12000 },
+            ]
+         },
+         {
+            name: 'Món thêm', choices: [
+               { label: 'Trứng ốp la', price: 7000 },
+               { label: 'Thêm sườn', price: 20000 },
+               { label: 'Canh rau', price: 8000 },
+               { label: 'Đồ chua thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f12', name: 'Cơm Gà Xối Mỡ', category: 'com', restaurantId: 'r2', price: 48000, rating: 4.6, ratingCount: 154, time: '15-20', desc: 'Đùi gà chiên giòn rụm, cơm dẻo thơm, dưa leo và nước mắm gừng.', image: 'images/foods/f12-com-ga-xoi-mo.webp',
+      options: [
+         {
+            name: 'Khẩu phần', choices: [
+               { label: 'Suất thường', price: 0 },
+               { label: 'Suất đầy đủ', price: 8000 },
+               { label: 'Suất lớn (thêm cơm)', price: 12000 },
+            ]
+         },
+         {
+            name: 'Món thêm', choices: [
+               { label: 'Chả trứng thêm', price: 10000 },
+               { label: 'Thêm gà', price: 18000 },
+               { label: 'Nước mắm thêm', price: 0 },
+               { label: 'Dưa leo thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f13', name: 'Cơm Tấm Sườn Nướng', category: 'com', restaurantId: 'r2', price: 50000, rating: 4.7, ratingCount: 189, time: '15-20', desc: 'Sườn cốt lết ướp sả ớt nướng than hoa, cơm tấm hạt tơi bùi béo.', image: 'images/foods/f13-com-tam-suon-nuong.jpg',
+      options: [
+         {
+            name: 'Khẩu phần', choices: [
+               { label: 'Suất thường', price: 0 },
+               { label: 'Suất đầy đủ', price: 8000 },
+               { label: 'Suất lớn (thêm cơm)', price: 12000 },
+            ]
+         },
+         {
+            name: 'Món thêm', choices: [
+               { label: 'Trứng ốp la', price: 7000 },
+               { label: 'Thêm sườn', price: 20000 },
+               { label: 'Canh rau', price: 8000 },
+               { label: 'Đồ chua thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f14', name: 'Cơm Gà Hải Nam', category: 'com', restaurantId: 'r2', price: 52000, rating: 4.8, ratingCount: 145, time: '15-20', desc: 'Gà luộc da vàng óng, cơm nấu nước luộc gà béo thơm, chấm xì dầu gừng.', image: 'images/foods/f14-com-ga-hai-nam.png', badge: 'Nổi Bật',
+      options: [
+         {
+            name: 'Khẩu phần', choices: [
+               { label: 'Suất thường', price: 0 },
+               { label: 'Suất đầy đủ', price: 8000 },
+               { label: 'Suất lớn (thêm cơm)', price: 12000 },
+            ]
+         },
+         {
+            name: 'Món thêm', choices: [
+               { label: 'Chả trứng thêm', price: 10000 },
+               { label: 'Thêm gà', price: 18000 },
+               { label: 'Nước mắm thêm', price: 0 },
+               { label: 'Dưa leo thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f15', name: 'Cơm Chiên Dương Châu', category: 'com', restaurantId: 'r2', price: 45000, rating: 4.5, ratingCount: 133, time: '10-15', desc: 'Cơm chiên tôm, xúc xích, trứng và rau củ, hạt cơm săn tơi không dính.', image: 'images/foods/f15-com-chien-duong-chau.webp',
+      options: [
+         {
+            name: 'Khẩu phần', choices: [
+               { label: 'Suất thường', price: 0 },
+               { label: 'Suất đầy đủ', price: 8000 },
+               { label: 'Suất lớn (thêm cơm)', price: 12000 },
+            ]
+         },
+         {
+            name: 'Món thêm', choices: [
+               { label: 'Trứng ốp la', price: 7000 },
+               { label: 'Thêm sườn', price: 20000 },
+               { label: 'Canh rau', price: 8000 },
+               { label: 'Đồ chua thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f16', name: 'Cơm Tấm Bì Chả', category: 'com', restaurantId: 'r2', price: 44000, rating: 4.6, ratingCount: 121, time: '15-20', desc: 'Bì heo trộn thính thơm bùi, chả trứng hấp mềm, mỡ hành béo ngậy.', image: 'images/foods/f16-com-tam-bi-cha.webp',
+      options: [
+         {
+            name: 'Khẩu phần', choices: [
+               { label: 'Suất thường', price: 0 },
+               { label: 'Suất đầy đủ', price: 8000 },
+               { label: 'Suất lớn (thêm cơm)', price: 12000 },
+            ]
+         },
+         {
+            name: 'Món thêm', choices: [
+               { label: 'Chả trứng thêm', price: 10000 },
+               { label: 'Thêm gà', price: 18000 },
+               { label: 'Nước mắm thêm', price: 0 },
+               { label: 'Dưa leo thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f17', name: 'Cơm Sườn Cốt Lết', category: 'com', restaurantId: 'r2', price: 46000, rating: 4.6, ratingCount: 108, time: '15-20', desc: 'Cốt lết chiên áp chảo giòn cạnh, ăn kèm đồ chua và nước mắm pha.', image: 'images/foods/f17-com-suon-cot-let.jpeg',
+      options: [
+         {
+            name: 'Khẩu phần', choices: [
+               { label: 'Suất thường', price: 0 },
+               { label: 'Suất đầy đủ', price: 8000 },
+               { label: 'Suất lớn (thêm cơm)', price: 12000 },
+            ]
+         },
+         {
+            name: 'Món thêm', choices: [
+               { label: 'Trứng ốp la', price: 7000 },
+               { label: 'Thêm sườn', price: 20000 },
+               { label: 'Canh rau', price: 8000 },
+               { label: 'Đồ chua thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f18', name: 'Cơm Gà Nướng Mật Ong', category: 'com', restaurantId: 'r2', price: 49000, rating: 4.7, ratingCount: 116, time: '15-20', desc: 'Đùi gà ướp mật ong nướng thơm phức, lớp da caramel giòn ngọt.', image: 'images/foods/f18-com-ga-nuong-mat-ong.jpg',
+      options: [
+         {
+            name: 'Khẩu phần', choices: [
+               { label: 'Suất thường', price: 0 },
+               { label: 'Suất đầy đủ', price: 8000 },
+               { label: 'Suất lớn (thêm cơm)', price: 12000 },
+            ]
+         },
+         {
+            name: 'Món thêm', choices: [
+               { label: 'Chả trứng thêm', price: 10000 },
+               { label: 'Thêm gà', price: 18000 },
+               { label: 'Nước mắm thêm', price: 0 },
+               { label: 'Dưa leo thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f19', name: 'Cơm Tấm Sườn Ốp La', category: 'com', restaurantId: 'r2', price: 35000, rating: 4.4, ratingCount: 94, time: '10-15', desc: 'Trứng ốp la lòng đào béo mịn, chả trứng, mỡ hành, dưa leo tươi mát.', image: 'images/foods/f19-com-tam-suon-op-la.jpg',
+      options: [
+         {
+            name: 'Khẩu phần', choices: [
+               { label: 'Suất thường', price: 0 },
+               { label: 'Suất đầy đủ', price: 8000 },
+               { label: 'Suất lớn (thêm cơm)', price: 12000 },
+            ]
+         },
+         {
+            name: 'Món thêm', choices: [
+               { label: 'Trứng ốp la', price: 7000 },
+               { label: 'Thêm sườn', price: 20000 },
+               { label: 'Canh rau', price: 8000 },
+               { label: 'Đồ chua thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f20', name: 'Cơm Rang Thập Cẩm', category: 'com', restaurantId: 'r2', price: 43000, rating: 4.5, ratingCount: 87, time: '10-15', desc: 'Cơm rang cùng lạp xưởng, tôm khô, trứng và rau củ thập cẩm đầy đặn.', image: 'images/foods/f20-com-rang-thap-cam.jpg',
+      options: [
+         {
+            name: 'Khẩu phần', choices: [
+               { label: 'Suất thường', price: 0 },
+               { label: 'Suất đầy đủ', price: 8000 },
+               { label: 'Suất lớn (thêm cơm)', price: 12000 },
+            ]
+         },
+         {
+            name: 'Món thêm', choices: [
+               { label: 'Chả trứng thêm', price: 10000 },
+               { label: 'Thêm gà', price: 18000 },
+               { label: 'Nước mắm thêm', price: 0 },
+               { label: 'Dưa leo thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f21', name: 'Bánh Mì Thịt Nướng', category: 'banh', restaurantId: 'r3', price: 25000, rating: 4.7, ratingCount: 276, time: '10-20', desc: 'Bánh mì giòn rụm, thịt nướng thơm lừng, pate béo ngậy, rau thơm tươi.', image: 'images/foods/f21-banh-mi-thit-nuong.jpg', badge: 'Bán Chạy',
+      options: [
+         {
+            name: 'Số lượng', choices: [
+               { label: '1 cái', price: 0 },
+               { label: '2 cái', price: 20000 },
+               { label: 'Suất đôi (2 cái + nước chấm riêng)', price: 22000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm pate', price: 5000 },
+               { label: 'Thêm trứng', price: 6000 },
+               { label: 'Thêm chả', price: 8000 },
+               { label: 'Rau thơm thêm', price: 2000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f22', name: 'Bánh Xèo Miền Tây', category: 'banh', restaurantId: 'r3', price: 39000, rating: 4.7, ratingCount: 168, time: '15-25', desc: 'Vỏ bánh giòn tan vàng ươm, nhân tôm thịt giá đỗ, cuốn rau sống chấm mắm.', image: 'images/foods/f22-banh-xeo-mien-tay.webp',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bình thường', price: 0 },
+               { label: 'Lớn', price: 8000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm tôm', price: 12000 },
+               { label: 'Thêm thịt', price: 10000 },
+               { label: 'Nước mắm thêm', price: 0 },
+               { label: 'Rau sống thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f23', name: 'Bánh Mì Chả Cá', category: 'banh', restaurantId: 'r3', price: 28000, rating: 4.6, ratingCount: 142, time: '10-15', desc: 'Chả cá chiên vàng thơm nức mùi thì là, ăn kèm đồ chua giòn tan.', image: 'images/foods/f23-banh-mi-cha-ca.jpg',
+      options: [
+         {
+            name: 'Số lượng', choices: [
+               { label: '1 cái', price: 0 },
+               { label: '2 cái', price: 20000 },
+               { label: 'Suất đôi (2 cái + nước chấm riêng)', price: 22000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm pate', price: 5000 },
+               { label: 'Thêm trứng', price: 6000 },
+               { label: 'Thêm chả', price: 8000 },
+               { label: 'Rau thơm thêm', price: 2000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f24', name: 'Bánh Mì Xíu Mại', category: 'banh', restaurantId: 'r3', price: 26000, rating: 4.6, ratingCount: 119, time: '10-15', desc: 'Viên xíu mại sốt cà chua đậm đà, chan cùng bánh mì giòn nóng hổi.', image: 'images/foods/f24-banh-mi-xiu-mai.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bình thường', price: 0 },
+               { label: 'Lớn', price: 8000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm tôm', price: 12000 },
+               { label: 'Thêm thịt', price: 10000 },
+               { label: 'Nước mắm thêm', price: 0 },
+               { label: 'Rau sống thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f25', name: 'Bánh Mì Ốp La', category: 'banh', restaurantId: 'r3', price: 24000, rating: 4.5, ratingCount: 101, time: '10-15', desc: 'Trứng ốp la lòng đào, pate, thịt nguội, rau thơm kẹp bánh mì nóng giòn.', image: 'images/foods/f25-banh-mi-op-la.webp',
+      options: [
+         {
+            name: 'Số lượng', choices: [
+               { label: '1 cái', price: 0 },
+               { label: '2 cái', price: 20000 },
+               { label: 'Suất đôi (2 cái + nước chấm riêng)', price: 22000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm pate', price: 5000 },
+               { label: 'Thêm trứng', price: 6000 },
+               { label: 'Thêm chả', price: 8000 },
+               { label: 'Rau thơm thêm', price: 2000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f26', name: 'Bánh Mì Pate Trứng', category: 'banh', restaurantId: 'r3', price: 22000, rating: 4.5, ratingCount: 88, time: '5-10', desc: 'Pate gan béo thơm, trứng chiên mềm, đồ chua giòn giòn chua ngọt.', image: 'images/foods/f26-banh-mi-pate-trung.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bình thường', price: 0 },
+               { label: 'Lớn', price: 8000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm tôm', price: 12000 },
+               { label: 'Thêm thịt', price: 10000 },
+               { label: 'Nước mắm thêm', price: 0 },
+               { label: 'Rau sống thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f27', name: 'Bánh Khọt Vũng Tàu', category: 'banh', restaurantId: 'r3', price: 42000, rating: 4.8, ratingCount: 134, time: '15-20', desc: 'Bánh khọt giòn rụm nhân tôm tươi, nước cốt dừa béo, rau sống ăn kèm.', image: 'images/foods/f27-banh-khot-vung-tau.webp', badge: 'Nổi Bật',
+      options: [
+         {
+            name: 'Số lượng', choices: [
+               { label: '1 cái', price: 0 },
+               { label: '2 cái', price: 20000 },
+               { label: 'Suất đôi (2 cái + nước chấm riêng)', price: 22000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm pate', price: 5000 },
+               { label: 'Thêm trứng', price: 6000 },
+               { label: 'Thêm chả', price: 8000 },
+               { label: 'Rau thơm thêm', price: 2000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f28', name: 'Bánh Bao Nhân Thịt', category: 'banh', restaurantId: 'r3', price: 18000, rating: 4.4, ratingCount: 76, time: '5-10', desc: 'Vỏ bánh bao mềm xốp, nhân thịt băm trứng cút đậm đà, hấp nóng hổi.', image: 'images/foods/f28-banh-bao-nhan-thit.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bình thường', price: 0 },
+               { label: 'Lớn', price: 8000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm tôm', price: 12000 },
+               { label: 'Thêm thịt', price: 10000 },
+               { label: 'Nước mắm thêm', price: 0 },
+               { label: 'Rau sống thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f29', name: 'Bánh Mì Gà Xé', category: 'banh', restaurantId: 'r3', price: 27000, rating: 4.6, ratingCount: 95, time: '10-15', desc: 'Gà xé phay trộn rau răm, mayonnaise béo nhẹ, bánh mì vỏ giòn ruột xốp.', image: 'images/foods/f29-banh-mi-ga-xe.jpg',
+      options: [
+         {
+            name: 'Số lượng', choices: [
+               { label: '1 cái', price: 0 },
+               { label: '2 cái', price: 20000 },
+               { label: 'Suất đôi (2 cái + nước chấm riêng)', price: 22000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm pate', price: 5000 },
+               { label: 'Thêm trứng', price: 6000 },
+               { label: 'Thêm chả', price: 8000 },
+               { label: 'Rau thơm thêm', price: 2000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f30', name: 'Bánh Cuốn Nóng', category: 'banh', restaurantId: 'r3', price: 32000, rating: 4.7, ratingCount: 112, time: '10-20', desc: 'Bánh cuốn tráng mỏng nhân thịt mộc nhĩ, hành phi thơm, chả lụa kèm theo.', image: 'images/foods/f30-banh-cuon-nong.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bình thường', price: 0 },
+               { label: 'Lớn', price: 8000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm tôm', price: 12000 },
+               { label: 'Thêm thịt', price: 10000 },
+               { label: 'Nước mắm thêm', price: 0 },
+               { label: 'Rau sống thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f31', name: 'Gỏi Cuốn Tôm Thịt', category: 'cuon', restaurantId: 'r4', price: 35000, rating: 4.8, ratingCount: 201, time: '10-15', desc: 'Cuốn tươi mát với tôm, thịt luộc, bún và rau sống, chấm tương đậu phộng.', image: 'images/foods/f31-goi-cuon-tom-thit.jpg',
+      options: [
+         {
+            name: 'Số lượng', choices: [
+               { label: '3 cuốn', price: 0 },
+               { label: '5 cuốn', price: 15000 },
+               { label: '10 cuốn', price: 30000 },
+            ]
+         },
+         {
+            name: 'Nước chấm & thêm', choices: [
+               { label: 'Tương đậu phộng thêm', price: 3000 },
+               { label: 'Nước mắm chua ngọt thêm', price: 3000 },
+               { label: 'Thêm tôm', price: 10000 },
+               { label: 'Đậu phộng rang thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f32', name: 'Nem Rán Hà Nội', category: 'cuon', restaurantId: 'r4', price: 38000, rating: 4.7, ratingCount: 145, time: '15-20', desc: 'Nem rán giòn tan nhân thịt, miến, mộc nhĩ, chấm nước mắm chua ngọt.', image: 'images/foods/f32-nem-ran-ha-noi.webp',
+      options: [
+         {
+            name: 'Số lượng', choices: [
+               { label: '3 cuốn', price: 0 },
+               { label: '5 cuốn', price: 15000 },
+               { label: '10 cuốn', price: 30000 },
+            ]
+         },
+         {
+            name: 'Nước chấm & thêm', choices: [
+               { label: 'Tương đậu phộng thêm', price: 3000 },
+               { label: 'Nước mắm chua ngọt thêm', price: 3000 },
+               { label: 'Thêm tôm', price: 10000 },
+               { label: 'Đậu phộng rang thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f33', name: 'Bò Bía', category: 'cuon', restaurantId: 'r4', price: 22000, rating: 4.5, ratingCount: 98, time: '10-15', desc: 'Bánh tráng cuốn lạp xưởng, trứng, củ sắn giòn, chấm tương ngọt béo.', image: 'images/foods/f33-bo-bia.webp',
+      options: [
+         {
+            name: 'Số lượng', choices: [
+               { label: '3 cuốn', price: 0 },
+               { label: '5 cuốn', price: 15000 },
+               { label: '10 cuốn', price: 30000 },
+            ]
+         },
+         {
+            name: 'Nước chấm & thêm', choices: [
+               { label: 'Tương đậu phộng thêm', price: 3000 },
+               { label: 'Nước mắm chua ngọt thêm', price: 3000 },
+               { label: 'Thêm tôm', price: 10000 },
+               { label: 'Đậu phộng rang thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f34', name: 'Cuốn Diếp Cá Tai Heo', category: 'cuon', restaurantId: 'r4', price: 34000, rating: 4.4, ratingCount: 72, time: '10-15', desc: 'Diếp cá tươi giòn cuốn cùng thịt heo luộc, bún, chấm mắm nêm đậm đà.', image: 'images/foods/f34-cuon-diep-ca-tai-heo.jpg',
+      options: [
+         {
+            name: 'Số lượng', choices: [
+               { label: '3 cuốn', price: 0 },
+               { label: '5 cuốn', price: 15000 },
+               { label: '10 cuốn', price: 30000 },
+            ]
+         },
+         {
+            name: 'Nước chấm & thêm', choices: [
+               { label: 'Tương đậu phộng thêm', price: 3000 },
+               { label: 'Nước mắm chua ngọt thêm', price: 3000 },
+               { label: 'Thêm tôm', price: 10000 },
+               { label: 'Đậu phộng rang thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f35', name: 'Chả Giò Rế', category: 'cuon', restaurantId: 'r4', price: 40000, rating: 4.7, ratingCount: 127, time: '15-20', desc: 'Vỏ rế mỏng giòn tan, nhân tôm thịt cua đầy đặn, chấm mắm chua ngọt.', image: 'images/foods/f35-cha-gio-re.jpg', badge: 'Bán Chạy',
+      options: [
+         {
+            name: 'Số lượng', choices: [
+               { label: '3 cuốn', price: 0 },
+               { label: '5 cuốn', price: 15000 },
+               { label: '10 cuốn', price: 30000 },
+            ]
+         },
+         {
+            name: 'Nước chấm & thêm', choices: [
+               { label: 'Tương đậu phộng thêm', price: 3000 },
+               { label: 'Nước mắm chua ngọt thêm', price: 3000 },
+               { label: 'Thêm tôm', price: 10000 },
+               { label: 'Đậu phộng rang thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f36', name: 'Nem Nướng Cuốn Bánh Tráng', category: 'cuon', restaurantId: 'r4', price: 45000, rating: 4.8, ratingCount: 156, time: '15-25', desc: 'Nem nướng thơm lừng cuốn bánh tráng, rau sống, chấm tương me đặc trưng.', image: 'images/foods/f36-nem-nuong-cuon-banh-trang.webp', badge: 'Nổi Bật',
+      options: [
+         {
+            name: 'Số lượng', choices: [
+               { label: '3 cuốn', price: 0 },
+               { label: '5 cuốn', price: 15000 },
+               { label: '10 cuốn', price: 30000 },
+            ]
+         },
+         {
+            name: 'Nước chấm & thêm', choices: [
+               { label: 'Tương đậu phộng thêm', price: 3000 },
+               { label: 'Nước mắm chua ngọt thêm', price: 3000 },
+               { label: 'Thêm tôm', price: 10000 },
+               { label: 'Đậu phộng rang thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f37', name: 'Gỏi Cuốn Chay', category: 'cuon', restaurantId: 'r4', price: 30000, rating: 4.5, ratingCount: 64, time: '10-15', desc: 'Đậu hũ chiên, nấm và rau củ tươi cuốn bánh tráng, thanh đạm nhẹ nhàng.', image: 'images/foods/f37-goi-cuon-chay.webp',
+      options: [
+         {
+            name: 'Số lượng', choices: [
+               { label: '3 cuốn', price: 0 },
+               { label: '5 cuốn', price: 15000 },
+               { label: '10 cuốn', price: 30000 },
+            ]
+         },
+         {
+            name: 'Nước chấm & thêm', choices: [
+               { label: 'Tương đậu phộng thêm', price: 3000 },
+               { label: 'Nước mắm chua ngọt thêm', price: 3000 },
+               { label: 'Thêm tôm', price: 10000 },
+               { label: 'Đậu phộng rang thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f38', name: 'Cuốn Diếp Tôm Nướng', category: 'cuon', restaurantId: 'r4', price: 37000, rating: 4.6, ratingCount: 81, time: '10-15', desc: 'Tôm nướng thơm cuốn cùng diếp cá, bún tươi, chấm nước mắm tỏi ớt.', image: 'images/foods/f38-uon-diep-tom-nuong.jpg',
+      options: [
+         {
+            name: 'Số lượng', choices: [
+               { label: '3 cuốn', price: 0 },
+               { label: '5 cuốn', price: 15000 },
+               { label: '10 cuốn', price: 30000 },
+            ]
+         },
+         {
+            name: 'Nước chấm & thêm', choices: [
+               { label: 'Tương đậu phộng thêm', price: 3000 },
+               { label: 'Nước mắm chua ngọt thêm', price: 3000 },
+               { label: 'Thêm tôm', price: 10000 },
+               { label: 'Đậu phộng rang thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f39', name: 'Bánh Tráng Trộn', category: 'cuon', restaurantId: 'r4', price: 20000, rating: 4.6, ratingCount: 143, time: '5-10', desc: 'Bánh tráng trộn khô bò, xoài xanh, rau răm, đậu phộng và sa tế cay nồng.', image: 'images/foods/f39-banh-trang-tron.jpg',
+      options: [
+         {
+            name: 'Số lượng', choices: [
+               { label: '3 cuốn', price: 0 },
+               { label: '5 cuốn', price: 15000 },
+               { label: '10 cuốn', price: 30000 },
+            ]
+         },
+         {
+            name: 'Nước chấm & thêm', choices: [
+               { label: 'Tương đậu phộng thêm', price: 3000 },
+               { label: 'Nước mắm chua ngọt thêm', price: 3000 },
+               { label: 'Thêm tôm', price: 10000 },
+               { label: 'Đậu phộng rang thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f40', name: 'Nem Lụi Huế', category: 'cuon', restaurantId: 'r4', price: 42000, rating: 4.7, ratingCount: 105, time: '15-20', desc: 'Nem lụi nướng xiên sả thơm, cuốn bánh tráng, chấm nước lèo đặc trưng Huế.', image: 'images/foods/f40-nem-lui-hue.webp',
+      options: [
+         {
+            name: 'Số lượng', choices: [
+               { label: '3 cuốn', price: 0 },
+               { label: '5 cuốn', price: 15000 },
+               { label: '10 cuốn', price: 30000 },
+            ]
+         },
+         {
+            name: 'Nước chấm & thêm', choices: [
+               { label: 'Tương đậu phộng thêm', price: 3000 },
+               { label: 'Nước mắm chua ngọt thêm', price: 3000 },
+               { label: 'Thêm tôm', price: 10000 },
+               { label: 'Đậu phộng rang thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f41', name: 'Lẩu Thái Hải Sản', category: 'lau-haisan', restaurantId: 'r5', price: 189000, rating: 4.9, ratingCount: 128, time: '25-35', desc: 'Vị chua cay đặc trưng, đầy ắp tôm mực cá, ăn kèm rau và bún tươi.', image: 'images/foods/f41-lau-thai-hai-san.jpg', badge: 'Cao Cấp',
+      options: [
+         {
+            name: 'Kích cỡ phần ăn', choices: [
+               { label: 'Phần 1 người', price: 0 },
+               { label: 'Phần 2 người', price: 60000 },
+               { label: 'Nồi lẩu lớn (3-4 người)', price: 120000 },
+            ]
+         },
+         {
+            name: 'Hải sản thêm', choices: [
+               { label: 'Thêm tôm', price: 30000 },
+               { label: 'Thêm mực', price: 35000 },
+               { label: 'Thêm rau nhúng lẩu', price: 15000 },
+               { label: 'Thêm bún/mì', price: 10000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f42', name: 'Hải Sản Nướng Mỡ Hành', category: 'lau-haisan', restaurantId: 'r5', price: 149000, rating: 4.7, ratingCount: 96, time: '25-35', desc: 'Set hải sản tươi sống nướng mỡ hành, thơm béo và đậm đà hương biển.', image: 'images/foods/f42-hai-san-nuong-mo-hanh.jpg',
+      options: [
+         {
+            name: 'Kích cỡ phần ăn', choices: [
+               { label: 'Phần 1 người', price: 0 },
+               { label: 'Phần 2 người', price: 60000 },
+               { label: 'Nồi lẩu lớn (3-4 người)', price: 120000 },
+            ]
+         },
+         {
+            name: 'Hải sản thêm', choices: [
+               { label: 'Thêm tôm', price: 30000 },
+               { label: 'Thêm mực', price: 35000 },
+               { label: 'Thêm rau nhúng lẩu', price: 15000 },
+               { label: 'Thêm bún/mì', price: 10000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f43', name: 'Lẩu Cá Kèo', category: 'lau-haisan', restaurantId: 'r5', price: 159000, rating: 4.7, ratingCount: 84, time: '25-30', desc: 'Cá kèo tươi, nước lẩu chua lá giang thanh mát, rau đắng ăn kèm.', image: 'images/foods/f43-lau-ca-keo.webp',
+      options: [
+         {
+            name: 'Kích cỡ phần ăn', choices: [
+               { label: 'Phần 1 người', price: 0 },
+               { label: 'Phần 2 người', price: 60000 },
+               { label: 'Nồi lẩu lớn (3-4 người)', price: 120000 },
+            ]
+         },
+         {
+            name: 'Hải sản thêm', choices: [
+               { label: 'Thêm tôm', price: 30000 },
+               { label: 'Thêm mực', price: 35000 },
+               { label: 'Thêm rau nhúng lẩu', price: 15000 },
+               { label: 'Thêm bún/mì', price: 10000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f44', name: 'Tôm Hấp Nước Dừa', category: 'lau-haisan', restaurantId: 'r5', price: 129000, rating: 4.8, ratingCount: 102, time: '15-20', desc: 'Tôm sú tươi hấp cùng nước dừa xiêm ngọt béo, chấm muối tiêu chanh.', image: 'images/foods/f44-tom-hap-nuoc-dua.jpg',
+      options: [
+         {
+            name: 'Kích cỡ phần ăn', choices: [
+               { label: 'Phần 1 người', price: 0 },
+               { label: 'Phần 2 người', price: 60000 },
+               { label: 'Nồi lẩu lớn (3-4 người)', price: 120000 },
+            ]
+         },
+         {
+            name: 'Hải sản thêm', choices: [
+               { label: 'Thêm tôm', price: 30000 },
+               { label: 'Thêm mực', price: 35000 },
+               { label: 'Thêm rau nhúng lẩu', price: 15000 },
+               { label: 'Thêm bún/mì', price: 10000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f45', name: 'Mực Nướng Sa Tế', category: 'lau-haisan', restaurantId: 'r5', price: 139000, rating: 4.7, ratingCount: 91, time: '15-20', desc: 'Mực tươi nướng sa tế cay nồng, dai giòn sần sật, thơm lừng hấp dẫn.', image: 'images/foods/f45-muc-nuong-sa-te.jpg', badge: 'Bán Chạy',
+      options: [
+         {
+            name: 'Kích cỡ phần ăn', choices: [
+               { label: 'Phần 1 người', price: 0 },
+               { label: 'Phần 2 người', price: 60000 },
+               { label: 'Nồi lẩu lớn (3-4 người)', price: 120000 },
+            ]
+         },
+         {
+            name: 'Hải sản thêm', choices: [
+               { label: 'Thêm tôm', price: 30000 },
+               { label: 'Thêm mực', price: 35000 },
+               { label: 'Thêm rau nhúng lẩu', price: 15000 },
+               { label: 'Thêm bún/mì', price: 10000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f46', name: 'Lẩu Riêu Cua Hải Sản', category: 'lau-haisan', restaurantId: 'r5', price: 179000, rating: 4.8, ratingCount: 77, time: '25-35', desc: 'Gạch cua béo ngậy hoà cùng hải sản tươi, nước lẩu chua thanh đậm vị.', image: 'images/foods/f46-lau-rieu-cua-hai-san.jpg',
+      options: [
+         {
+            name: 'Kích cỡ phần ăn', choices: [
+               { label: 'Phần 1 người', price: 0 },
+               { label: 'Phần 2 người', price: 60000 },
+               { label: 'Nồi lẩu lớn (3-4 người)', price: 120000 },
+            ]
+         },
+         {
+            name: 'Hải sản thêm', choices: [
+               { label: 'Thêm tôm', price: 30000 },
+               { label: 'Thêm mực', price: 35000 },
+               { label: 'Thêm rau nhúng lẩu', price: 15000 },
+               { label: 'Thêm bún/mì', price: 10000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f47', name: 'Ốc Hương Rang Muối', category: 'lau-haisan', restaurantId: 'r5', price: 119000, rating: 4.6, ratingCount: 88, time: '15-20', desc: 'Ốc hương rang muối ớt thơm giòn, thịt ốc dai ngọt đậm đà.', image: 'images/foods/f47-oc-huong-rang-muoi.webp',
+      options: [
+         {
+            name: 'Kích cỡ phần ăn', choices: [
+               { label: 'Phần 1 người', price: 0 },
+               { label: 'Phần 2 người', price: 60000 },
+               { label: 'Nồi lẩu lớn (3-4 người)', price: 120000 },
+            ]
+         },
+         {
+            name: 'Hải sản thêm', choices: [
+               { label: 'Thêm tôm', price: 30000 },
+               { label: 'Thêm mực', price: 35000 },
+               { label: 'Thêm rau nhúng lẩu', price: 15000 },
+               { label: 'Thêm bún/mì', price: 10000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f48', name: 'Cua Rang Me', category: 'lau-haisan', restaurantId: 'r5', price: 219000, rating: 4.9, ratingCount: 65, time: '20-30', desc: 'Cua thịt chắc rang cùng sốt me chua ngọt sánh quyện, đậm đà khó cưỡng.', image: 'images/foods/f48-cua-rang-me.jpg', badge: 'Cao Cấp',
+      options: [
+         {
+            name: 'Kích cỡ phần ăn', choices: [
+               { label: 'Phần 1 người', price: 0 },
+               { label: 'Phần 2 người', price: 60000 },
+               { label: 'Nồi lẩu lớn (3-4 người)', price: 120000 },
+            ]
+         },
+         {
+            name: 'Hải sản thêm', choices: [
+               { label: 'Thêm tôm', price: 30000 },
+               { label: 'Thêm mực', price: 35000 },
+               { label: 'Thêm rau nhúng lẩu', price: 15000 },
+               { label: 'Thêm bún/mì', price: 10000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f49', name: 'Lẩu Cua Đồng', category: 'lau-haisan', restaurantId: 'r5', price: 169000, rating: 4.7, ratingCount: 73, time: '25-35', desc: 'Riêu cua đồng nguyên chất, cà chua, đậu phụ, rau muống tươi ăn kèm.', image: 'images/foods/f49-lau-cua-dong.jpg',
+      options: [
+         {
+            name: 'Kích cỡ phần ăn', choices: [
+               { label: 'Phần 1 người', price: 0 },
+               { label: 'Phần 2 người', price: 60000 },
+               { label: 'Nồi lẩu lớn (3-4 người)', price: 120000 },
+            ]
+         },
+         {
+            name: 'Hải sản thêm', choices: [
+               { label: 'Thêm tôm', price: 30000 },
+               { label: 'Thêm mực', price: 35000 },
+               { label: 'Thêm rau nhúng lẩu', price: 15000 },
+               { label: 'Thêm bún/mì', price: 10000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f50', name: 'Ghẹ Hấp Bia', category: 'lau-haisan', restaurantId: 'r5', price: 189000, rating: 4.8, ratingCount: 69, time: '15-25', desc: 'Ghẹ tươi hấp bia sả thơm lừng, thịt ngọt chắc, chấm muối tiêu chanh.', image: 'images/foods/f50-ghe-hap-bia.webp',
+      options: [
+         {
+            name: 'Kích cỡ phần ăn', choices: [
+               { label: 'Phần 1 người', price: 0 },
+               { label: 'Phần 2 người', price: 60000 },
+               { label: 'Nồi lẩu lớn (3-4 người)', price: 120000 },
+            ]
+         },
+         {
+            name: 'Hải sản thêm', choices: [
+               { label: 'Thêm tôm', price: 30000 },
+               { label: 'Thêm mực', price: 35000 },
+               { label: 'Thêm rau nhúng lẩu', price: 15000 },
+               { label: 'Thêm bún/mì', price: 10000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f51', name: 'Chè Thái Trân Châu', category: 'trang-mieng', restaurantId: 'r6', price: 29000, rating: 4.8, ratingCount: 210, time: '10-15', desc: 'Thạch nhiều màu, trân châu dai giòn, nước cốt dừa béo ngậy mát lạnh.', image: 'images/foods/f51-che-thai-tran-chau.jpg', badge: 'Ngọt Ngào',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Ly nhỏ', price: 0 },
+               { label: 'Ly vừa', price: 5000 },
+               { label: 'Ly lớn', price: 9000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trân châu', price: 5000 },
+               { label: 'Thạch trái cây', price: 5000 },
+               { label: 'Nước cốt dừa thêm', price: 4000 },
+               { label: 'Đậu phộng rang', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f52', name: 'Chè Khúc Bạch', category: 'trang-mieng', restaurantId: 'r6', price: 32000, rating: 4.7, ratingCount: 154, time: '10-15', desc: 'Khúc bạch béo mềm, hạnh nhân giòn tan, nhãn tươi và nước đường thơm mát.', image: 'images/foods/f52-che-khuc-bach.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Ly nhỏ', price: 0 },
+               { label: 'Ly vừa', price: 5000 },
+               { label: 'Ly lớn', price: 9000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trân châu', price: 5000 },
+               { label: 'Thạch trái cây', price: 5000 },
+               { label: 'Nước cốt dừa thêm', price: 4000 },
+               { label: 'Đậu phộng rang', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f53', name: 'Chè Bưởi', category: 'trang-mieng', restaurantId: 'r6', price: 27000, rating: 4.6, ratingCount: 132, time: '10-15', desc: 'Cùi bưởi giòn sần sật, đậu xanh bùi béo, nước cốt dừa thơm ngậy.', image: 'images/foods/f53-che-buoi.webp',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Ly nhỏ', price: 0 },
+               { label: 'Ly vừa', price: 5000 },
+               { label: 'Ly lớn', price: 9000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trân châu', price: 5000 },
+               { label: 'Thạch trái cây', price: 5000 },
+               { label: 'Nước cốt dừa thêm', price: 4000 },
+               { label: 'Đậu phộng rang', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f54', name: 'Chè Đậu Xanh Nước Cốt Dừa', category: 'trang-mieng', restaurantId: 'r6', price: 24000, rating: 4.5, ratingCount: 98, time: '10-15', desc: 'Đậu xanh nấu nhuyễn ngọt bùi, nước cốt dừa béo thơm, mát lạnh dịu nhẹ.', image: 'images/foods/f54-che-dau-xanh-nuoc-cot-dua.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Ly nhỏ', price: 0 },
+               { label: 'Ly vừa', price: 5000 },
+               { label: 'Ly lớn', price: 9000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trân châu', price: 5000 },
+               { label: 'Thạch trái cây', price: 5000 },
+               { label: 'Nước cốt dừa thêm', price: 4000 },
+               { label: 'Đậu phộng rang', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f55', name: 'Chè Ba Màu', category: 'trang-mieng', restaurantId: 'r6', price: 26000, rating: 4.6, ratingCount: 121, time: '10-15', desc: 'Đậu đỏ, đậu xanh, thạch dừa hoà quyện cùng nước cốt dừa béo ngậy.', image: 'images/foods/f55-che-ba-mau.jpg', badge: 'Bán Chạy',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Ly nhỏ', price: 0 },
+               { label: 'Ly vừa', price: 5000 },
+               { label: 'Ly lớn', price: 9000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trân châu', price: 5000 },
+               { label: 'Thạch trái cây', price: 5000 },
+               { label: 'Nước cốt dừa thêm', price: 4000 },
+               { label: 'Đậu phộng rang', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f56', name: 'Sữa Chua Nếp Cẩm', category: 'trang-mieng', restaurantId: 'r6', price: 28000, rating: 4.7, ratingCount: 143, time: '10-15', desc: 'Sữa chua mịn béo hoà cùng nếp cẩm dẻo thơm, ngọt thanh dễ chịu.', image: 'images/foods/f56-sua-chua-nep-cam.webp',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Ly nhỏ', price: 0 },
+               { label: 'Ly vừa', price: 5000 },
+               { label: 'Ly lớn', price: 9000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trân châu', price: 5000 },
+               { label: 'Thạch trái cây', price: 5000 },
+               { label: 'Nước cốt dừa thêm', price: 4000 },
+               { label: 'Đậu phộng rang', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f57', name: 'Chè Sương Sa Hạt Lựu', category: 'trang-mieng', restaurantId: 'r6', price: 25000, rating: 4.5, ratingCount: 87, time: '10-15', desc: 'Hạt lựu giòn sần sật, sương sa mát lạnh, nước cốt dừa thơm béo.', image: 'images/foods/f57-che-suong-sa-hat-luu.webp',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Ly nhỏ', price: 0 },
+               { label: 'Ly vừa', price: 5000 },
+               { label: 'Ly lớn', price: 9000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trân châu', price: 5000 },
+               { label: 'Thạch trái cây', price: 5000 },
+               { label: 'Nước cốt dừa thêm', price: 4000 },
+               { label: 'Đậu phộng rang', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f58', name: 'Rau Câu Dừa', category: 'trang-mieng', restaurantId: 'r6', price: 22000, rating: 4.4, ratingCount: 65, time: '10-15', desc: 'Rau câu mềm mịn vị dừa tự nhiên, thanh mát, ngọt dịu vừa phải.', image: 'images/foods/f58-rau-cau-dua.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Ly nhỏ', price: 0 },
+               { label: 'Ly vừa', price: 5000 },
+               { label: 'Ly lớn', price: 9000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trân châu', price: 5000 },
+               { label: 'Thạch trái cây', price: 5000 },
+               { label: 'Nước cốt dừa thêm', price: 4000 },
+               { label: 'Đậu phộng rang', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f59', name: 'Chè Đậu Đỏ', category: 'trang-mieng', restaurantId: 'r6', price: 23000, rating: 4.5, ratingCount: 79, time: '10-15', desc: 'Đậu đỏ ninh mềm bùi, nước đường thơm gừng, ăn kèm dừa nạo.', image: 'images/foods/f59-che-dau-do.webp',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Ly nhỏ', price: 0 },
+               { label: 'Ly vừa', price: 5000 },
+               { label: 'Ly lớn', price: 9000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trân châu', price: 5000 },
+               { label: 'Thạch trái cây', price: 5000 },
+               { label: 'Nước cốt dừa thêm', price: 4000 },
+               { label: 'Đậu phộng rang', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f60', name: 'Bánh Flan Caramel', category: 'trang-mieng', restaurantId: 'r6', price: 20000, rating: 4.8, ratingCount: 167, time: '5-10', desc: 'Flan mềm mịn tan trong miệng, lớp caramel đắng nhẹ hài hoà vị ngọt.', image: 'images/foods/f60-banh-flan-caramel.jpg', badge: 'Nổi Bật',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Ly nhỏ', price: 0 },
+               { label: 'Ly vừa', price: 5000 },
+               { label: 'Ly lớn', price: 9000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trân châu', price: 5000 },
+               { label: 'Thạch trái cây', price: 5000 },
+               { label: 'Nước cốt dừa thêm', price: 4000 },
+               { label: 'Đậu phộng rang', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f61', name: 'Cà Phê Sữa Đá', category: 'ca-phe', restaurantId: 'r7', price: 25000, rating: 4.8, ratingCount: 288, time: '5-10', desc: 'Cà phê phin nguyên chất, sữa đặc béo ngậy, đá mát lạnh đúng chất Việt.', image: 'images/foods/f61-ca-phe-sua-da.webp', badge: 'Bán Chạy',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Size M', price: 0 },
+               { label: 'Size L', price: 5000 },
+            ]
+         },
+         {
+            name: 'Tuỳ chọn', choices: [
+               { label: 'Ít đá', price: 0 },
+               { label: 'Nhiều đá', price: 0 },
+               { label: 'Thêm sữa đặc', price: 4000 },
+               { label: 'Đá xay thay vì đá viên', price: 6000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f62', name: 'Cà Phê Đen Đá', category: 'ca-phe', restaurantId: 'r7', price: 20000, rating: 4.6, ratingCount: 176, time: '5-10', desc: 'Cà phê phin đậm đà nguyên bản, vị đắng nhẹ hậu ngọt, đá mát lạnh.', image: 'images/foods/f62-ca-phe-den-da.jpeg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Size M', price: 0 },
+               { label: 'Size L', price: 5000 },
+            ]
+         },
+         {
+            name: 'Tuỳ chọn', choices: [
+               { label: 'Ít đá', price: 0 },
+               { label: 'Nhiều đá', price: 0 },
+               { label: 'Thêm sữa đặc', price: 4000 },
+               { label: 'Đá xay thay vì đá viên', price: 6000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f63', name: 'Bạc Xỉu', category: 'ca-phe', restaurantId: 'r7', price: 27000, rating: 4.7, ratingCount: 154, time: '5-10', desc: 'Nhiều sữa ít cà phê, vị béo ngọt dịu nhẹ, thích hợp cho người mới uống.', image: 'images/foods/f63-bac-xiu.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Size M', price: 0 },
+               { label: 'Size L', price: 5000 },
+            ]
+         },
+         {
+            name: 'Tuỳ chọn', choices: [
+               { label: 'Ít đá', price: 0 },
+               { label: 'Nhiều đá', price: 0 },
+               { label: 'Thêm sữa đặc', price: 4000 },
+               { label: 'Đá xay thay vì đá viên', price: 6000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f64', name: 'Cà Phê Trứng', category: 'ca-phe', restaurantId: 'r7', price: 32000, rating: 4.8, ratingCount: 132, time: '5-10', desc: 'Lớp kem trứng đánh bông béo mịn phủ trên cà phê đậm đà, thơm ngậy.', image: 'images/foods/f64-ca-phe-trung.webp', badge: 'Nổi Bật',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Size M', price: 0 },
+               { label: 'Size L', price: 5000 },
+            ]
+         },
+         {
+            name: 'Tuỳ chọn', choices: [
+               { label: 'Ít đá', price: 0 },
+               { label: 'Nhiều đá', price: 0 },
+               { label: 'Thêm sữa đặc', price: 4000 },
+               { label: 'Đá xay thay vì đá viên', price: 6000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f65', name: 'Cà Phê Cốt Dừa', category: 'ca-phe', restaurantId: 'r7', price: 35000, rating: 4.7, ratingCount: 121, time: '5-10', desc: 'Cà phê hoà cùng nước cốt dừa béo mát, đá xay mịn, thơm lừng hấp dẫn.', image: 'images/foods/f65-ca-phe-cot-dua.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Size M', price: 0 },
+               { label: 'Size L', price: 5000 },
+            ]
+         },
+         {
+            name: 'Tuỳ chọn', choices: [
+               { label: 'Ít đá', price: 0 },
+               { label: 'Nhiều đá', price: 0 },
+               { label: 'Thêm sữa đặc', price: 4000 },
+               { label: 'Đá xay thay vì đá viên', price: 6000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f66', name: 'Cà Phê Muối', category: 'ca-phe', restaurantId: 'r7', price: 29000, rating: 4.6, ratingCount: 98, time: '5-10', desc: 'Vị mặn nhẹ của muối hoà cùng cà phê sữa béo, lạ miệng và cuốn hút.', image: 'images/foods/f66-ca-phe-muoi.png',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Size M', price: 0 },
+               { label: 'Size L', price: 5000 },
+            ]
+         },
+         {
+            name: 'Tuỳ chọn', choices: [
+               { label: 'Ít đá', price: 0 },
+               { label: 'Nhiều đá', price: 0 },
+               { label: 'Thêm sữa đặc', price: 4000 },
+               { label: 'Đá xay thay vì đá viên', price: 6000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f67', name: 'Espresso', category: 'ca-phe', restaurantId: 'r7', price: 30000, rating: 4.5, ratingCount: 64, time: '5-10', desc: 'Cà phê Ý nguyên chất, chiết xuất đậm đặc, hương thơm nồng nàn.', image: 'images/foods/f67-espresso.jpeg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Size M', price: 0 },
+               { label: 'Size L', price: 5000 },
+            ]
+         },
+         {
+            name: 'Tuỳ chọn', choices: [
+               { label: 'Ít đá', price: 0 },
+               { label: 'Nhiều đá', price: 0 },
+               { label: 'Thêm sữa đặc', price: 4000 },
+               { label: 'Đá xay thay vì đá viên', price: 6000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f68', name: 'Cappuccino', category: 'ca-phe', restaurantId: 'r7', price: 38000, rating: 4.6, ratingCount: 87, time: '5-10', desc: 'Espresso hoà cùng sữa tươi đánh bông mịn màng, phủ bột cacao thơm.', image: 'images/foods/f68-cappuccino.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Size M', price: 0 },
+               { label: 'Size L', price: 5000 },
+            ]
+         },
+         {
+            name: 'Tuỳ chọn', choices: [
+               { label: 'Ít đá', price: 0 },
+               { label: 'Nhiều đá', price: 0 },
+               { label: 'Thêm sữa đặc', price: 4000 },
+               { label: 'Đá xay thay vì đá viên', price: 6000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f69', name: 'Cà Phê Sữa Nóng', category: 'ca-phe', restaurantId: 'r7', price: 24000, rating: 4.6, ratingCount: 76, time: '5-10', desc: 'Cà phê phin nóng hổi hoà quyện sữa đặc béo ngậy, ấm áp mỗi sáng.', image: 'images/foods/f69-ca-phe-sua-nong.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Size M', price: 0 },
+               { label: 'Size L', price: 5000 },
+            ]
+         },
+         {
+            name: 'Tuỳ chọn', choices: [
+               { label: 'Ít đá', price: 0 },
+               { label: 'Nhiều đá', price: 0 },
+               { label: 'Thêm sữa đặc', price: 4000 },
+               { label: 'Đá xay thay vì đá viên', price: 6000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f70', name: 'Freeze Cà Phê', category: 'ca-phe', restaurantId: 'r7', price: 36000, rating: 4.7, ratingCount: 109, time: '5-10', desc: 'Cà phê xay đá mịn tan, phủ kem tươi béo mát, sảng khoái ngày hè.', image: 'images/foods/f70-freeze-ca-phe.webp',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Size M', price: 0 },
+               { label: 'Size L', price: 5000 },
+            ]
+         },
+         {
+            name: 'Tuỳ chọn', choices: [
+               { label: 'Ít đá', price: 0 },
+               { label: 'Nhiều đá', price: 0 },
+               { label: 'Thêm sữa đặc', price: 4000 },
+               { label: 'Đá xay thay vì đá viên', price: 6000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f71', name: 'Trà Sữa Trân Châu Đường Đen', category: 'nuoc-uong', restaurantId: 'r8', price: 39000, rating: 4.7, ratingCount: 233, time: '5-10', desc: 'Trân châu đường đen dẻo thơm, trà sữa béo mịn, topping đầy đặn.', image: 'images/foods/f71-tra-sua-tran-chau-duong-den.webp', badge: 'Nổi Bật',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Size M', price: 0 },
+               { label: 'Size L', price: 5000 },
+            ]
+         },
+         {
+            name: 'Topping', choices: [
+               { label: 'Trân châu đen', price: 5000 },
+               { label: 'Thạch trái cây', price: 5000 },
+               { label: 'Pudding trứng', price: 8000 },
+               { label: 'Kem cheese', price: 10000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f72', name: 'Trà Sữa Matcha', category: 'nuoc-uong', restaurantId: 'r8', price: 42000, rating: 4.6, ratingCount: 145, time: '5-10', desc: 'Vị matcha Nhật đậm đà hoà cùng sữa béo mịn, topping trân châu dai giòn.', image: 'images/foods/f72-tra-sua-matcha.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Size M', price: 0 },
+               { label: 'Size L', price: 5000 },
+            ]
+         },
+         {
+            name: 'Topping', choices: [
+               { label: 'Trân châu trắng', price: 5000 },
+               { label: 'Thạch dừa', price: 5000 },
+               { label: 'Đào miếng', price: 8000 },
+               { label: 'Ít đường', price: 0 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f73', name: 'Trà Đào Cam Sả', category: 'nuoc-uong', restaurantId: 'r8', price: 35000, rating: 4.8, ratingCount: 198, time: '5-10', desc: 'Trà thơm hoà quyện đào ngâm giòn ngọt, cam tươi và sả thanh mát.', image: 'images/foods/f73-tra-dao-cam-sa.jpg', badge: 'Bán Chạy',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Size M', price: 0 },
+               { label: 'Size L', price: 5000 },
+            ]
+         },
+         {
+            name: 'Topping', choices: [
+               { label: 'Trân châu đen', price: 5000 },
+               { label: 'Thạch trái cây', price: 5000 },
+               { label: 'Pudding trứng', price: 8000 },
+               { label: 'Kem cheese', price: 10000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f74', name: 'Nước Ép Cam', category: 'nuoc-uong', restaurantId: 'r8', price: 30000, rating: 4.7, ratingCount: 112, time: '5-10', desc: 'Cam tươi ép nguyên chất, vị chua ngọt tự nhiên, giàu vitamin C.', image: 'images/foods/f74-nuoc-ep-cam.webp',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Size M', price: 0 },
+               { label: 'Size L', price: 5000 },
+            ]
+         },
+         {
+            name: 'Topping', choices: [
+               { label: 'Trân châu trắng', price: 5000 },
+               { label: 'Thạch dừa', price: 5000 },
+               { label: 'Đào miếng', price: 8000 },
+               { label: 'Ít đường', price: 0 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f75', name: 'Sinh Tố Bơ', category: 'nuoc-uong', restaurantId: 'r8', price: 34000, rating: 4.8, ratingCount: 134, time: '5-10', desc: 'Bơ sáp béo mịn xay cùng sữa đặc, đá mát lạnh, thơm béo đúng điệu.', image: 'images/foods/f75-sinh-to-bo.webp',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Size M', price: 0 },
+               { label: 'Size L', price: 5000 },
+            ]
+         },
+         {
+            name: 'Topping', choices: [
+               { label: 'Trân châu đen', price: 5000 },
+               { label: 'Thạch trái cây', price: 5000 },
+               { label: 'Pudding trứng', price: 8000 },
+               { label: 'Kem cheese', price: 10000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f76', name: 'Trà Sữa Socola', category: 'nuoc-uong', restaurantId: 'r8', price: 40000, rating: 4.5, ratingCount: 89, time: '5-10', desc: 'Socola đậm đà hoà cùng trà sữa béo ngậy, topping thạch dai giòn.', image: 'images/foods/f76-tra-sua-socola.webp',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Size M', price: 0 },
+               { label: 'Size L', price: 5000 },
+            ]
+         },
+         {
+            name: 'Topping', choices: [
+               { label: 'Trân châu trắng', price: 5000 },
+               { label: 'Thạch dừa', price: 5000 },
+               { label: 'Đào miếng', price: 8000 },
+               { label: 'Ít đường', price: 0 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f77', name: 'Nước Ép Dưa Hấu', category: 'nuoc-uong', restaurantId: 'r8', price: 28000, rating: 4.6, ratingCount: 97, time: '5-10', desc: 'Dưa hấu tươi ép mát lạnh, vị ngọt thanh tự nhiên, giải khát tức thì.', image: 'images/foods/f77-nuoc-ep-dua-hau.webp',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Size M', price: 0 },
+               { label: 'Size L', price: 5000 },
+            ]
+         },
+         {
+            name: 'Topping', choices: [
+               { label: 'Trân châu đen', price: 5000 },
+               { label: 'Thạch trái cây', price: 5000 },
+               { label: 'Pudding trứng', price: 8000 },
+               { label: 'Kem cheese', price: 10000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f78', name: 'Trà Vải', category: 'nuoc-uong', restaurantId: 'r8', price: 33000, rating: 4.7, ratingCount: 121, time: '5-10', desc: 'Trà thơm hoà cùng vải ngâm ngọt thanh, đá mát lạnh sảng khoái.', image: 'images/foods/f78-tra-vai.avif',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Size M', price: 0 },
+               { label: 'Size L', price: 5000 },
+            ]
+         },
+         {
+            name: 'Topping', choices: [
+               { label: 'Trân châu trắng', price: 5000 },
+               { label: 'Thạch dừa', price: 5000 },
+               { label: 'Đào miếng', price: 8000 },
+               { label: 'Ít đường', price: 0 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f79', name: 'Sinh Tố Xoài', category: 'nuoc-uong', restaurantId: 'r8', price: 34000, rating: 4.7, ratingCount: 108, time: '5-10', desc: 'Xoài chín xay mịn cùng sữa chua, vị chua ngọt hài hoà, mát lạnh.', image: 'images/foods/f79-sinh-to-xoai.webp',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Size M', price: 0 },
+               { label: 'Size L', price: 5000 },
+            ]
+         },
+         {
+            name: 'Topping', choices: [
+               { label: 'Trân châu đen', price: 5000 },
+               { label: 'Thạch trái cây', price: 5000 },
+               { label: 'Pudding trứng', price: 8000 },
+               { label: 'Kem cheese', price: 10000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f80', name: 'Trà Sữa Thái Xanh', category: 'nuoc-uong', restaurantId: 'r8', price: 38000, rating: 4.6, ratingCount: 143, time: '5-10', desc: 'Trà Thái xanh thơm béo đặc trưng, hoà cùng sữa và trân châu đen dai giòn.', image: 'images/foods/f80-tra-sua-thai-xanh.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Size M', price: 0 },
+               { label: 'Size L', price: 5000 },
+            ]
+         },
+         {
+            name: 'Topping', choices: [
+               { label: 'Trân châu trắng', price: 5000 },
+               { label: 'Thạch dừa', price: 5000 },
+               { label: 'Đào miếng', price: 8000 },
+               { label: 'Ít đường', price: 0 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f81', name: 'Bún Chả Hà Nội Truyền Thống', category: 'pho-bun', restaurantId: 'r9', price: 45000, rating: 4.9, ratingCount: 212, time: '15-20', desc: 'Chả viên và chả miếng nướng than hoa, ăn kèm bún tươi và nước chấm chua ngọt đúng vị Hà Nội.', image: 'images/foods/f81-bun-cha-ha-noi-truyen-thong.jpg', badge: 'Bán Chạy',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trứng trần', price: 5000 },
+               { label: 'Thêm thịt bò', price: 15000 },
+               { label: 'Bò viên', price: 10000 },
+               { label: 'Quẩy giòn', price: 5000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f82', name: 'Bún Chả Nem Cua Bể', category: 'pho-bun', restaurantId: 'r9', price: 55000, rating: 4.8, ratingCount: 178, time: '15-25', desc: 'Combo bún chả kèm nem cua bể giòn rụm, đầy đủ thịt cua và trứng, chấm cùng nước mắm pha chuẩn vị.', image: 'images/foods/f82-bun-cha-nem-cua-be.jpg', badge: 'Nổi Bật',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm chả', price: 10000 },
+               { label: 'Thêm giò', price: 10000 },
+               { label: 'Trứng cút', price: 5000 },
+               { label: 'Rau sống thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f83', name: 'Bún Chả Chả Cốm', category: 'pho-bun', restaurantId: 'r9', price: 48000, rating: 4.7, ratingCount: 96, time: '15-20', desc: 'Chả cốm thơm bùi kết hợp thịt nướng than hoa, lạ miệng mà vẫn giữ trọn hương vị bún chả truyền thống.', image: 'images/foods/f83-bun-cha-cha-com.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trứng trần', price: 5000 },
+               { label: 'Thêm thịt bò', price: 15000 },
+               { label: 'Bò viên', price: 10000 },
+               { label: 'Quẩy giòn', price: 5000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f84', name: 'Nem Cua Bể Hải Phòng', category: 'pho-bun', restaurantId: 'r9', price: 50000, rating: 4.8, ratingCount: 134, time: '15-20', desc: 'Nem cua bể cỡ lớn, vỏ giòn tan, nhân đầy thịt cua và tôm, ăn kèm bún và rau sống.', image: 'images/foods/f84-nem-cua-be-hai-phong.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm chả', price: 10000 },
+               { label: 'Thêm giò', price: 10000 },
+               { label: 'Trứng cút', price: 5000 },
+               { label: 'Rau sống thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f85', name: 'Bún Đậu Mắm Tôm', category: 'pho-bun', restaurantId: 'r9', price: 42000, rating: 4.6, ratingCount: 87, time: '15-20', desc: 'Bún tươi, đậu phụ chiên giòn, chả cốm, dồi sụn, ăn kèm mắm tôm pha chuẩn vị Bắc.', image: 'images/foods/f85-bun-dau-mam-tom.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trứng trần', price: 5000 },
+               { label: 'Thêm thịt bò', price: 15000 },
+               { label: 'Bò viên', price: 10000 },
+               { label: 'Quẩy giòn', price: 5000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f86', name: 'Bún Chả Combo Đặc Biệt', category: 'pho-bun', restaurantId: 'r9', price: 65000, rating: 4.9, ratingCount: 251, time: '20-25', desc: 'Đầy đủ chả viên, chả miếng, nem cua bể và bún trong một suất — lựa chọn no bụng nhất thực đơn.', image: 'images/foods/f86-bun-cha-combo-dac-biet.jpg', badge: 'Cao Cấp',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm chả', price: 10000 },
+               { label: 'Thêm giò', price: 10000 },
+               { label: 'Trứng cút', price: 5000 },
+               { label: 'Rau sống thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f87', name: 'Nem Rán Truyền Thống', category: 'pho-bun', restaurantId: 'r9', price: 40000, rating: 4.6, ratingCount: 73, time: '15-20', desc: 'Nem rán vàng giòn nhân thịt, miến, mộc nhĩ, cà rốt — món ăn kèm quen thuộc của bún chả Hà Nội.', image: 'images/foods/f87-nem-ran-truyen-thong.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trứng trần', price: 5000 },
+               { label: 'Thêm thịt bò', price: 15000 },
+               { label: 'Bò viên', price: 10000 },
+               { label: 'Quẩy giòn', price: 5000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f88', name: 'Bún Chả Chay', category: 'pho-bun', restaurantId: 'r9', price: 40000, rating: 4.5, ratingCount: 41, time: '15-20', desc: 'Phiên bản chay từ đậu phụ và nấm nướng, giữ trọn hương vị nước chấm bún chả đặc trưng.', image: 'images/foods/f88-bun-cha-chay.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm chả', price: 10000 },
+               { label: 'Thêm giò', price: 10000 },
+               { label: 'Trứng cút', price: 5000 },
+               { label: 'Rau sống thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f89', name: 'Chả Cốm Hà Nội', category: 'pho-bun', restaurantId: 'r9', price: 46000, rating: 4.7, ratingCount: 68, time: '15-20', desc: 'Chả cốm xanh thơm mùi cốm non, ăn kèm bún và dưa góp chua ngọt.', image: 'images/foods/f89-cha-com-ha-noi.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trứng trần', price: 5000 },
+               { label: 'Thêm thịt bò', price: 15000 },
+               { label: 'Bò viên', price: 10000 },
+               { label: 'Quẩy giòn', price: 5000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f90', name: 'Bún Nem Thịt Nướng', category: 'pho-bun', restaurantId: 'r9', price: 47000, rating: 4.6, ratingCount: 59, time: '15-20', desc: 'Kết hợp nem rán và thịt nướng than hoa trên nền bún tươi, chấm nước mắm chua ngọt.', image: 'images/foods/f90-bun-nem-thit-nuong.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm chả', price: 10000 },
+               { label: 'Thêm giò', price: 10000 },
+               { label: 'Trứng cút', price: 5000 },
+               { label: 'Rau sống thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f91', name: 'Hủ Tiếu Nam Vang Đặc Biệt', category: 'pho-bun', restaurantId: 'r10', price: 50000, rating: 4.8, ratingCount: 189, time: '15-25', desc: 'Nước dùng ninh xương ngọt thanh, đầy đủ tôm, thịt bằm, gan, trứng cút và tóp mỡ giòn.', image: 'images/foods/f91-hu-tieu-nam-vang-dac-biet.jpg', badge: 'Bán Chạy',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trứng trần', price: 5000 },
+               { label: 'Thêm thịt bò', price: 15000 },
+               { label: 'Bò viên', price: 10000 },
+               { label: 'Quẩy giòn', price: 5000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f92', name: 'Hủ Tiếu Khô Nam Vang', category: 'pho-bun', restaurantId: 'r10', price: 50000, rating: 4.7, ratingCount: 122, time: '15-25', desc: 'Sợi hủ tiếu trộn sốt đặc trưng, ăn kèm chén nước dùng riêng, đậm đà và lạ miệng.', image: 'images/foods/f92-hu-tieu-kho-nam-vang.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm chả', price: 10000 },
+               { label: 'Thêm giò', price: 10000 },
+               { label: 'Trứng cút', price: 5000 },
+               { label: 'Rau sống thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f93', name: 'Hủ Tiếu Nam Vang Sườn Non', category: 'pho-bun', restaurantId: 'r10', price: 58000, rating: 4.8, ratingCount: 145, time: '20-25', desc: 'Sườn non hầm mềm rục, kết hợp nước dùng ngọt xương và sợi hủ tiếu dai vừa.', image: 'images/foods/f93-hu-tieu-nam-vang-suon-non.jpg', badge: 'Nổi Bật',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trứng trần', price: 5000 },
+               { label: 'Thêm thịt bò', price: 15000 },
+               { label: 'Bò viên', price: 10000 },
+               { label: 'Quẩy giòn', price: 5000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f94', name: 'Bánh Canh Cua', category: 'pho-bun', restaurantId: 'r10', price: 55000, rating: 4.7, ratingCount: 98, time: '20-25', desc: 'Sợi bánh canh bột lọc dai mềm, nước dùng cua đồng béo ngậy, thêm chả cua và trứng cút.', image: 'images/foods/f94-banh-canh-cua.png',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm chả', price: 10000 },
+               { label: 'Thêm giò', price: 10000 },
+               { label: 'Trứng cút', price: 5000 },
+               { label: 'Rau sống thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f95', name: 'Bánh Canh Giò Heo', category: 'pho-bun', restaurantId: 'r10', price: 52000, rating: 4.6, ratingCount: 87, time: '20-25', desc: 'Giò heo hầm mềm, nước dùng đậm đà ăn cùng sợi bánh canh bột gạo dai mềm.', image: 'images/foods/f95-banh-canh-gio-heo.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trứng trần', price: 5000 },
+               { label: 'Thêm thịt bò', price: 15000 },
+               { label: 'Bò viên', price: 10000 },
+               { label: 'Quẩy giòn', price: 5000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f96', name: 'Hủ Tiếu Mì Sa Tế', category: 'pho-bun', restaurantId: 'r10', price: 53000, rating: 4.6, ratingCount: 76, time: '15-25', desc: 'Kết hợp sợi hủ tiếu và mì trong nước dùng sa tế cay nhẹ, thơm nồng đặc trưng Nam Vang.', image: 'images/foods/f96-hu-tieu-mi-sa-te.webp',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm chả', price: 10000 },
+               { label: 'Thêm giò', price: 10000 },
+               { label: 'Trứng cút', price: 5000 },
+               { label: 'Rau sống thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f97', name: 'Hủ Tiếu Nam Vang Tôm Mực', category: 'pho-bun', restaurantId: 'r10', price: 62000, rating: 4.9, ratingCount: 156, time: '20-25', desc: 'Phiên bản hải sản với tôm tươi và mực giòn sật, nước dùng ngọt thanh tự nhiên.', image: 'images/foods/f97-hu-tieu-nam-vang-tom-muc.jpg', badge: 'Cao Cấp',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trứng trần', price: 5000 },
+               { label: 'Thêm thịt bò', price: 15000 },
+               { label: 'Bò viên', price: 10000 },
+               { label: 'Quẩy giòn', price: 5000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f98', name: 'Bánh Canh Chả Cá', category: 'pho-bun', restaurantId: 'r10', price: 50000, rating: 4.6, ratingCount: 64, time: '20-25', desc: 'Chả cá dai ngọt, nước dùng thanh nhẹ, ăn cùng sợi bánh canh trắng mềm.', image: 'images/foods/f98-banh-canh-cha-ca.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm chả', price: 10000 },
+               { label: 'Thêm giò', price: 10000 },
+               { label: 'Trứng cút', price: 5000 },
+               { label: 'Rau sống thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f99', name: 'Hủ Tiếu Xương', category: 'pho-bun', restaurantId: 'r10', price: 48000, rating: 4.5, ratingCount: 53, time: '15-20', desc: 'Xương heo hầm ngọt nước, ăn kèm sợi hủ tiếu dai và rau giá đặc trưng miền Nam.', image: 'images/foods/f99-hu-tieu-xuong.jpg',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Trứng trần', price: 5000 },
+               { label: 'Thêm thịt bò', price: 15000 },
+               { label: 'Bò viên', price: 10000 },
+               { label: 'Quẩy giòn', price: 5000 },
+            ]
+         },
+      ],
+   },
+   {
+      id: 'f100', name: 'Bánh Canh Bột Xắt', category: 'pho-bun', restaurantId: 'r10', price: 49000, rating: 4.6, ratingCount: 61, time: '20-25', desc: 'Sợi bánh canh bột xắt dày dặn, nước dùng heo ngọt thanh, ăn kèm chả lụa và huyết.', image: 'images/foods/f100-banh-canh-bot-xat.webp',
+      options: [
+         {
+            name: 'Kích cỡ', choices: [
+               { label: 'Bát nhỏ', price: 0 },
+               { label: 'Bát vừa', price: 5000 },
+               { label: 'Bát lớn (đầy đủ)', price: 10000 },
+            ]
+         },
+         {
+            name: 'Topping thêm', choices: [
+               { label: 'Thêm chả', price: 10000 },
+               { label: 'Thêm giò', price: 10000 },
+               { label: 'Trứng cút', price: 5000 },
+               { label: 'Rau sống thêm', price: 3000 },
+            ]
+         },
+      ],
+   },
 ];
 
 const REVIEWS = [

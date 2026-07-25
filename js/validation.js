@@ -124,9 +124,15 @@ function initCheckoutForm() {
    form.addEventListener('submit', (e) => {
       e.preventDefault();
       let valid = true;
+      const messages = {
+         'ck-fullname': 'Vui lòng nhập họ tên.',
+         'ck-phone': 'Vui lòng nhập số điện thoại.',
+         'ck-address': 'Vui lòng nhập địa chỉ.',
+         'ck-city': 'Vui lòng nhập thành phố.',
+      };
       ['ck-fullname', 'ck-phone', 'ck-address', 'ck-city'].forEach(id => {
          const el = document.getElementById(id);
-         if (!el.value.trim()) { setFieldState(el.closest('.field'), false, 'Trường này là bắt buộc.'); valid = false; }
+         if (!el.value.trim()) { setFieldState(el.closest('.field'), false, messages[id]); valid = false; }
          else setFieldState(el.closest('.field'), true);
       });
       const phone = document.getElementById('ck-phone');

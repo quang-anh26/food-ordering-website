@@ -133,24 +133,7 @@
                         <p class="desc" id="detail-desc"></p>
                         <div class="price-tag" id="detail-price"></div>
 
-                        <div class="option-group">
-                            <h5>Kích cỡ</h5>
-                            <div class="option-pills">
-                                <label><input type="radio" name="size" value="S" checked><span>Nhỏ</span></label>
-                                <label><input type="radio" name="size" value="M"><span>Vừa</span></label>
-                                <label><input type="radio" name="size" value="L"><span>Lớn</span></label>
-                            </div>
-                        </div>
-
-                        <div class="option-group">
-                            <h5>Độ cay</h5>
-                            <div class="option-pills">
-                                <label><input type="radio" name="spice" value="none" checked><span>Không
-                                        cay</span></label>
-                                <label><input type="radio" name="spice" value="mild"><span>Vừa</span></label>
-                                <label><input type="radio" name="spice" value="hot"><span>Cay</span></label>
-                            </div>
-                        </div>
+                        <div id="detail-options"></div>
 
                         <div class="qty-row">
                             <span style="font-weight:600;font-size:14px">Số lượng</span>
@@ -245,7 +228,39 @@
                 document.getElementById('detail-time').textContent = food.time;
                 document.getElementById('detail-desc').textContent = food.desc;
                 document.getElementById('detail-long-desc').textContent = food.desc + ' Món ăn được chế biến tươi mỗi ngày bởi đầu bếp giàu kinh nghiệm, sử dụng nguyên liệu chọn lọc nhằm mang lại trải nghiệm ẩm thực trọn vẹn nhất cho bạn.';
-                document.getElementById('detail-price').innerHTML = formatPrice(food.price) + (food.oldPrice ? `<small>${formatPrice(food.oldPrice)}</small>` : '');
+                // Render các nhóm tùy chọn riêng theo từng món (nếu món có khai báo 'options')
+                const optionsWrap = document.getElementById('detail-options');
+                if (food.options && food.options.length) {
+                    optionsWrap.innerHTML = food.options.map((group, gi) => `
+                        <div class="option-group">
+                            <h5>${group.name}</h5>
+                            <div class="option-pills">
+                                ${group.choices.map((c, ci) => `
+                                    <label>
+                                        <input type="radio" name="opt-${gi}" value="${ci}" data-group="${gi}" ${ci === 0 ? 'checked' : ''}>
+                                        <span>${c.label}${c.price > 0 ? ` (+${formatPrice(c.price)})` : ''}</span>
+                                    </label>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                // Tính lại giá hiển thị (giá gốc + tổng phụ thu các tùy chọn đang chọn)
+                function getSelectedOptions() {
+                    if (!food.options) return [];
+                    return food.options.map((group, gi) => {
+                        const checked = optionsWrap.querySelector(`input[data-group="${gi}"]:checked`);
+                        const choice = group.choices[checked ? Number(checked.value) : 0];
+                        return { group: group.name, label: choice.label, price: choice.price };
+                    });
+                }
+                function refreshPrice() {
+                    const extra = getSelectedOptions().reduce((s, o) => s + o.price, 0);
+                    document.getElementById('detail-price').innerHTML = formatPrice(food.price + extra) + (food.oldPrice ? `<small>${formatPrice(food.oldPrice)}</small>` : '');
+                }
+                optionsWrap.addEventListener('change', refreshPrice);
+                refreshPrice();
                 document.getElementById('detail-fav-btn').dataset.fav = food.id;
 
                 const wishlist = getStore(LS.WISHLIST, []);
@@ -271,16 +286,16 @@
                     qty += 1;
                     document.getElementById('detail-qty').textContent = qty;
                 });
-                document.getElementById('detail-add-btn').addEventListener('click', () => addToCart(food.id, qty));
+                document.getElementById('detail-add-btn').addEventListener('click', () => addToCart(food.id, qty, getSelectedOptions()));
 
                 const relatedGrid = document.getElementById('related-grid');
                 const related = FOODS.filter(f => f.category === food.category && f.id !== food.id).slice(0, 4);
                 renderFoodGrid(relatedGrid, related.length ? related : FOODS.filter(f => f.id !== food.id).slice(0, 4));
 
                 document.getElementById('detail-reviews').innerHTML = REVIEWS.slice(0, 4).map(r => `
-        <div class="review-card">${starsHtml(r.rating)}<p>"${r.text}"</p>
-          <div class="review-user"><img src="${r.avatar}" alt="${r.name}"><div><b>${r.name}</b><span>${r.role}</span></div></div>
-        </div>`).join('');
+                    <div class="review-card">${starsHtml(r.rating)}<p>"${r.text}"</p>
+                    <div class="review-user"><img src="${r.avatar}" alt="${r.name}"><div><b>${r.name}</b><span>${r.role}</span></div></div>
+                    </div>`).join('');
 
                 initReveal();
             });

@@ -136,9 +136,7 @@
                     </div>
                 </div>
                 <div class="hero-visual">
-                    <div class="main-plate"><img
-                            src="images/banners/banner-batpho.avif"
-                            alt="Đĩa Phở cuốn hút"></div>
+                    <div class="main-plate"><img src="images/banners/banner-batpho.avif" alt="Đĩa Phở cuốn hút"></div>
                     <div class="hero-float-card card-1 glass">
                         <div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2">
@@ -209,7 +207,18 @@
             <div class="container">
                 <div class="promo-banner reveal">
                     <div>
-                        <div class="promo-code">🎁 MÃ: FOODIO10</div>
+                        <div class="promo-code" id="promo-code-box">
+                            <span>🎁 MÃ:</span>
+                            <span class="promo-code-value" id="promo-code-value">FOODIO10</span>
+                            <button type="button" class="promo-copy-btn" id="promo-copy-btn" aria-label="Sao chép mã">
+                                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" />
+                                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                                </svg>
+                            </button>
+                            <span class="promo-code-timer" id="promo-code-timer"></span>
+                        </div>
                         <h2>Giảm ngay 10% cho đơn hàng đầu tiên</h2>
                         <p>Áp dụng cho mọi nhà hàng trên Foodio. Nhập mã tại trang giỏ hàng để nhận ưu đãi ngay hôm nay.
                         </p>
