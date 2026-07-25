@@ -2,6 +2,20 @@
    LOGIN / REGISTER — supplementary tweaks
    (Shared auth layout lives in profile.css → .auth-wrap)
    ========================================================= */
+  /* =========================================================
+   LOGIN / REGISTER — supplementary tweaks
+     (Shared auth layout lives in profile.css → .auth-wrap)
+    ========================================================= */
+
+ /* Trang Đăng nhập / Đăng ký: ẩn thanh header + menu mobile của site,     
+   vì .auth-wrap đã tự có logo + layout riêng full màn hình. */
+ body.auth-page #site-header,
+  body.auth-page #mobile-nav,
+ body.auth-page #mobile-overlay,
+ body.auth-page #scroll-top {
+    display: none !important;
+ }                                                                        
+
 
 .auth-benefits {
    display: flex;
