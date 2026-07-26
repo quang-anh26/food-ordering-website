@@ -366,6 +366,10 @@ body.dark-mode .hero-stats .stat b {
    gap: 24px;
 }
 
+#team-grid {
+   grid-template-columns: repeat(5, 1fr);
+}
+
 .why-card {
    background: var(--c-white);
    border-radius: var(--r-md);
