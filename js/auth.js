@@ -23,12 +23,42 @@ function seedDemoUser() {
          password: '123456',
          phone: '0901 234 567',
          address: '123 Nguyen Hue, District 1, Ho Chi Minh City',
+         addresses: [
+            { id: 'ADDR00000001', name: 'Demo User', phone: '0901 234 567', address: '123 Nguyen Hue, District 1, Ho Chi Minh City' },
+         ],
          joined: '2024',
       });
       setStore(LS.USERS, users);
    }
 }
 seedDemoUser();
+
+/* ---------------------------------------------------------
+   ĐỊA CHỈ GIAO HÀNG ĐÃ LƯU (dùng ở trang thanh toán)
+   Mỗi user có mảng addresses: [{ id, name, phone, address }]
+   --------------------------------------------------------- */
+function getUserAddresses() {
+   const user = getCurrentUser();
+   return user && Array.isArray(user.addresses) ? user.addresses : [];
+}
+
+function saveUserAddress({ name, phone, address }) {
+   const user = getCurrentUser();
+   if (!user) return null;
+   const users = getStore(LS.USERS, []);
+   const idx = users.findIndex(u => u.email === user.email);
+   if (idx === -1) return null;
+   if (!Array.isArray(users[idx].addresses)) users[idx].addresses = [];
+
+   // Tránh lưu trùng lặp một địa chỉ đã có sẵn
+   const dup = users[idx].addresses.find(a => a.name === name && a.phone === phone && a.address === address);
+   if (dup) { setStore(LS.USERS, users); return dup; }
+
+   const newAddr = { id: 'ADDR' + Date.now().toString().slice(-8), name, phone, address };
+   users[idx].addresses.push(newAddr);
+   setStore(LS.USERS, users);
+   return newAddr;
+}
 
 /* ---------------------------------------------------------
    REGISTER
@@ -147,6 +177,8 @@ function ensureLoginModal() {
 }
 function showLoginModal() {
    ensureLoginModal();
+   // Nhớ lại trang hiện tại để quay về đúng chỗ sau khi đăng nhập/đăng ký
+   sessionStorage.setItem('foodio_after_login', window.location.pathname + window.location.search);
    document.getElementById('login-required-modal').classList.add('show');
    document.body.style.overflow = 'hidden';
 }

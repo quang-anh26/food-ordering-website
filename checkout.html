@@ -123,20 +123,28 @@
                     <div>
                         <div class="checkout-card">
                             <h3><span class="step-num">1</span> Thông tin giao hàng</h3>
-                            <div class="field-row">
-                                <div class="field"><label>Họ và tên</label><input type="text" id="ck-fullname"><span
-                                        class="error-msg">Vui lòng nhập họ tên.</span></div>
-                                <div class="field"><label>Số điện thoại</label><input type="tel" id="ck-phone"><span
-                                        class="error-msg">Số điện thoại không hợp lệ.</span></div>
+
+                            <!-- Danh sách địa chỉ đã lưu + lựa chọn "Thêm địa chỉ mới" -->
+                            <div id="ck-address-list" class="payment-options" style="margin-bottom:16px"></div>
+
+                            <!-- Form nhập địa chỉ mới: chỉ hiện khi chưa có địa chỉ nào được chọn -->
+                            <div id="ck-new-address-form">
+                                <div class="field-row">
+                                    <div class="field"><label>Họ và tên</label><input type="text" id="ck-fullname"><span
+                                            class="error-msg">Vui lòng nhập họ tên.</span></div>
+                                    <div class="field"><label>Số điện thoại</label><input type="tel" id="ck-phone"><span
+                                            class="error-msg">Số điện thoại không hợp lệ.</span></div>
+                                </div>
+                                <div class="field"><label>Địa chỉ</label><input type="text" id="ck-address"
+                                        placeholder="Số nhà, tên đường, phường/xã, tỉnh/thành..."><span
+                                        class="error-msg">Vui lòng nhập địa chỉ.</span></div>
                             </div>
-                            <div class="field"><label>Địa chỉ</label><input type="text" id="ck-address"
-                                    placeholder="Số nhà, tên đường..."><span class="error-msg">Vui lòng nhập địa
-                                    chỉ.</span></div>
-                            <div class="field"><label>Thành phố</label><input type="text" id="ck-city"
-                                    placeholder="Ví dụ: Hồ Chí Minh"><span class="error-msg">Vui lòng nhập thành
-                                    phố.</span></div>
-                            <div class="field"><label>Ghi chú (tùy chọn)</label><textarea id="ck-note" rows="3"
-                                    placeholder="Ví dụ: giao giờ hành chính..."></textarea></div>
+
+                            <!-- Ghi chú cho địa chỉ đã chọn / vừa nhập -->
+                            <div class="field" id="ck-note-field">
+                                <label>Ghi chú (tùy chọn)</label>
+                                <textarea id="ck-note" rows="3" placeholder="Ví dụ: giao giờ hành chính..."></textarea>
+                            </div>
                         </div>
 
                         <div class="checkout-card">
@@ -210,7 +218,7 @@
         </script>
 
     </main>
-    <footer id="site-footer">
+    <footer id="site-footer" style="display:none">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">

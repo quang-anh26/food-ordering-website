@@ -7,63 +7,120 @@
 
 const DELIVERY_FEE = 15000;
 const TAX_RATE = 0.08;
-const PROMO_CODES = { FOODIO10: 0.10, WELCOME15: 0.15 };
+// Mỗi mã có thể khai báo thêm maxOrder (đơn tối đa được áp dụng) và maxUses (số lần dùng tối đa / khách)
+const PROMO_CODES = {
+   FOODIO10: { rate: 0.10, maxOrder: 500000, maxUses: 2 },
+   WELCOME15: { rate: 0.15 },
+};
+
+/* ---------------------------------------------------------
+   PROMO USAGE TRACKING — lưu số lần đã dùng theo từng khách
+   (khách chưa đăng nhập dùng chung bộ đếm "guest")
+   --------------------------------------------------------- */
+function promoUsageKey() {
+   const user = typeof getCurrentUser === 'function' ? getCurrentUser() : null;
+   return 'foodio_promo_usage_' + (user ? user.email : 'guest');
+}
+function getPromoUsage(code) {
+   const usage = getStore(promoUsageKey(), {});
+   return usage[code] || 0;
+}
+function incPromoUsage(code) {
+   const usage = getStore(promoUsageKey(), {});
+   usage[code] = (usage[code] || 0) + 1;
+   setStore(promoUsageKey(), usage);
+}
+
+/* ---------------------------------------------------------
+   CART STORAGE KEY — giỏ hàng gắn theo từng tài khoản, không
+   dùng chung 1 key cho tất cả mọi người. Khách chưa đăng nhập
+   dùng key riêng (luôn trống vì addToCart yêu cầu đăng nhập).
+   --------------------------------------------------------- */
+function cartStorageKey() {
+   const user = typeof getCurrentUser === 'function' ? getCurrentUser() : null;
+   return user ? 'foodio_cart_' + user.email : 'foodio_cart_guest';
+}
+
+/* ---------------------------------------------------------
+   PENDING ADD-TO-CART — khi khách chưa đăng nhập bấm "Thêm vào
+   giỏ", lưu tạm món đó lại. Sau khi đăng nhập/đăng ký thành
+   công, món sẽ được tự động thêm vào giỏ (xem validation.js).
+   --------------------------------------------------------- */
+function savePendingCartAction(foodId, qty, selectedOptions) {
+   sessionStorage.setItem('foodio_pending_cart', JSON.stringify({ foodId, qty, selectedOptions }));
+}
+function consumePendingCartAction() {
+   const raw = sessionStorage.getItem('foodio_pending_cart');
+   if (!raw) return null;
+   sessionStorage.removeItem('foodio_pending_cart');
+   try { return JSON.parse(raw); } catch (e) { return null; }
+}
 
 /* ---------------------------------------------------------
    CART CRUD
    --------------------------------------------------------- */
 function addToCart(foodId, qty = 1, selectedOptions = []) {
-   if (!requireAuth()) return;
+   if (!isLoggedIn()) {
+      savePendingCartAction(foodId, qty, selectedOptions);
+      showLoginModal();
+      return;
+   }
    const food = findFood(foodId);
    if (!food) return;
    const optionsPrice = selectedOptions.reduce((s, o) => s + o.price, 0);
    const unitPrice = food.price + optionsPrice;
    const optionsLabel = selectedOptions.map(o => o.label).join(', ');
    const lineId = foodId + '::' + optionsLabel; // món + tùy chọn khác nhau -> dòng riêng trong giỏ
-   const cart = getStore(LS.CART, []);
+   const cart = getStore(cartStorageKey(), []);
    const existing = cart.find(i => i.lineId === lineId);
    if (existing) existing.qty += qty;
    else cart.push({ lineId, id: foodId, qty, unitPrice, optionsLabel });
-   setStore(LS.CART, cart);
+   setStore(cartStorageKey(), cart);
    updateCartBadge();
    showToast(`Đã thêm ${food.name} vào giỏ hàng!`, 'success');
 }
 
 function removeFromCart(lineId) {
-   let cart = getStore(LS.CART, []);
+   let cart = getStore(cartStorageKey(), []);
    cart = cart.filter(i => (i.lineId || i.id) !== lineId);
-   setStore(LS.CART, cart);
+   setStore(cartStorageKey(), cart);
    updateCartBadge();
    renderCartPage();
    showToast('Đã xóa món khỏi giỏ hàng.', 'default');
 }
 function updateCartQty(lineId, delta) {
-   const cart = getStore(LS.CART, []);
+   const cart = getStore(cartStorageKey(), []);
    const item = cart.find(i => (i.lineId || i.id) === lineId);
    if (!item) return;
    item.qty += delta;
    if (item.qty <= 0) { removeFromCart(lineId); return; }
-   setStore(LS.CART, cart);
+   setStore(cartStorageKey(), cart);
    updateCartBadge();
    renderCartPage();
 }
 
 function clearCart() {
-   setStore(LS.CART, []);
+   setStore(cartStorageKey(), []);
    localStorage.removeItem('foodio_promo');
    updateCartBadge();
    renderCartPage();
 }
 
 function cartTotals() {
-   const cart = getStore(LS.CART, []);
+   const cart = getStore(cartStorageKey(), []);
    const subtotal = cart.reduce((sum, i) => {
       const f = findFood(i.id);
       const price = i.unitPrice ?? (f ? f.price : 0);
       return sum + price * i.qty;
    }, 0);
    const promo = getStore('foodio_promo', null);
-   const discount = promo && PROMO_CODES[promo] ? subtotal * PROMO_CODES[promo] : 0;
+   let discount = 0;
+   if (promo && PROMO_CODES[promo]) {
+      const cfg = PROMO_CODES[promo];
+      const withinMax = !cfg.maxOrder || subtotal <= cfg.maxOrder;
+      const hasUsesLeft = !cfg.maxUses || getPromoUsage(promo) < cfg.maxUses;
+      if (withinMax && hasUsesLeft) discount = subtotal * cfg.rate;
+   }
    const delivery = cart.length ? DELIVERY_FEE : 0;
    const total = subtotal - discount + delivery;
    return { subtotal, discount, delivery, total, count: cart.reduce((s, i) => s + i.qty, 0) };
@@ -121,7 +178,7 @@ function cartItemRow(item) {
 function renderCartPage() {
    const listEl = document.getElementById('cart-list-body');
    if (!listEl) return;
-   const cart = getStore(LS.CART, []);
+   const cart = getStore(cartStorageKey(), []);
    const emptyEl = document.getElementById('cart-empty');
    const layoutEl = document.getElementById('cart-layout');
 
@@ -166,14 +223,24 @@ function renderSummary() {
 
 function applyPromo(code) {
    const clean = code.trim().toUpperCase();
-   if (PROMO_CODES[clean]) {
-      setStore('foodio_promo', clean);
-      showToast(`Áp dụng mã giảm giá thành công: -${PROMO_CODES[clean] * 100}%`, 'success');
-      renderCartPage();
-      renderCheckoutSummary();
-   } else {
+   const cfg = PROMO_CODES[clean];
+   if (!cfg) {
       showToast('Mã giảm giá không hợp lệ.', 'error');
+      return;
    }
+   const { subtotal } = cartTotals();
+   if (cfg.maxOrder && subtotal > cfg.maxOrder) {
+      showToast(`Mã ${clean} chỉ áp dụng cho đơn hàng tối đa ${formatPrice(cfg.maxOrder)}.`, 'error');
+      return;
+   }
+   if (cfg.maxUses && getPromoUsage(clean) >= cfg.maxUses) {
+      showToast(`Mã ${clean} đã hết lượt sử dụng (tối đa ${cfg.maxUses} lần).`, 'error');
+      return;
+   }
+   setStore('foodio_promo', clean);
+   showToast(`Áp dụng mã giảm giá thành công: -${cfg.rate * 100}%`, 'success');
+   renderCartPage();
+   renderCheckoutSummary();
 }
 
 /* ---------------------------------------------------------
@@ -182,7 +249,7 @@ function applyPromo(code) {
 function renderCheckoutSummary() {
    const el = document.getElementById('checkout-items');
    if (!el) return;
-   const cart = getStore(LS.CART, []);
+   const cart = getStore(cartStorageKey(), []);
    const isSuccess = new URLSearchParams(window.location.search).get('success');
    if (!cart.length) {
       if (!isSuccess) window.location.href = 'cart.html';   // chỉ redirect khi KHÔNG phải trang success
@@ -200,7 +267,7 @@ function renderCheckoutSummary() {
 }
 
 function placeOrder(formData) {
-   const cart = getStore(LS.CART, []);
+   const cart = getStore(cartStorageKey(), []);
    if (!cart.length) return;
    const t = cartTotals();
    const orders = getStore(LS.ORDERS, []);
@@ -217,7 +284,12 @@ function placeOrder(formData) {
    };
    orders.unshift(order);
    setStore(LS.ORDERS, orders);
-   setStore(LS.CART, []);
+
+   // Đã dùng mã giảm giá thành công -> trừ vào số lượt còn lại của khách
+   const promo = getStore('foodio_promo', null);
+   if (promo && t.discount > 0) incPromoUsage(promo);
+
+   setStore(cartStorageKey(), []);
    localStorage.removeItem('foodio_promo');
    updateCartBadge();
    return order;

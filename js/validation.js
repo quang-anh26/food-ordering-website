@@ -67,7 +67,16 @@ function initRegisterForm() {
       const result = registerUser({ name: name.value.trim(), email: email.value.trim(), password: password.value, phone: phone.value.trim() });
       if (!result.ok) { showToast(result.message, 'error'); return; }
       showToast('Tạo tài khoản thành công! Chào mừng bạn đến với Foodio 🎉', 'success');
-      setTimeout(() => { window.location.href = 'index.html'; }, 900);
+
+      // Nếu trước đó bấm "Thêm vào giỏ" lúc chưa đăng nhập -> thêm lại món đó vào giỏ ngay bây giờ
+      const pending = typeof consumePendingCartAction === 'function' ? consumePendingCartAction() : null;
+      if (pending && typeof addToCart === 'function') {
+         addToCart(pending.foodId, pending.qty, pending.selectedOptions || []);
+      }
+
+      const redirect = sessionStorage.getItem('foodio_after_login') || 'index.html';
+      sessionStorage.removeItem('foodio_after_login');
+      setTimeout(() => { window.location.href = redirect; }, 900);
    });
 }
 
@@ -96,6 +105,13 @@ function initLoginForm() {
       const result = loginUser(email.value.trim(), password.value, remember?.checked);
       if (!result.ok) { showToast(result.message, 'error'); return; }
       showToast('Chào mừng bạn quay lại! Đang chuyển hướng...', 'success');
+
+      // Nếu trước đó bấm "Thêm vào giỏ" lúc chưa đăng nhập -> thêm lại món đó vào giỏ ngay bây giờ
+      const pending = typeof consumePendingCartAction === 'function' ? consumePendingCartAction() : null;
+      if (pending && typeof addToCart === 'function') {
+         addToCart(pending.foodId, pending.qty, pending.selectedOptions || []);
+      }
+
       const redirect = sessionStorage.getItem('foodio_after_login') || 'index.html';
       sessionStorage.removeItem('foodio_after_login');
       setTimeout(() => { window.location.href = redirect; }, 700);
@@ -114,43 +130,79 @@ function initPassToggles() {
    });
 }
 /* ---------------------------------------------------------
-   CHECKOUT FORM — tự động điền thông tin từ tài khoản đã đăng ký
-   (Họ tên, SĐT, Địa chỉ được lấy từ user đang đăng nhập, nhưng
-   người dùng vẫn có thể sửa tay bình thường vì input không khoá)
+   CHECKOUT FORM — chọn địa chỉ đã lưu hoặc thêm địa chỉ mới
+   Chỉ cần Họ tên, SĐT, Địa chỉ (không còn Thành phố riêng) +
+   Ghi chú. Địa chỉ mới nhập sẽ được lưu lại cho lần đặt sau.
    --------------------------------------------------------- */
-function prefillCheckoutForm() {
-   const form = document.getElementById('checkout-form');
-   if (!form) return;
+let ckSelectedAddressId = null; // null = đang dùng form nhập địa chỉ mới
+
+function renderCheckoutAddressList() {
+   const wrap = document.getElementById('ck-address-list');
+   const newForm = document.getElementById('ck-new-address-form');
+   if (!wrap || !newForm) return;
 
    const user = typeof getCurrentUser === 'function' ? getCurrentUser() : null;
-   if (!user) return; // Khách chưa đăng nhập → để trống, không tự điền
+   if (!user) {
+      // Khách chưa đăng nhập -> không có gì để chọn, chỉ hiện form nhập tay
+      wrap.style.display = 'none';
+      newForm.style.display = 'block';
+      ckSelectedAddressId = null;
+      return;
+   }
 
+   const addresses = typeof getUserAddresses === 'function' ? getUserAddresses() : [];
+
+   wrap.style.display = 'flex';
+   wrap.innerHTML = addresses.map(a => `
+      <label class="payment-opt">
+         <input type="radio" name="ck-address-choice" value="${a.id}">
+         <span class="p-icon">📍</span>
+         <span><b>${a.name} · ${a.phone}</b><span>${a.address}</span></span>
+      </label>`).join('') + `
+      <label class="payment-opt">
+         <input type="radio" name="ck-address-choice" value="new">
+         <span class="p-icon">➕</span>
+         <span><b>Thêm địa chỉ mới</b><span>Nhập và lưu địa chỉ giao hàng khác</span></span>
+      </label>`;
+
+   wrap.querySelectorAll('input[name="ck-address-choice"]').forEach(input => {
+      input.addEventListener('change', () => applyCheckoutAddressChoice(input.value, addresses));
+   });
+
+   // Mặc định: có địa chỉ đã lưu -> chọn cái đầu tiên; chưa có -> chọn "Thêm địa chỉ mới"
+   const first = wrap.querySelector('input[name="ck-address-choice"]');
+   if (first) {
+      first.checked = true;
+      applyCheckoutAddressChoice(first.value, addresses);
+   }
+}
+
+function applyCheckoutAddressChoice(value, addresses) {
+   const newForm = document.getElementById('ck-new-address-form');
    const nameEl = document.getElementById('ck-fullname');
    const phoneEl = document.getElementById('ck-phone');
    const addressEl = document.getElementById('ck-address');
-   const cityEl = document.getElementById('ck-city');
 
-   if (nameEl && !nameEl.value.trim()) {
-      nameEl.value = user.name || '';
-   }
-   if (phoneEl && !phoneEl.value.trim()) {
-      phoneEl.value = user.phone || '';
-   }
-
-   if (user.address && user.address.trim()) {
-      const parts = user.address.split(',').map(s => s.trim()).filter(Boolean);
-      if (parts.length > 1) {
-         const city = parts.pop();
-         if (addressEl && !addressEl.value.trim()) addressEl.value = parts.join(', ');
-         if (cityEl && !cityEl.value.trim()) cityEl.value = city;
-      } else if (addressEl && !addressEl.value.trim()) {
-         addressEl.value = user.address;
-      }
+   if (value === 'new') {
+      ckSelectedAddressId = null;
+      newForm.style.display = 'block';
+      nameEl.value = '';
+      phoneEl.value = '';
+      addressEl.value = '';
+      [nameEl, phoneEl, addressEl].forEach(el => el.closest('.field').classList.remove('valid', 'invalid'));
+      nameEl.focus();
+      return;
    }
 
-   [nameEl, phoneEl, addressEl, cityEl].forEach(el => {
-      if (el && el.value.trim()) setFieldState(el.closest('.field'), true);
-   });
+   ckSelectedAddressId = value;
+   newForm.style.display = 'none';
+   const addr = addresses.find(a => a.id === value);
+   if (addr) {
+      nameEl.value = addr.name;
+      phoneEl.value = addr.phone;
+      addressEl.value = addr.address;
+      [nameEl, phoneEl, addressEl].forEach(el => setFieldState(el.closest('.field'), true));
+   }
 }
 /* ---------------------------------------------------------
    CHECKOUT FORM
@@ -158,7 +210,7 @@ function prefillCheckoutForm() {
 function initCheckoutForm() {
    const form = document.getElementById('checkout-form');
    if (!form) return;
-     prefillCheckoutForm();
+   renderCheckoutAddressList();
 
    form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -167,9 +219,8 @@ function initCheckoutForm() {
          'ck-fullname': 'Vui lòng nhập họ tên.',
          'ck-phone': 'Vui lòng nhập số điện thoại.',
          'ck-address': 'Vui lòng nhập địa chỉ.',
-         'ck-city': 'Vui lòng nhập thành phố.',
       };
-      ['ck-fullname', 'ck-phone', 'ck-address', 'ck-city'].forEach(id => {
+      ['ck-fullname', 'ck-phone', 'ck-address'].forEach(id => {
          const el = document.getElementById(id);
          if (!el.value.trim()) { setFieldState(el.closest('.field'), false, messages[id]); valid = false; }
          else setFieldState(el.closest('.field'), true);
@@ -179,9 +230,19 @@ function initCheckoutForm() {
 
       if (!valid) { showToast('Vui lòng điền đầy đủ các trường bắt buộc.', 'error'); return; }
 
+      const name = document.getElementById('ck-fullname').value.trim();
+      const phoneVal = document.getElementById('ck-phone').value.trim();
+      const addressVal = document.getElementById('ck-address').value.trim();
+
+      // Nếu đang nhập địa chỉ mới (chưa chọn từ danh sách đã lưu) -> lưu lại cho lần đặt sau
+      if (!ckSelectedAddressId && typeof saveUserAddress === 'function') {
+         saveUserAddress({ name, phone: phoneVal, address: addressVal });
+      }
+
       const payment = document.querySelector('input[name="payment"]:checked')?.value || 'cod';
+      const note = document.getElementById('ck-note')?.value.trim() || '';
       const order = placeOrder({
-         address: `${document.getElementById('ck-address').value}, ${document.getElementById('ck-city').value}`,
+         address: addressVal + (note ? ` (Ghi chú: ${note})` : ''),
          payment,
       });
 

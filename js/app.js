@@ -39,6 +39,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trứng trần', price: 5000 },
                { label: 'Thêm thịt bò', price: 15000 },
                { label: 'Bò viên', price: 10000 },
@@ -59,6 +60,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm chả', price: 10000 },
                { label: 'Thêm giò', price: 10000 },
                { label: 'Trứng cút', price: 5000 },
@@ -79,6 +81,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trứng trần', price: 5000 },
                { label: 'Thêm thịt bò', price: 15000 },
                { label: 'Bò viên', price: 10000 },
@@ -99,6 +102,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm chả', price: 10000 },
                { label: 'Thêm giò', price: 10000 },
                { label: 'Trứng cút', price: 5000 },
@@ -119,6 +123,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trứng trần', price: 5000 },
                { label: 'Thêm thịt bò', price: 15000 },
                { label: 'Bò viên', price: 10000 },
@@ -139,6 +144,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm chả', price: 10000 },
                { label: 'Thêm giò', price: 10000 },
                { label: 'Trứng cút', price: 5000 },
@@ -159,6 +165,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trứng trần', price: 5000 },
                { label: 'Thêm thịt bò', price: 15000 },
                { label: 'Bò viên', price: 10000 },
@@ -179,6 +186,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm chả', price: 10000 },
                { label: 'Thêm giò', price: 10000 },
                { label: 'Trứng cút', price: 5000 },
@@ -199,6 +207,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trứng trần', price: 5000 },
                { label: 'Thêm thịt bò', price: 15000 },
                { label: 'Bò viên', price: 10000 },
@@ -219,6 +228,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm chả', price: 10000 },
                { label: 'Thêm giò', price: 10000 },
                { label: 'Trứng cút', price: 5000 },
@@ -239,6 +249,7 @@ const FOODS = [
          },
          {
             name: 'Món thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trứng ốp la', price: 7000 },
                { label: 'Thêm sườn', price: 20000 },
                { label: 'Canh rau', price: 8000 },
@@ -259,6 +270,7 @@ const FOODS = [
          },
          {
             name: 'Món thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Chả trứng thêm', price: 10000 },
                { label: 'Thêm gà', price: 18000 },
                { label: 'Nước mắm thêm', price: 0 },
@@ -279,6 +291,7 @@ const FOODS = [
          },
          {
             name: 'Món thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trứng ốp la', price: 7000 },
                { label: 'Thêm sườn', price: 20000 },
                { label: 'Canh rau', price: 8000 },
@@ -299,6 +312,7 @@ const FOODS = [
          },
          {
             name: 'Món thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Chả trứng thêm', price: 10000 },
                { label: 'Thêm gà', price: 18000 },
                { label: 'Nước mắm thêm', price: 0 },
@@ -319,6 +333,7 @@ const FOODS = [
          },
          {
             name: 'Món thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trứng ốp la', price: 7000 },
                { label: 'Thêm sườn', price: 20000 },
                { label: 'Canh rau', price: 8000 },
@@ -339,6 +354,7 @@ const FOODS = [
          },
          {
             name: 'Món thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Chả trứng thêm', price: 10000 },
                { label: 'Thêm gà', price: 18000 },
                { label: 'Nước mắm thêm', price: 0 },
@@ -359,6 +375,7 @@ const FOODS = [
          },
          {
             name: 'Món thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trứng ốp la', price: 7000 },
                { label: 'Thêm sườn', price: 20000 },
                { label: 'Canh rau', price: 8000 },
@@ -379,6 +396,7 @@ const FOODS = [
          },
          {
             name: 'Món thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Chả trứng thêm', price: 10000 },
                { label: 'Thêm gà', price: 18000 },
                { label: 'Nước mắm thêm', price: 0 },
@@ -399,6 +417,7 @@ const FOODS = [
          },
          {
             name: 'Món thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trứng ốp la', price: 7000 },
                { label: 'Thêm sườn', price: 20000 },
                { label: 'Canh rau', price: 8000 },
@@ -419,6 +438,7 @@ const FOODS = [
          },
          {
             name: 'Món thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Chả trứng thêm', price: 10000 },
                { label: 'Thêm gà', price: 18000 },
                { label: 'Nước mắm thêm', price: 0 },
@@ -439,6 +459,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm pate', price: 5000 },
                { label: 'Thêm trứng', price: 6000 },
                { label: 'Thêm chả', price: 8000 },
@@ -458,6 +479,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm tôm', price: 12000 },
                { label: 'Thêm thịt', price: 10000 },
                { label: 'Nước mắm thêm', price: 0 },
@@ -478,6 +500,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm pate', price: 5000 },
                { label: 'Thêm trứng', price: 6000 },
                { label: 'Thêm chả', price: 8000 },
@@ -497,6 +520,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm tôm', price: 12000 },
                { label: 'Thêm thịt', price: 10000 },
                { label: 'Nước mắm thêm', price: 0 },
@@ -517,6 +541,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm pate', price: 5000 },
                { label: 'Thêm trứng', price: 6000 },
                { label: 'Thêm chả', price: 8000 },
@@ -536,6 +561,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm tôm', price: 12000 },
                { label: 'Thêm thịt', price: 10000 },
                { label: 'Nước mắm thêm', price: 0 },
@@ -556,6 +582,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm pate', price: 5000 },
                { label: 'Thêm trứng', price: 6000 },
                { label: 'Thêm chả', price: 8000 },
@@ -575,6 +602,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm tôm', price: 12000 },
                { label: 'Thêm thịt', price: 10000 },
                { label: 'Nước mắm thêm', price: 0 },
@@ -595,6 +623,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm pate', price: 5000 },
                { label: 'Thêm trứng', price: 6000 },
                { label: 'Thêm chả', price: 8000 },
@@ -614,6 +643,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm tôm', price: 12000 },
                { label: 'Thêm thịt', price: 10000 },
                { label: 'Nước mắm thêm', price: 0 },
@@ -634,6 +664,7 @@ const FOODS = [
          },
          {
             name: 'Nước chấm & thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Tương đậu phộng thêm', price: 3000 },
                { label: 'Nước mắm chua ngọt thêm', price: 3000 },
                { label: 'Thêm tôm', price: 10000 },
@@ -654,6 +685,7 @@ const FOODS = [
          },
          {
             name: 'Nước chấm & thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Tương đậu phộng thêm', price: 3000 },
                { label: 'Nước mắm chua ngọt thêm', price: 3000 },
                { label: 'Thêm tôm', price: 10000 },
@@ -674,6 +706,7 @@ const FOODS = [
          },
          {
             name: 'Nước chấm & thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Tương đậu phộng thêm', price: 3000 },
                { label: 'Nước mắm chua ngọt thêm', price: 3000 },
                { label: 'Thêm tôm', price: 10000 },
@@ -694,6 +727,7 @@ const FOODS = [
          },
          {
             name: 'Nước chấm & thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Tương đậu phộng thêm', price: 3000 },
                { label: 'Nước mắm chua ngọt thêm', price: 3000 },
                { label: 'Thêm tôm', price: 10000 },
@@ -714,6 +748,7 @@ const FOODS = [
          },
          {
             name: 'Nước chấm & thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Tương đậu phộng thêm', price: 3000 },
                { label: 'Nước mắm chua ngọt thêm', price: 3000 },
                { label: 'Thêm tôm', price: 10000 },
@@ -734,6 +769,7 @@ const FOODS = [
          },
          {
             name: 'Nước chấm & thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Tương đậu phộng thêm', price: 3000 },
                { label: 'Nước mắm chua ngọt thêm', price: 3000 },
                { label: 'Thêm tôm', price: 10000 },
@@ -754,6 +790,7 @@ const FOODS = [
          },
          {
             name: 'Nước chấm & thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Tương đậu phộng thêm', price: 3000 },
                { label: 'Nước mắm chua ngọt thêm', price: 3000 },
                { label: 'Thêm tôm', price: 10000 },
@@ -774,6 +811,7 @@ const FOODS = [
          },
          {
             name: 'Nước chấm & thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Tương đậu phộng thêm', price: 3000 },
                { label: 'Nước mắm chua ngọt thêm', price: 3000 },
                { label: 'Thêm tôm', price: 10000 },
@@ -794,6 +832,7 @@ const FOODS = [
          },
          {
             name: 'Nước chấm & thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Tương đậu phộng thêm', price: 3000 },
                { label: 'Nước mắm chua ngọt thêm', price: 3000 },
                { label: 'Thêm tôm', price: 10000 },
@@ -814,6 +853,7 @@ const FOODS = [
          },
          {
             name: 'Nước chấm & thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Tương đậu phộng thêm', price: 3000 },
                { label: 'Nước mắm chua ngọt thêm', price: 3000 },
                { label: 'Thêm tôm', price: 10000 },
@@ -834,6 +874,7 @@ const FOODS = [
          },
          {
             name: 'Hải sản thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm tôm', price: 30000 },
                { label: 'Thêm mực', price: 35000 },
                { label: 'Thêm rau nhúng lẩu', price: 15000 },
@@ -854,6 +895,7 @@ const FOODS = [
          },
          {
             name: 'Hải sản thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm tôm', price: 30000 },
                { label: 'Thêm mực', price: 35000 },
                { label: 'Thêm rau nhúng lẩu', price: 15000 },
@@ -874,6 +916,7 @@ const FOODS = [
          },
          {
             name: 'Hải sản thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm tôm', price: 30000 },
                { label: 'Thêm mực', price: 35000 },
                { label: 'Thêm rau nhúng lẩu', price: 15000 },
@@ -894,6 +937,7 @@ const FOODS = [
          },
          {
             name: 'Hải sản thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm tôm', price: 30000 },
                { label: 'Thêm mực', price: 35000 },
                { label: 'Thêm rau nhúng lẩu', price: 15000 },
@@ -914,6 +958,7 @@ const FOODS = [
          },
          {
             name: 'Hải sản thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm tôm', price: 30000 },
                { label: 'Thêm mực', price: 35000 },
                { label: 'Thêm rau nhúng lẩu', price: 15000 },
@@ -934,6 +979,7 @@ const FOODS = [
          },
          {
             name: 'Hải sản thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm tôm', price: 30000 },
                { label: 'Thêm mực', price: 35000 },
                { label: 'Thêm rau nhúng lẩu', price: 15000 },
@@ -954,6 +1000,7 @@ const FOODS = [
          },
          {
             name: 'Hải sản thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm tôm', price: 30000 },
                { label: 'Thêm mực', price: 35000 },
                { label: 'Thêm rau nhúng lẩu', price: 15000 },
@@ -974,6 +1021,7 @@ const FOODS = [
          },
          {
             name: 'Hải sản thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm tôm', price: 30000 },
                { label: 'Thêm mực', price: 35000 },
                { label: 'Thêm rau nhúng lẩu', price: 15000 },
@@ -994,6 +1042,7 @@ const FOODS = [
          },
          {
             name: 'Hải sản thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm tôm', price: 30000 },
                { label: 'Thêm mực', price: 35000 },
                { label: 'Thêm rau nhúng lẩu', price: 15000 },
@@ -1014,6 +1063,7 @@ const FOODS = [
          },
          {
             name: 'Hải sản thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm tôm', price: 30000 },
                { label: 'Thêm mực', price: 35000 },
                { label: 'Thêm rau nhúng lẩu', price: 15000 },
@@ -1034,6 +1084,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trân châu', price: 5000 },
                { label: 'Thạch trái cây', price: 5000 },
                { label: 'Nước cốt dừa thêm', price: 4000 },
@@ -1054,6 +1105,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trân châu', price: 5000 },
                { label: 'Thạch trái cây', price: 5000 },
                { label: 'Nước cốt dừa thêm', price: 4000 },
@@ -1074,6 +1126,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trân châu', price: 5000 },
                { label: 'Thạch trái cây', price: 5000 },
                { label: 'Nước cốt dừa thêm', price: 4000 },
@@ -1094,6 +1147,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trân châu', price: 5000 },
                { label: 'Thạch trái cây', price: 5000 },
                { label: 'Nước cốt dừa thêm', price: 4000 },
@@ -1114,6 +1168,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trân châu', price: 5000 },
                { label: 'Thạch trái cây', price: 5000 },
                { label: 'Nước cốt dừa thêm', price: 4000 },
@@ -1134,6 +1189,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trân châu', price: 5000 },
                { label: 'Thạch trái cây', price: 5000 },
                { label: 'Nước cốt dừa thêm', price: 4000 },
@@ -1154,6 +1210,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trân châu', price: 5000 },
                { label: 'Thạch trái cây', price: 5000 },
                { label: 'Nước cốt dừa thêm', price: 4000 },
@@ -1174,6 +1231,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trân châu', price: 5000 },
                { label: 'Thạch trái cây', price: 5000 },
                { label: 'Nước cốt dừa thêm', price: 4000 },
@@ -1194,6 +1252,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trân châu', price: 5000 },
                { label: 'Thạch trái cây', price: 5000 },
                { label: 'Nước cốt dừa thêm', price: 4000 },
@@ -1214,6 +1273,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trân châu', price: 5000 },
                { label: 'Thạch trái cây', price: 5000 },
                { label: 'Nước cốt dừa thêm', price: 4000 },
@@ -1233,6 +1293,7 @@ const FOODS = [
          },
          {
             name: 'Tuỳ chọn', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Ít đá', price: 0 },
                { label: 'Nhiều đá', price: 0 },
                { label: 'Thêm sữa đặc', price: 4000 },
@@ -1252,6 +1313,7 @@ const FOODS = [
          },
          {
             name: 'Tuỳ chọn', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Ít đá', price: 0 },
                { label: 'Nhiều đá', price: 0 },
                { label: 'Thêm sữa đặc', price: 4000 },
@@ -1271,6 +1333,7 @@ const FOODS = [
          },
          {
             name: 'Tuỳ chọn', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Ít đá', price: 0 },
                { label: 'Nhiều đá', price: 0 },
                { label: 'Thêm sữa đặc', price: 4000 },
@@ -1290,6 +1353,7 @@ const FOODS = [
          },
          {
             name: 'Tuỳ chọn', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Ít đá', price: 0 },
                { label: 'Nhiều đá', price: 0 },
                { label: 'Thêm sữa đặc', price: 4000 },
@@ -1309,6 +1373,7 @@ const FOODS = [
          },
          {
             name: 'Tuỳ chọn', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Ít đá', price: 0 },
                { label: 'Nhiều đá', price: 0 },
                { label: 'Thêm sữa đặc', price: 4000 },
@@ -1328,6 +1393,7 @@ const FOODS = [
          },
          {
             name: 'Tuỳ chọn', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Ít đá', price: 0 },
                { label: 'Nhiều đá', price: 0 },
                { label: 'Thêm sữa đặc', price: 4000 },
@@ -1347,6 +1413,7 @@ const FOODS = [
          },
          {
             name: 'Tuỳ chọn', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Ít đá', price: 0 },
                { label: 'Nhiều đá', price: 0 },
                { label: 'Thêm sữa đặc', price: 4000 },
@@ -1366,6 +1433,7 @@ const FOODS = [
          },
          {
             name: 'Tuỳ chọn', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Ít đá', price: 0 },
                { label: 'Nhiều đá', price: 0 },
                { label: 'Thêm sữa đặc', price: 4000 },
@@ -1385,6 +1453,7 @@ const FOODS = [
          },
          {
             name: 'Tuỳ chọn', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Ít đá', price: 0 },
                { label: 'Nhiều đá', price: 0 },
                { label: 'Thêm sữa đặc', price: 4000 },
@@ -1404,6 +1473,7 @@ const FOODS = [
          },
          {
             name: 'Tuỳ chọn', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Ít đá', price: 0 },
                { label: 'Nhiều đá', price: 0 },
                { label: 'Thêm sữa đặc', price: 4000 },
@@ -1423,6 +1493,7 @@ const FOODS = [
          },
          {
             name: 'Topping', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trân châu đen', price: 5000 },
                { label: 'Thạch trái cây', price: 5000 },
                { label: 'Pudding trứng', price: 8000 },
@@ -1442,6 +1513,7 @@ const FOODS = [
          },
          {
             name: 'Topping', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trân châu trắng', price: 5000 },
                { label: 'Thạch dừa', price: 5000 },
                { label: 'Đào miếng', price: 8000 },
@@ -1461,6 +1533,7 @@ const FOODS = [
          },
          {
             name: 'Topping', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trân châu đen', price: 5000 },
                { label: 'Thạch trái cây', price: 5000 },
                { label: 'Pudding trứng', price: 8000 },
@@ -1480,6 +1553,7 @@ const FOODS = [
          },
          {
             name: 'Topping', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trân châu trắng', price: 5000 },
                { label: 'Thạch dừa', price: 5000 },
                { label: 'Đào miếng', price: 8000 },
@@ -1499,6 +1573,7 @@ const FOODS = [
          },
          {
             name: 'Topping', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trân châu đen', price: 5000 },
                { label: 'Thạch trái cây', price: 5000 },
                { label: 'Pudding trứng', price: 8000 },
@@ -1518,6 +1593,7 @@ const FOODS = [
          },
          {
             name: 'Topping', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trân châu trắng', price: 5000 },
                { label: 'Thạch dừa', price: 5000 },
                { label: 'Đào miếng', price: 8000 },
@@ -1537,6 +1613,7 @@ const FOODS = [
          },
          {
             name: 'Topping', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trân châu đen', price: 5000 },
                { label: 'Thạch trái cây', price: 5000 },
                { label: 'Pudding trứng', price: 8000 },
@@ -1556,6 +1633,7 @@ const FOODS = [
          },
          {
             name: 'Topping', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trân châu trắng', price: 5000 },
                { label: 'Thạch dừa', price: 5000 },
                { label: 'Đào miếng', price: 8000 },
@@ -1575,6 +1653,7 @@ const FOODS = [
          },
          {
             name: 'Topping', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trân châu đen', price: 5000 },
                { label: 'Thạch trái cây', price: 5000 },
                { label: 'Pudding trứng', price: 8000 },
@@ -1594,6 +1673,7 @@ const FOODS = [
          },
          {
             name: 'Topping', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trân châu trắng', price: 5000 },
                { label: 'Thạch dừa', price: 5000 },
                { label: 'Đào miếng', price: 8000 },
@@ -1614,6 +1694,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trứng trần', price: 5000 },
                { label: 'Thêm thịt bò', price: 15000 },
                { label: 'Bò viên', price: 10000 },
@@ -1634,6 +1715,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm chả', price: 10000 },
                { label: 'Thêm giò', price: 10000 },
                { label: 'Trứng cút', price: 5000 },
@@ -1654,6 +1736,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trứng trần', price: 5000 },
                { label: 'Thêm thịt bò', price: 15000 },
                { label: 'Bò viên', price: 10000 },
@@ -1674,6 +1757,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm chả', price: 10000 },
                { label: 'Thêm giò', price: 10000 },
                { label: 'Trứng cút', price: 5000 },
@@ -1694,6 +1778,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trứng trần', price: 5000 },
                { label: 'Thêm thịt bò', price: 15000 },
                { label: 'Bò viên', price: 10000 },
@@ -1714,6 +1799,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm chả', price: 10000 },
                { label: 'Thêm giò', price: 10000 },
                { label: 'Trứng cút', price: 5000 },
@@ -1734,6 +1820,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trứng trần', price: 5000 },
                { label: 'Thêm thịt bò', price: 15000 },
                { label: 'Bò viên', price: 10000 },
@@ -1754,6 +1841,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm chả', price: 10000 },
                { label: 'Thêm giò', price: 10000 },
                { label: 'Trứng cút', price: 5000 },
@@ -1774,6 +1862,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trứng trần', price: 5000 },
                { label: 'Thêm thịt bò', price: 15000 },
                { label: 'Bò viên', price: 10000 },
@@ -1794,6 +1883,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm chả', price: 10000 },
                { label: 'Thêm giò', price: 10000 },
                { label: 'Trứng cút', price: 5000 },
@@ -1814,6 +1904,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trứng trần', price: 5000 },
                { label: 'Thêm thịt bò', price: 15000 },
                { label: 'Bò viên', price: 10000 },
@@ -1834,6 +1925,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm chả', price: 10000 },
                { label: 'Thêm giò', price: 10000 },
                { label: 'Trứng cút', price: 5000 },
@@ -1854,6 +1946,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trứng trần', price: 5000 },
                { label: 'Thêm thịt bò', price: 15000 },
                { label: 'Bò viên', price: 10000 },
@@ -1874,6 +1967,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm chả', price: 10000 },
                { label: 'Thêm giò', price: 10000 },
                { label: 'Trứng cút', price: 5000 },
@@ -1894,6 +1988,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trứng trần', price: 5000 },
                { label: 'Thêm thịt bò', price: 15000 },
                { label: 'Bò viên', price: 10000 },
@@ -1914,6 +2009,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm chả', price: 10000 },
                { label: 'Thêm giò', price: 10000 },
                { label: 'Trứng cút', price: 5000 },
@@ -1934,6 +2030,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trứng trần', price: 5000 },
                { label: 'Thêm thịt bò', price: 15000 },
                { label: 'Bò viên', price: 10000 },
@@ -1954,6 +2051,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm chả', price: 10000 },
                { label: 'Thêm giò', price: 10000 },
                { label: 'Trứng cút', price: 5000 },
@@ -1974,6 +2072,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Trứng trần', price: 5000 },
                { label: 'Thêm thịt bò', price: 15000 },
                { label: 'Bò viên', price: 10000 },
@@ -1994,6 +2093,7 @@ const FOODS = [
          },
          {
             name: 'Topping thêm', choices: [
+               { label: 'Không thêm', price: 0 },
                { label: 'Thêm chả', price: 10000 },
                { label: 'Thêm giò', price: 10000 },
                { label: 'Trứng cút', price: 5000 },
@@ -2119,7 +2219,7 @@ function initScrollFx() {
    7. CART BADGE (used by every page's header)
    --------------------------------------------------------- */
 function updateCartBadge() {
-   const cart = getStore(LS.CART, []);
+   const cart = getStore(typeof cartStorageKey === 'function' ? cartStorageKey() : LS.CART, []);
    const count = cart.reduce((sum, i) => sum + i.qty, 0);
    document.querySelectorAll('.cart-count').forEach(el => {
       el.textContent = count;

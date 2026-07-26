@@ -402,6 +402,19 @@
    border-color: var(--c-black);
 }
 
+/* Nền tối: ô đã chọn -> nền trắng chữ đen (để không bị chìm vào nền trang);
+   ô chưa chọn -> chữ trắng, viền đen */
+body.dark-mode .option-pills span {
+   color: var(--c-gray-900);
+   border-color: var(--c-black);
+}
+
+body.dark-mode .option-pills input:checked+span {
+   background: var(--c-gray-900);
+   color: var(--c-black);
+   border-color: var(--c-gray-900);
+}
+
 .qty-row {
    display: flex;
    align-items: center;
