@@ -30,15 +30,24 @@
    font-weight: 600;
    font-size: 13.5px;
    background: var(--c-white);
+   border: 1px solid var(--c-gray-200);
    color: var(--c-gray-900);
    box-shadow: var(--shadow-sm);
    transition: all .25s var(--ease);
 }
 
-.filter-tabs button.active,
-.filter-tabs button:hover {
-   background: var(--c-black);
+body.dark-mode .filter-tabs button {
+   background: rgba(255, 255, 255, .05);
+   border-color: rgba(255, 255, 255, .12);
+   color: var(--c-gray-900);
+}
+
+body .filter-tabs button.active,
+body .filter-tabs button:hover {
+   background: var(--c-orange);
+   border-color: transparent;
    color: #fff;
+   box-shadow: 0 6px 16px rgba(255, 90, 31, .3);
 }
 
 /* ---- Active restaurant filter banner (menu.html?restaurant=...) ---- */
@@ -99,6 +108,11 @@
    top: 110px;
    max-height: calc(100vh - 130px);
    overflow-y: auto;
+}
+
+body.dark-mode .menu-sidebar {
+   background: #241E1A;
+   color: #F5F1EC;
 }
 
 .menu-sidebar h4 {
