@@ -2,12 +2,22 @@
    RESPONSIVE
    ========================================================= */
 
+/* ---- Desktop lớn (màn hình rộng, 2K/4K...) ---- */
+
+
+@media (min-width: 1800px) {
+   .container {
+      max-width: 1680px;
+   }
+}
+
 /* ---- Laptop / small desktop ---- */
 @media (max-width: 1180px) {
 
    .foods-grid,
    .restaurants-grid,
-   .why-grid {
+   .why-grid,
+   #team-grid {
       grid-template-columns: repeat(3, 1fr);
    }
 
@@ -50,6 +60,10 @@
    }
 
    .why-grid {
+      grid-template-columns: repeat(2, 1fr);
+   }
+
+   #team-grid {
       grid-template-columns: repeat(2, 1fr);
    }
 
@@ -115,7 +129,8 @@
    .foods-grid,
    .restaurants-grid,
    .why-grid,
-   .wishlist-grid {
+   .wishlist-grid,
+   #team-grid {
       grid-template-columns: 1fr;
    }
 

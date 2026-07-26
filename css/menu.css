@@ -97,6 +97,8 @@
    box-shadow: var(--shadow-sm);
    position: sticky;
    top: 110px;
+   max-height: calc(100vh - 130px);
+   overflow-y: auto;
 }
 
 .menu-sidebar h4 {
@@ -396,10 +398,11 @@
    transition: all .25s;
 }
 
-.option-pills input:checked+span {
-   background: var(--c-black);
+.option-pills input:checked + span {
+   background: var(--c-orange);
    color: #fff;
-   border-color: var(--c-black);
+   border-color: var(--c-orange);
+   box-shadow: var(--shadow-orange);
 }
 
 .qty-row {
