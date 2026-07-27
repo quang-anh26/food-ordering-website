@@ -704,8 +704,10 @@ body.dark-mode .food-card__rating {
 
 /* ---- Breadcrumb / page banner ---- */
 .page-banner {
-   padding: 160px 0 60px;
-   background: linear-gradient(150deg, var(--c-black) 0%, #2B2019 100%);
+   padding: 172px 0 76px;
+   background:
+      linear-gradient(150deg, rgba(20, 16, 14, .75) 10%, rgba(43, 32, 25, .65) 100%),
+      url('../images/banners/banner-didong.jpg') center 35% / cover no-repeat;
    color: #fff;
    text-align: center;
    position: relative;
@@ -715,17 +717,35 @@ body.dark-mode .food-card__rating {
 .page-banner::before {
    content: '';
    position: absolute;
-   width: 500px;
-   height: 500px;
+   width: 480px;
+   height: 480px;
    border-radius: 50%;
-   background: radial-gradient(circle, rgba(255, 90, 31, .35), transparent 70%);
+   background: radial-gradient(circle, rgba(255, 90, 31, .45), transparent 70%);
    top: -220px;
-   right: -120px;
+   right: -140px;
+}
+
+.page-banner::after {
+   content: '';
+   position: absolute;
+   width: 380px;
+   height: 380px;
+   border-radius: 50%;
+   background: radial-gradient(circle, rgba(255, 90, 31, .3), transparent 70%);
+   bottom: -200px;
+   left: -100px;
+}
+
+.page-banner .container {
+   position: relative;
+   z-index: 1;
 }
 
 .page-banner h1 {
    color: #fff;
    font-size: clamp(30px, 5vw, 48px);
+   letter-spacing: -0.02em;
+   text-shadow: 0 4px 24px rgba(0, 0, 0, .4);
 }
 
 .breadcrumb {
