@@ -42,7 +42,7 @@ function getUserAddresses() {
    return user && Array.isArray(user.addresses) ? user.addresses : [];
 }
 
-function saveUserAddress({ name, phone, address }) {
+function saveUserAddress({ name, phone, address, lat, lng }) {
    const user = getCurrentUser();
    if (!user) return null;
    const users = getStore(LS.USERS, []);
@@ -52,9 +52,14 @@ function saveUserAddress({ name, phone, address }) {
 
    // Tránh lưu trùng lặp một địa chỉ đã có sẵn
    const dup = users[idx].addresses.find(a => a.name === name && a.phone === phone && a.address === address);
-   if (dup) { setStore(LS.USERS, users); return dup; }
+   if (dup) {
+      if (lat != null && lng != null) { dup.lat = lat; dup.lng = lng; }
+      setStore(LS.USERS, users);
+      return dup;
+   }
 
    const newAddr = { id: 'ADDR' + Date.now().toString().slice(-8), name, phone, address };
+   if (lat != null && lng != null) { newAddr.lat = lat; newAddr.lng = lng; }
    users[idx].addresses.push(newAddr);
    setStore(LS.USERS, users);
    return newAddr;

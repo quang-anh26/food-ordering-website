@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thanh toán — Foodio</title>
     <meta name="description" content="Hoàn tất thông tin giao hàng và thanh toán đơn hàng trên Foodio.">
-    <link rel="icon" href="images/favicon/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/header.css">
@@ -18,6 +17,7 @@
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/animation.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
 
 <body>
@@ -40,7 +40,7 @@
                         <path d="M14.5 9.3l6.5-4M16.3 10.2l6-3.2" stroke-width="1.6" />
                     </svg>
                 </span>
-                Food<span class="accent">KTAHP</span>
+                Food<span class="accent">io</span>
             </a>
 
             <nav class="main-nav" id="main-nav">
@@ -139,6 +139,13 @@
                                 <div class="field"><label>Địa chỉ</label><input type="text" id="ck-address"
                                         placeholder="Số nhà, tên đường, phường/xã, tỉnh/thành..."><span
                                         class="error-msg">Vui lòng nhập địa chỉ.</span></div>
+                                <div class="field" id="ck-map-field">
+                                    <label>Vị trí trên bản đồ <span style="color:#e63946">*</span></label>
+                                    <button type="button" id="ck-open-map-btn" class="map-picker-box">
+                                        📍 Chọn vị trí trên bản đồ
+                                    </button>
+                                    <span class="error-msg">Vui lòng chọn vị trí giao hàng trên bản đồ.</span>
+                                </div>
                             </div>
 
                             <!-- Ghi chú cho địa chỉ đã chọn / vừa nhập -->
@@ -149,7 +156,12 @@
                         </div>
 
                         <div class="checkout-card">
-                            <h3><span class="step-num">2</span> Phương thức thanh toán</h3>
+                            <h3><span class="step-num">2</span> Phương thức giao hàng</h3>
+                            <div class="payment-options" id="ck-delivery-options"></div>
+                        </div>
+
+                        <div class="checkout-card">
+                            <h3><span class="step-num">3</span> Phương thức thanh toán</h3>
                             <div class="payment-options">
                                 <label class="payment-opt">
                                     <input type="radio" name="payment" value="cod" checked>
@@ -299,6 +311,27 @@
         </div>
     </footer>
 
+    <!-- Modal chọn vị trí trên bản đồ -->
+    <div id="ck-map-modal" class="modal-overlay">
+        <div class="modal-box map-modal-box">
+            <button class="modal-close" id="ck-map-close" aria-label="Đóng" type="button">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+            </button>
+            <h3>Chọn vị trí giao hàng</h3>
+            <p>Bấm vào bản đồ hoặc kéo ghim để chọn đúng vị trí giao hàng.</p>
+            <button type="button" id="ck-use-my-location" class="btn btn-outline btn-block" style="margin-bottom:12px">
+                📍 Dùng vị trí hiện tại của tôi
+            </button>
+            <div id="ck-map" class="map-picker-canvas"></div>
+            <div id="ck-map-resolved-address" class="map-picker-address"></div>
+            <div class="modal-actions" style="margin-top:16px">
+                <button type="button" id="ck-confirm-location" class="btn btn-primary btn-block">Xác nhận vị trí này</button>
+            </div>
+        </div>
+    </div>
+
     <button id="scroll-top" aria-label="Cuộn lên đầu trang">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2">
             <path d="M12 19V5M5 12l7-7 7 7" />
@@ -314,6 +347,8 @@
     <script src="js/animation.js"></script>
     <script src="js/validation.js"></script>
     <script src="js/darkmode.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/map-picker.js"></script>
 
 </body>
 
