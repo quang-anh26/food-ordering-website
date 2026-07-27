@@ -189,6 +189,7 @@ function applyCheckoutAddressChoice(value, addresses) {
       nameEl.value = '';
       phoneEl.value = '';
       addressEl.value = '';
+      if (typeof resetCkMapField === 'function') resetCkMapField();
       [nameEl, phoneEl, addressEl].forEach(el => el.closest('.field').classList.remove('valid', 'invalid'));
       nameEl.focus();
       return;
@@ -196,6 +197,7 @@ function applyCheckoutAddressChoice(value, addresses) {
 
    ckSelectedAddressId = value;
    newForm.style.display = 'none';
+   if (typeof resetCkMapField === 'function') resetCkMapField();
    const addr = addresses.find(a => a.id === value);
    if (addr) {
       nameEl.value = addr.name;
@@ -228,6 +230,15 @@ function initCheckoutForm() {
       const phone = document.getElementById('ck-phone');
       if (phone.value && !isValidPhone(phone.value)) { setFieldState(phone.closest('.field'), false, 'Vui lòng nhập số điện thoại hợp lệ.'); valid = false; }
 
+      // Bắt buộc chọn vị trí trên bản đồ khi đang nhập địa chỉ mới
+      const mapField = document.getElementById('ck-map-field');
+      if (!ckSelectedAddressId && !window.ckSelectedLatLng) {
+         mapField?.classList.add('invalid');
+         valid = false;
+      } else {
+         mapField?.classList.remove('invalid');
+      }
+
       if (!valid) { showToast('Vui lòng điền đầy đủ các trường bắt buộc.', 'error'); return; }
 
       const name = document.getElementById('ck-fullname').value.trim();
@@ -236,8 +247,10 @@ function initCheckoutForm() {
 
       // Nếu đang nhập địa chỉ mới (chưa chọn từ danh sách đã lưu) -> lưu lại cho lần đặt sau
       if (!ckSelectedAddressId && typeof saveUserAddress === 'function') {
-         saveUserAddress({ name, phone: phoneVal, address: addressVal });
+         const coords = window.ckSelectedLatLng || null;
+         saveUserAddress({ name, phone: phoneVal, address: addressVal, lat: coords?.lat, lng: coords?.lng });
       }
+      window.ckSelectedLatLng = null;
 
       const payment = document.querySelector('input[name="payment"]:checked')?.value || 'cod';
       const note = document.getElementById('ck-note')?.value.trim() || '';

@@ -5,8 +5,58 @@
    All state lives in localStorage so it survives refreshes.
    ========================================================= */
 
-const DELIVERY_FEE = 15000;
 const TAX_RATE = 0.08;
+/* ---------------------------------------------------------
+   PHÍ GIAO HÀNG — ngẫu nhiên mỗi phiên thanh toán, nhưng giao
+   hỏa tốc LUÔN đắt hơn giao nhanh (chênh 10.000 - 20.000đ).
+   Lưu trong sessionStorage để không đổi giá liên tục khi
+   người dùng qua lại giữa các bước trong cùng 1 lần đặt hàng.
+   --------------------------------------------------------- */
+function getDeliveryFees() {
+   let fees = null;
+   try { fees = JSON.parse(sessionStorage.getItem('foodio_delivery_fees')); } catch (e) { fees = null; }
+   if (!fees || !fees.fast || !fees.express) {
+      const fast = (15 + Math.floor(Math.random() * 11)) * 1000;               // 15.000 - 25.000đ
+      const express = fast + (10 + Math.floor(Math.random() * 11)) * 1000;     // luôn đắt hơn giao nhanh 10.000 - 20.000đ
+      fees = { fast, express };
+      sessionStorage.setItem('foodio_delivery_fees', JSON.stringify(fees));
+   }
+   return fees;
+}
+function getDeliveryMethod() {
+   return sessionStorage.getItem('foodio_delivery_method') || 'fast';
+}
+function setDeliveryMethod(method) {
+   sessionStorage.setItem('foodio_delivery_method', method);
+}
+function getDeliveryFee() {
+   const fees = getDeliveryFees();
+   const method = getDeliveryMethod();
+   return fees[method] || fees.fast;
+}
+function renderDeliveryOptions() {
+   const wrap = document.getElementById('ck-delivery-options');
+   if (!wrap) return; // không phải trang thanh toán
+   const fees = getDeliveryFees();
+   const method = getDeliveryMethod();
+   wrap.innerHTML = `
+      <label class="payment-opt">
+         <input type="radio" name="delivery-method" value="fast" ${method === 'fast' ? 'checked' : ''}>
+         <span class="p-icon">🚚</span>
+         <span><b>Giao hàng nhanh</b><span>Dự kiến 30-45 phút · ${formatPrice(fees.fast)}</span></span>
+      </label>
+      <label class="payment-opt">
+         <input type="radio" name="delivery-method" value="express" ${method === 'express' ? 'checked' : ''}>
+         <span class="p-icon">⚡</span>
+         <span><b>Giao hàng hỏa tốc</b><span>Dự kiến 10-15 phút · ${formatPrice(fees.express)}</span></span>
+      </label>`;
+   wrap.querySelectorAll('input[name="delivery-method"]').forEach(input => {
+      input.addEventListener('change', () => {
+         setDeliveryMethod(input.value);
+         renderCheckoutSummary();
+      });
+   });
+}
 // Mỗi mã có thể khai báo thêm maxOrder (đơn tối đa được áp dụng) và maxUses (số lần dùng tối đa / khách)
 const PROMO_CODES = {
    FOODIO10: { rate: 0.10, maxOrder: 500000, maxUses: 2 },
@@ -121,7 +171,7 @@ function cartTotals() {
       const hasUsesLeft = !cfg.maxUses || getPromoUsage(promo) < cfg.maxUses;
       if (withinMax && hasUsesLeft) discount = subtotal * cfg.rate;
    }
-   const delivery = cart.length ? DELIVERY_FEE : 0;
+   const delivery = cart.length ? getDeliveryFee() : 0;
    const total = subtotal - discount + delivery;
    return { subtotal, discount, delivery, total, count: cart.reduce((s, i) => s + i.qty, 0) };
 }
@@ -249,6 +299,7 @@ function applyPromo(code) {
 function renderCheckoutSummary() {
    const el = document.getElementById('checkout-items');
    if (!el) return;
+   renderDeliveryOptions();
    const cart = getStore(cartStorageKey(), []);
    const isSuccess = new URLSearchParams(window.location.search).get('success');
    if (!cart.length) {
@@ -280,6 +331,8 @@ function placeOrder(formData) {
       status: 'processing',
       address: formData.address,
       payment: formData.payment,
+      deliveryMethod: getDeliveryMethod(),
+      deliveryFee: t.delivery,
       userEmail: user ? user.email : 'guest',
    };
    orders.unshift(order);
@@ -291,6 +344,8 @@ function placeOrder(formData) {
 
    setStore(cartStorageKey(), []);
    localStorage.removeItem('foodio_promo');
+   sessionStorage.removeItem('foodio_delivery_fees');
+   sessionStorage.removeItem('foodio_delivery_method');
    updateCartBadge();
    return order;
 }
