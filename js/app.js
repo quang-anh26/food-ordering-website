@@ -2111,6 +2111,12 @@ const REVIEWS = [
    { name: 'Quốc Huy', role: 'Khách hàng đã xác thực', rating: 5, text: 'Thanh toán mượt mà, mã giảm giá áp dụng ngay lập tức. Rất đáng để thử!', avatar: 'https://i.pravatar.cc/100?img=8' },
    { name: 'Thu Huyền', role: 'Khách hàng', rating: 5, text: 'Ứng dụng đẹp, dễ dùng, phần yêu thích giúp mình đặt lại món quen rất nhanh.', avatar: 'https://i.pravatar.cc/100?img=47' },
    { name: 'Anh Khoa', role: 'Khách hàng đã xác thực', rating: 4, text: 'Nhiều nhà hàng đa dạng gần khu vực mình ở, thời gian giao hàng khá chính xác.', avatar: 'https://i.pravatar.cc/100?img=15' },
+   { name: 'Bảo Ngọc', role: 'Khách hàng thân thiết', rating: 5, text: 'Mình đặt Foodio gần như mỗi ngày, giao diện dễ dùng và ưu đãi khá thường xuyên.', avatar: 'https://i.pravatar.cc/100?img=5' },
+   { name: 'Hoàng Long', role: 'Khách hàng đã xác thực', rating: 5, text: 'Đặt món cho cả văn phòng chưa bao giờ dễ đến vậy, đơn nào cũng đúng giờ.', avatar: 'https://i.pravatar.cc/100?img=51' },
+   { name: 'Ngọc Diệp', role: 'Người sành ăn', rating: 4, text: 'Nhiều món ngon mà mình chưa từng biết đến, khám phá được thêm nhiều nhà hàng mới.', avatar: 'https://i.pravatar.cc/100?img=44' },
+   { name: 'Việt Dũng', role: 'Khách hàng', rating: 5, text: 'Hỗ trợ khách hàng phản hồi nhanh, đơn bị giao nhầm được xử lý ngay trong ngày.', avatar: 'https://i.pravatar.cc/100?img=60' },
+   { name: 'Thanh Trúc', role: 'Blogger ẩm thực', rating: 5, text: 'Ảnh món ăn rất thật so với ngoài đời, chưa bao giờ thấy thất vọng khi nhận hàng.', avatar: 'https://i.pravatar.cc/100?img=26' },
+   { name: 'Gia Bảo', role: 'Khách hàng đã xác thực', rating: 4, text: 'Giá cả hợp lý, thường xuyên có mã giảm giá cho đơn hàng đầu tháng.', avatar: 'https://i.pravatar.cc/100?img=68' },
 ];
 
 const FAQS = [
@@ -2131,6 +2137,7 @@ const LS = {
    WISHLIST: 'foodio_wishlist',
    ORDERS: 'foodio_orders',
    THEME: 'foodio_theme',
+   PROMO_TIMERS: 'foodio_promo_timers',
 };
 
 /* ---------------------------------------------------------

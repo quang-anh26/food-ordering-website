@@ -764,3 +764,9 @@ body.dark-mode .food-card__rating {
 .breadcrumb .sep {
    opacity: .5;
 }
+
+/* tắt cái mắt hiển thị lỗi trên trình duyệt */
+input::-ms-reveal,
+input::-ms-clear {
+   display: none;   
+}

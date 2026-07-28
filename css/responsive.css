@@ -81,7 +81,8 @@
 
    .menu-sidebar,
    .cart-summary,
-   .profile-card {
+   .profile-card,
+   .detail-gallery {
       position: static;
    }
 

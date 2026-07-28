@@ -171,6 +171,18 @@
    grid-template-columns: 1fr 1fr;
 }
 
+.auth-wrap.register-wide {
+   grid-template-columns: 1fr 1.35fr;
+}
+
+.auth-wrap.register-wide .auth-form {
+   max-width: 480px;
+}
+
+.auth-wrap.register-wide .auth-form-side {
+   padding: 40px 70px;
+}
+
 .auth-visual {
    position: relative;
    background: linear-gradient(160deg, var(--c-black), #2C1D14);
@@ -264,11 +276,6 @@
    background: var(--c-gray-200);
 }
 
-.social-row {
-   display: flex;
-   gap: 12px;
-}
-
 .social-btn {
    flex: 1;
    display: flex;
@@ -353,4 +360,83 @@
 
 .pass-strength span.on-strong {
    background: #1B7A3D;
+}
+
+/* ---- Login page - nền ảnh full-bleed + form dạng thẻ kính nổi ---- */
+#login-auth-wrap {
+   background:
+      linear-gradient(90deg, rgba(20, 16, 14, .55) 0%, rgba(20, 16, 14, .25) 45%, rgba(20, 16, 14, .05) 70%),
+      url('../images/banners/banner-dangnhap.png') center / cover no-repeat;
+}
+
+#login-auth-wrap .auth-visual {
+   background: none;
+}
+
+#login-auth-wrap .auth-form-side {
+   justify-content: flex-end;
+   padding-right: 80px;
+}
+
+#login-auth-wrap .auth-form {
+   background: rgba(12, 10, 8, .82);
+   backdrop-filter: blur(20px) saturate(160%);
+   -webkit-backdrop-filter: blur(20px) saturate(160%);
+   border: 1px solid rgba(255, 255, 255, .18);
+   border-radius: var(--r-lg);
+   padding: 44px 38px;
+   box-shadow: 0 24px 60px rgba(0, 0, 0, .5);
+}
+
+#login-auth-wrap .auth-form h2,
+#login-auth-wrap .auth-form .field label,
+#login-auth-wrap .remember-row label {
+   color: #fff;
+}
+
+#login-auth-wrap .auth-form>p,
+#login-auth-wrap .auth-form .divider,
+#login-auth-wrap .auth-form .foot-link,
+#login-auth-wrap .remember-row {
+   color: rgba(255, 255, 255, .65);
+}
+
+#login-auth-wrap .field input {
+   background: rgba(255, 255, 255, .06);
+   border-color: rgba(255, 255, 255, .2);
+   color: #fff;
+}
+
+#login-auth-wrap .field input::placeholder {
+   color: rgba(255, 255, 255, .4);
+}
+
+#login-auth-wrap .field input:focus {
+   border-color: var(--c-orange);
+}
+
+#login-auth-wrap .pass-toggle button {
+   color: rgba(255, 255, 255, .6);
+}
+
+#login-auth-wrap .divider::before,
+#login-auth-wrap .divider::after {
+   background: rgba(255, 255, 255, .2);
+}
+
+#login-auth-wrap .social-btn {
+   border-color: rgba(255, 255, 255, .2);
+   color: #fff;
+   background: rgba(255, 255, 255, .05);
+}
+
+#login-auth-wrap .social-btn:hover {
+   border-color: var(--c-orange);
+}
+
+@media (max-width: 992px) {
+   #login-auth-wrap .auth-form-side {
+      justify-content: center;
+      padding-right: 40px;
+   }
 }

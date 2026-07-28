@@ -9,7 +9,7 @@ function initReviewSlider() {
    const dotsWrap = document.getElementById('review-dots');
    if (!track) return;
 
-   const perSlide = window.innerWidth <= 640 ? 1 : window.innerWidth <= 992 ? 2 : 3;
+   const perSlide = window.innerWidth <= 992 ? 2 : window.innerWidth <= 1180 ? 4 : 6;
    const slides = [];
    for (let i = 0; i < REVIEWS.length; i += perSlide) slides.push(REVIEWS.slice(i, i + perSlide));
 

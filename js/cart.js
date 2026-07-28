@@ -387,7 +387,15 @@ function initPromoCountdown() {
    if (!session) { box.style.display = 'none'; return; }
 
    const EXPIRY_MS = 2 * 60 * 60 * 1000; // 2 tiếng
-   const expiry = session.loginAt + EXPIRY_MS;
+
+   // Mốc bắt đầu đếm giờ RIÊNG cho từng tài khoản, chỉ set 1 LẦN DUY NHẤT.
+   // Đăng xuất/đăng nhập lại không reset, vì chỉ đọc lại giá trị đã lưu.
+   const promoTimers = getStore(LS.PROMO_TIMERS, {});
+   if (!promoTimers[session.email]) {
+      promoTimers[session.email] = Date.now();
+      setStore(LS.PROMO_TIMERS, promoTimers);
+   }
+   const expiry = promoTimers[session.email] + EXPIRY_MS;
    const timerEl = document.getElementById('promo-code-timer');
 
    let interval;                    // 👈 THÊM dòng này lên trước hàm tick

@@ -209,4 +209,68 @@ function guardPage() {
    }
 }
 
-document.addEventListener('DOMContentLoaded', renderAuthHeader);
+/* ---------------------------------------------------------
+   QUÊN MẬT KHẨU (modal ở login.html)
+   --------------------------------------------------------- */
+function initForgotPasswordModal() {
+   const openLink = document.getElementById('open-forgot-modal');
+   const modal = document.getElementById('forgot-password-modal');
+   if (!openLink || !modal) return;
+
+   const closeBtn = document.getElementById('close-forgot-modal');
+   const form = document.getElementById('forgot-password-form');
+
+   function closeModal() {
+      modal.classList.remove('show');
+      document.body.style.overflow = '';
+   }
+
+   openLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+   });
+   closeBtn.addEventListener('click', closeModal);
+   modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+   form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const emailEl = document.getElementById('fp-email');
+      const newEl = document.getElementById('fp-new');
+      const confirmEl = document.getElementById('fp-confirm');
+      let valid = true;
+
+      const users = getStore(LS.USERS, []);
+      const user = users.find(u => u.email.toLowerCase() === emailEl.value.trim().toLowerCase());
+      if (!user) {
+         setFieldState(emailEl.closest('.field'), false, 'Không tìm thấy tài khoản với email này.');
+         valid = false;
+      } else setFieldState(emailEl.closest('.field'), true);
+
+      if (newEl.value.length < 6) {
+         setFieldState(newEl.closest('.field'), false, 'Mật khẩu mới phải có ít nhất 6 ký tự.');
+         valid = false;
+      } else setFieldState(newEl.closest('.field'), true);
+
+      if (confirmEl.value !== newEl.value || !confirmEl.value) {
+         setFieldState(confirmEl.closest('.field'), false, 'Mật khẩu xác nhận không khớp.');
+         valid = false;
+      } else setFieldState(confirmEl.closest('.field'), true);
+
+      if (!valid) return;
+
+      user.password = newEl.value;
+      setStore(LS.USERS, users);
+      showToast('Đặt lại mật khẩu thành công! Hãy đăng nhập lại.', 'success');
+      form.reset();
+      closeModal();
+
+      const loginEmail = document.getElementById('login-email');
+      if (loginEmail) loginEmail.value = user.email;
+   });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+   renderAuthHeader();
+   initForgotPasswordModal();
+});

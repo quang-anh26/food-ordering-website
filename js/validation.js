@@ -186,8 +186,9 @@ function applyCheckoutAddressChoice(value, addresses) {
    if (value === 'new') {
       ckSelectedAddressId = null;
       newForm.style.display = 'block';
-      nameEl.value = '';
-      phoneEl.value = '';
+      const user = typeof getCurrentUser === 'function' ? getCurrentUser() : null;
+      nameEl.value = user?.name || '';
+      phoneEl.value = user?.phone || '';
       addressEl.value = '';
       if (typeof resetCkMapField === 'function') resetCkMapField();
       [nameEl, phoneEl, addressEl].forEach(el => el.closest('.field').classList.remove('valid', 'invalid'));
@@ -206,6 +207,63 @@ function applyCheckoutAddressChoice(value, addresses) {
       [nameEl, phoneEl, addressEl].forEach(el => setFieldState(el.closest('.field'), true));
    }
 }
+
+function initCheckoutSaveAddressButton() {
+   const btn = document.getElementById('ck-save-address-btn');
+   if (!btn) return;
+
+   btn.addEventListener('click', () => {
+      const nameEl = document.getElementById('ck-fullname');
+      const phoneEl = document.getElementById('ck-phone');
+      const addressEl = document.getElementById('ck-address');
+      const mapField = document.getElementById('ck-map-field');
+
+      let valid = true;
+      const messages = {
+         'ck-fullname': 'Vui lòng nhập họ tên.',
+         'ck-phone': 'Vui lòng nhập số điện thoại.',
+         'ck-address': 'Vui lòng nhập địa chỉ.',
+      };
+      [nameEl, phoneEl, addressEl].forEach(el => {
+         if (!el.value.trim()) { setFieldState(el.closest('.field'), false, messages[el.id]); valid = false; }
+         else setFieldState(el.closest('.field'), true);
+      });
+      if (phoneEl.value && !isValidPhone(phoneEl.value)) {
+         setFieldState(phoneEl.closest('.field'), false, 'Vui lòng nhập số điện thoại hợp lệ.');
+         valid = false;
+      }
+      if (!window.ckSelectedLatLng) {
+         mapField?.classList.add('invalid');
+         valid = false;
+      } else {
+         mapField?.classList.remove('invalid');
+      }
+
+      if (!valid) { showToast('Vui lòng điền đầy đủ thông tin địa chỉ.', 'error'); return; }
+      if (typeof saveUserAddress !== 'function') return;
+
+      const coords = window.ckSelectedLatLng;
+      const saved = saveUserAddress({
+         name: nameEl.value.trim(),
+         phone: phoneEl.value.trim(),
+         address: addressEl.value.trim(),
+         lat: coords?.lat,
+         lng: coords?.lng,
+      });
+      window.ckSelectedLatLng = null;
+
+      showToast('Đã lưu địa chỉ mới!', 'success');
+      renderCheckoutAddressList();
+
+      if (saved) {
+         const radio = document.querySelector(`input[name="ck-address-choice"][value="${saved.id}"]`);
+         if (radio) {
+            radio.checked = true;
+            radio.dispatchEvent(new Event('change'));
+         }
+      }
+   });
+}
 /* ---------------------------------------------------------
    CHECKOUT FORM
    --------------------------------------------------------- */
@@ -213,6 +271,7 @@ function initCheckoutForm() {
    const form = document.getElementById('checkout-form');
    if (!form) return;
    renderCheckoutAddressList();
+   initCheckoutSaveAddressButton();
 
    form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -307,6 +366,66 @@ function initContactForm() {
    });
 }
 
+/* ---------------------------------------------------------
+   CHANGE PASSWORD FORM (change-password.html)
+   --------------------------------------------------------- */
+function initChangePasswordForm() {
+   const form = document.getElementById('change-password-form');
+   if (!form) return;
+
+   const newPassInput = document.getElementById('cp-new');
+   newPassInput?.addEventListener('input', () => {
+      const val = newPassInput.value;
+      const bars = document.querySelectorAll('#cp-strength span');
+      let score = 0;
+      if (val.length >= 6) score++;
+      if (/[A-Z]/.test(val) && /[0-9]/.test(val)) score++;
+      if (val.length >= 10 && /[^A-Za-z0-9]/.test(val)) score++;
+      bars.forEach((b, i) => {
+         b.className = '';
+         if (i < score) b.className = score === 1 ? 'on-weak' : score === 2 ? 'on-mid' : 'on-strong';
+      });
+   });
+
+   form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const user = typeof getCurrentUser === 'function' ? getCurrentUser() : null;
+      if (!user) return;
+
+      const currentEl = document.getElementById('cp-current');
+      const newEl = document.getElementById('cp-new');
+      const confirmEl = document.getElementById('cp-confirm');
+      let valid = true;
+
+      if (currentEl.value !== user.password) {
+         setFieldState(currentEl.closest('.field'), false, 'Mật khẩu hiện tại không đúng.');
+         valid = false;
+      } else setFieldState(currentEl.closest('.field'), true);
+
+      if (newEl.value.length < 6) {
+         setFieldState(newEl.closest('.field'), false, 'Mật khẩu mới phải có ít nhất 6 ký tự.');
+         valid = false;
+      } else setFieldState(newEl.closest('.field'), true);
+
+      if (confirmEl.value !== newEl.value || !confirmEl.value) {
+         setFieldState(confirmEl.closest('.field'), false, 'Mật khẩu xác nhận không khớp.');
+         valid = false;
+      } else setFieldState(confirmEl.closest('.field'), true);
+
+      if (!valid) return;
+
+      const users = getStore(LS.USERS, []);
+      const u = users.find(x => x.email === user.email);
+      if (u) {
+         u.password = newEl.value;
+         setStore(LS.USERS, users);
+         showToast('Đổi mật khẩu thành công!', 'success');
+         form.reset();
+         document.querySelectorAll('#cp-strength span').forEach(b => b.className = '');
+      }
+   });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
    initRegisterForm();
    initLoginForm();
@@ -314,4 +433,5 @@ document.addEventListener('DOMContentLoaded', () => {
    initCheckoutForm();
    initNewsletterForm();
    initContactForm();
+   initChangePasswordForm();   
 });
