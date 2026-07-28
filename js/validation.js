@@ -66,7 +66,7 @@ function initRegisterForm() {
 
       const result = registerUser({ name: name.value.trim(), email: email.value.trim(), password: password.value, phone: phone.value.trim() });
       if (!result.ok) { showToast(result.message, 'error'); return; }
-      showToast('Tạo tài khoản thành công! Chào mừng bạn đến với Foodio 🎉', 'success');
+      showToast('Tạo tài khoản thành công! Chào mừng bạn đến với FoodKTAHP 🎉', 'success');
 
       // Nếu trước đó bấm "Thêm vào giỏ" lúc chưa đăng nhập -> thêm lại món đó vào giỏ ngay bây giờ
       const pending = typeof consumePendingCartAction === 'function' ? consumePendingCartAction() : null;

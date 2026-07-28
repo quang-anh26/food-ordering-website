@@ -2111,7 +2111,7 @@ const REVIEWS = [
    { name: 'Quốc Huy', role: 'Khách hàng đã xác thực', rating: 5, text: 'Thanh toán mượt mà, mã giảm giá áp dụng ngay lập tức. Rất đáng để thử!', avatar: 'https://i.pravatar.cc/100?img=8' },
    { name: 'Thu Huyền', role: 'Khách hàng', rating: 5, text: 'Ứng dụng đẹp, dễ dùng, phần yêu thích giúp mình đặt lại món quen rất nhanh.', avatar: 'https://i.pravatar.cc/100?img=47' },
    { name: 'Anh Khoa', role: 'Khách hàng đã xác thực', rating: 4, text: 'Nhiều nhà hàng đa dạng gần khu vực mình ở, thời gian giao hàng khá chính xác.', avatar: 'https://i.pravatar.cc/100?img=15' },
-   { name: 'Bảo Ngọc', role: 'Khách hàng thân thiết', rating: 5, text: 'Mình đặt Foodio gần như mỗi ngày, giao diện dễ dùng và ưu đãi khá thường xuyên.', avatar: 'https://i.pravatar.cc/100?img=5' },
+   { name: 'Bảo Ngọc', role: 'Khách hàng thân thiết', rating: 5, text: 'Mình đặt FoodKTAHP gần như mỗi ngày, giao diện dễ dùng và ưu đãi khá thường xuyên.', avatar: 'https://i.pravatar.cc/100?img=5' },
    { name: 'Hoàng Long', role: 'Khách hàng đã xác thực', rating: 5, text: 'Đặt món cho cả văn phòng chưa bao giờ dễ đến vậy, đơn nào cũng đúng giờ.', avatar: 'https://i.pravatar.cc/100?img=51' },
    { name: 'Ngọc Diệp', role: 'Người sành ăn', rating: 4, text: 'Nhiều món ngon mà mình chưa từng biết đến, khám phá được thêm nhiều nhà hàng mới.', avatar: 'https://i.pravatar.cc/100?img=44' },
    { name: 'Việt Dũng', role: 'Khách hàng', rating: 5, text: 'Hỗ trợ khách hàng phản hồi nhanh, đơn bị giao nhầm được xử lý ngay trong ngày.', avatar: 'https://i.pravatar.cc/100?img=60' },
@@ -2122,7 +2122,7 @@ const REVIEWS = [
 const FAQS = [
    { q: 'Tôi có cần đăng nhập để đặt món không?', a: 'Bạn có thể xem thực đơn và nhà hàng tự do, nhưng cần đăng nhập để thêm vào giỏ hàng, thanh toán hoặc lưu món yêu thích.' },
    { q: 'Thời gian giao hàng trung bình là bao lâu?', a: 'Tùy nhà hàng, thời gian giao hàng trung bình dao động từ 15 đến 35 phút kể từ khi xác nhận đơn hàng.' },
-   { q: 'Tôi có thể thanh toán bằng những hình thức nào?', a: 'Foodio hỗ trợ thanh toán khi nhận hàng (COD), thẻ tín dụng/ghi nợ và ví điện tử.' },
+   { q: 'Tôi có thể thanh toán bằng những hình thức nào?', a: 'FoodKTAHP hỗ trợ thanh toán khi nhận hàng (COD), thẻ tín dụng/ghi nợ và ví điện tử.' },
    { q: 'Làm sao để theo dõi đơn hàng của tôi?', a: 'Sau khi đặt hàng, bạn có thể xem trạng thái chi tiết trong mục "Đơn hàng của tôi" tại trang Hồ sơ cá nhân.' },
    { q: 'Tôi có thể hủy đơn hàng sau khi đặt không?', a: 'Bạn có thể hủy đơn trong vòng 5 phút sau khi đặt tại mục Đơn hàng của tôi, trước khi nhà hàng xác nhận chế biến.' },
 ];
