@@ -18,3 +18,5 @@ desktop.ini
 # Nếu sau này có dùng Node (Live Server, v.v.)
 node_modules/
 package-lock.json
+
+.vercel
