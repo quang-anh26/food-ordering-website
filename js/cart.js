@@ -59,8 +59,12 @@ function renderDeliveryOptions() {
 }
 // Mỗi mã có thể khai báo thêm maxOrder (đơn tối đa được áp dụng) và maxUses (số lần dùng tối đa / khách)
 const PROMO_CODES = {
-   FOODIO10: { rate: 0.10, maxOrder: 500000, maxUses: 2 },
-   WELCOME15: { rate: 0.15 },
+   FOODIO10: { rate: 0.10, maxOrder: 500000, maxUses: 2, label: 'Giảm 10%', desc: 'Giảm 10% cho đơn hàng tối đa 500.000₫, tối đa 2 lần/khách.' },
+   WELCOME15: { rate: 0.15, maxUses: 1, label: 'Giảm 15%', desc: 'Giảm 15% cho khách hàng mới áp dụng cho đơn đầu tiên.' },
+   HEMTOP20: { rate: 0.20, minOrder: 100000, maxDiscount: 50000, maxUses: 2, label: 'Giảm 20%', desc: 'Giảm 20% (tối đa 50k) cho đơn từ 100.000₫.' },
+   KTAHP50: { rate: 0.50, minOrder: 200000, maxDiscount: 100000, maxUses: 1, label: 'Giảm 50%', desc: 'Giảm 50% (tối đa 100k) cho đơn từ 200.000₫.' },
+   FREESHIP: { freeShip: true, minOrder: 80000, maxShipDiscount: 30000, rate: 0, label: 'Freeship', desc: 'Miễn phí giao hàng (tối đa 30k) cho đơn từ 80.000₫.' },
+   DEMO30: { rate: 0.30, minOrder: 60000, maxDiscount: 40000, maxUses: 3, label: 'Giảm 30%', desc: 'Mã dùng thử giảm 30% (tối đa 40k) cho đơn từ 60.000₫.' }
 };
 
 /* ---------------------------------------------------------
@@ -79,6 +83,72 @@ function incPromoUsage(code) {
    const usage = getStore(promoUsageKey(), {});
    usage[code] = (usage[code] || 0) + 1;
    setStore(promoUsageKey(), usage);
+}
+
+/* ---------------------------------------------------------
+   AUTO-ÁP DỤNG MÃ GIẢM GIÁ TỐT NHẤT — giống các app đặt đồ ăn
+   khác: khi giỏ hàng đủ điều kiện, hệ thống tự tính mã nào lợi
+   nhất cho đơn hiện tại rồi tự động áp dụng luôn cho khách,
+   không cần khách phải tự dò từng mã.
+   --------------------------------------------------------- */
+function isPromoEligible(code, subtotal) {
+   const cfg = PROMO_CODES[code];
+   if (!cfg) return false;
+   const minOrderOk = !cfg.minOrder || subtotal >= cfg.minOrder;
+   const maxOrderOk = !cfg.maxOrder || subtotal <= cfg.maxOrder;
+   const usesOk = !cfg.maxUses || getPromoUsage(code) < cfg.maxUses;
+   return minOrderOk && maxOrderOk && usesOk;
+}
+
+function computePromoDiscount(code, subtotal, delivery) {
+   const cfg = PROMO_CODES[code];
+   if (!cfg || !isPromoEligible(code, subtotal)) return null;
+   let rateDiscount = subtotal * (cfg.rate || 0);
+   if (cfg.maxDiscount && rateDiscount > cfg.maxDiscount) rateDiscount = cfg.maxDiscount;
+   let shipDiscount = 0;
+   if (cfg.freeShip) shipDiscount = Math.min(delivery, cfg.maxShipDiscount || 30000);
+   return rateDiscount + shipDiscount;
+}
+
+// Trả về { code, discount } của mã giảm được nhiều tiền nhất cho đơn hiện tại, hoặc null nếu không có mã nào đủ điều kiện
+function getBestEligiblePromo(subtotal, delivery) {
+   let best = null;
+   Object.keys(PROMO_CODES).forEach(code => {
+      const discount = computePromoDiscount(code, subtotal, delivery);
+      if (discount !== null && discount > 0 && (!best || discount > best.discount)) {
+         best = { code, discount };
+      }
+   });
+   return best;
+}
+
+// Chạy trước mỗi lần tính tổng tiền: tự chọn mã tốt nhất nếu khách
+// chưa áp dụng mã nào (hoặc mã đang áp dụng không còn hợp lệ), trừ
+// khi khách đã chủ động bấm hủy áp dụng trước đó (foodio_promo_no_auto).
+function ensureBestPromoApplied() {
+   const cart = getStore(cartStorageKey(), []);
+   if (!cart.length) {
+      localStorage.removeItem('foodio_promo_no_auto'); // giỏ trống -> reset để lần đặt hàng sau vẫn được tự gợi ý
+      return;
+   }
+   const subtotal = cart.reduce((sum, i) => {
+      const f = findFood(i.id);
+      const price = i.unitPrice ?? (f ? f.price : 0);
+      return sum + price * i.qty;
+   }, 0);
+   const delivery = getDeliveryFee();
+   const currentCode = getStore('foodio_promo', null);
+
+   if (currentCode && isPromoEligible(currentCode, subtotal)) return; // mã đang dùng vẫn hợp lệ -> giữ nguyên lựa chọn của khách
+   if (localStorage.getItem('foodio_promo_no_auto') === '1') return; // khách đã chủ động bỏ mã -> không tự gợi ý lại
+
+   const best = getBestEligiblePromo(subtotal, delivery);
+   if (best && best.code !== currentCode) {
+      setStore('foodio_promo', best.code);
+      showToast(`🎉 Đã tự động áp dụng mã tốt nhất cho bạn: ${best.code} (-${formatPrice(best.discount)})`, 'success');
+   } else if (!best && currentCode) {
+      localStorage.removeItem('foodio_promo'); // mã cũ hết hợp lệ và không còn mã nào thay thế được
+   }
 }
 
 /* ---------------------------------------------------------
@@ -152,11 +222,13 @@ function updateCartQty(lineId, delta) {
 function clearCart() {
    setStore(cartStorageKey(), []);
    localStorage.removeItem('foodio_promo');
+   localStorage.removeItem('foodio_promo_no_auto');
    updateCartBadge();
    renderCartPage();
 }
 
 function cartTotals() {
+   ensureBestPromoApplied();
    const cart = getStore(cartStorageKey(), []);
    const subtotal = cart.reduce((sum, i) => {
       const f = findFood(i.id);
@@ -165,14 +237,25 @@ function cartTotals() {
    }, 0);
    const promo = getStore('foodio_promo', null);
    let discount = 0;
+   const delivery = cart.length ? getDeliveryFee() : 0;
    if (promo && PROMO_CODES[promo]) {
       const cfg = PROMO_CODES[promo];
       const withinMax = !cfg.maxOrder || subtotal <= cfg.maxOrder;
       const hasUsesLeft = !cfg.maxUses || getPromoUsage(promo) < cfg.maxUses;
-      if (withinMax && hasUsesLeft) discount = subtotal * cfg.rate;
+      const minOrderOk = !cfg.minOrder || subtotal >= cfg.minOrder;
+      if (withinMax && hasUsesLeft && minOrderOk) {
+         let rateDiscount = subtotal * (cfg.rate || 0);
+         if (cfg.maxDiscount && rateDiscount > cfg.maxDiscount) {
+            rateDiscount = cfg.maxDiscount;
+         }
+         let shipDiscount = 0;
+         if (cfg.freeShip) {
+            shipDiscount = Math.min(delivery, cfg.maxShipDiscount || 30000);
+         }
+         discount = rateDiscount + shipDiscount;
+      }
    }
-   const delivery = cart.length ? getDeliveryFee() : 0;
-   const total = subtotal - discount + delivery;
+   const total = Math.max(0, subtotal - discount + delivery);
    return { subtotal, discount, delivery, total, count: cart.reduce((s, i) => s + i.qty, 0) };
 }
 
@@ -269,6 +352,113 @@ function renderSummary() {
    });
    const discountRow = document.getElementById('discount-row');
    if (discountRow) discountRow.style.display = t.discount > 0 ? 'flex' : 'none';
+   renderVoucherSelector();
+}
+
+/* ---------------------------------------------------------
+   VOUCHER SELECTOR — vẽ danh sách 6 mã giảm giá dạng thẻ,
+   cho phép người dùng bấm để áp dụng/hủy áp dụng trực tiếp,
+   dùng chung cho cả trang Giỏ hàng và trang Thanh toán.
+   --------------------------------------------------------- */
+function renderVoucherSelector() {
+   const container = document.getElementById('voucher-selector-container');
+   if (!container) return; // trang hiện tại không có khung chọn voucher
+
+   const { subtotal } = cartTotals();
+   const appliedCode = getStore('foodio_promo', null);
+   const bestPromo = getBestEligiblePromo(subtotal, getDeliveryFee());
+
+   const tagIconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 11 3.83A2 2 0 0 0 9.59 3.24L4 3a1 1 0 0 0-1 1l.24 5.59a2 2 0 0 0 .59 1.41l9.58 9.59a2 2 0 0 0 2.83 0l4.35-4.35a2 2 0 0 0 0-2.83Z"/><circle cx="7.5" cy="7.5" r="1.2" fill="currentColor" stroke="none"/></svg>`;
+
+   // Sắp xếp: mã đang áp dụng (mã tốt nhất) lên đầu -> mã đủ điều kiện khác -> mã chưa đủ điều kiện xuống cuối
+   const sortedEntries = Object.entries(PROMO_CODES).sort(([codeA], [codeB]) => {
+      const rank = (code) => {
+         if (code === appliedCode) return 0;
+         if (bestPromo && code === bestPromo.code) return 1;
+         return isPromoEligible(code, subtotal) ? 2 : 3;
+      };
+      return rank(codeA) - rank(codeB);
+   });
+
+   const cardsHtml = sortedEntries.map(([code, cfg]) => {
+      const isApplied = appliedCode === code;
+      const minOrderOk = !cfg.minOrder || subtotal >= cfg.minOrder;
+      const maxOrderOk = !cfg.maxOrder || subtotal <= cfg.maxOrder;
+      const usesOk = !cfg.maxUses || getPromoUsage(code) < cfg.maxUses;
+      const eligible = minOrderOk && maxOrderOk && usesOk;
+      const disabled = !eligible && !isApplied;
+      const isBest = bestPromo && bestPromo.code === code;
+
+      let btnLabel = 'Chọn';
+      if (isApplied) btnLabel = 'Đang dùng';
+      else if (disabled) btnLabel = 'Không đủ ĐK';
+
+      return `
+      <div class="voucher-card ${isApplied ? 'applied' : ''} ${disabled ? 'disabled' : ''}" data-code="${code}">
+         <div class="voucher-info">
+            <div class="voucher-code">${code}${isBest ? ' <span class="voucher-best-tag">Tốt nhất</span>' : ''}</div>
+            <div class="voucher-desc">${cfg.desc}</div>
+         </div>
+         <button type="button" class="btn-apply-voucher ${isApplied ? 'applied' : ''} ${disabled ? 'locked' : ''}" data-voucher-btn="${code}" ${disabled ? 'disabled' : ''}>${btnLabel}</button>
+      </div>`;
+   }).join('');
+
+   container.innerHTML = `
+      <div class="voucher-selector-section">
+         <div class="voucher-selector-header">
+            ${tagIconSvg}
+            <span>Voucher dành riêng cho bạn:</span>
+         </div>
+         <div class="vouchers-list">
+            ${cardsHtml}
+         </div>
+      </div>`;
+
+   container.querySelectorAll('[data-voucher-btn]').forEach(btn => {
+      btn.addEventListener('click', () => {
+         if (btn.disabled) return;
+         const code = btn.dataset.voucherBtn;
+         if (getStore('foodio_promo', null) === code) {
+            removePromo();
+         } else {
+            applyPromo(code);
+         }
+      });
+   });
+}
+
+function removePromo() {
+   localStorage.removeItem('foodio_promo');
+   localStorage.setItem('foodio_promo_no_auto', '1'); // khách tự bỏ mã -> không tự động gợi ý lại nữa cho đến khi làm mới giỏ hàng
+   showToast('Đã hủy áp dụng mã giảm giá.', 'default');
+   renderCartPage();
+   renderCheckoutSummary();
+}
+
+function applyPromo(code) {
+   const clean = code.trim().toUpperCase();
+   const cfg = PROMO_CODES[clean];
+   if (!cfg) {
+      showToast('Mã giảm giá không hợp lệ.', 'error');
+      return;
+   }
+   const { subtotal } = cartTotals();
+   if (cfg.maxOrder && subtotal > cfg.maxOrder) {
+      showToast(`Mã ${clean} chỉ áp dụng cho đơn hàng tối đa ${formatPrice(cfg.maxOrder)}.`, 'error');
+      return;
+   }
+   if (cfg.minOrder && subtotal < cfg.minOrder) {
+      showToast(`Mã ${clean} chỉ áp dụng cho đơn hàng từ ${formatPrice(cfg.minOrder)}.`, 'error');
+      return;
+   }
+   if (cfg.maxUses && getPromoUsage(clean) >= cfg.maxUses) {
+      showToast(`Mã ${clean} đã hết lượt sử dụng (tối đa ${cfg.maxUses} lần).`, 'error');
+      return;
+   }
+   setStore('foodio_promo', clean);
+   showToast(`Áp dụng mã giảm giá thành công: -${cfg.rate * 100}%`, 'success');
+   renderCartPage();
+   renderCheckoutSummary();
 }
 
 function applyPromo(code) {
@@ -344,6 +534,7 @@ function placeOrder(formData) {
 
    setStore(cartStorageKey(), []);
    localStorage.removeItem('foodio_promo');
+   localStorage.removeItem('foodio_promo_no_auto');
    sessionStorage.removeItem('foodio_delivery_fees');
    sessionStorage.removeItem('foodio_delivery_method');
    updateCartBadge();

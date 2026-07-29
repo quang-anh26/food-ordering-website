@@ -192,6 +192,22 @@
    .section-head h2 {
       font-size: 26px;
    }
+
+   /* Khung tóm tắt đơn hàng rộng hơn 1 chút trên mobile, để voucher
+      bớt xuống dòng, thẻ ngắn lại và danh sách nhìn gọn hơn. */
+   .cart-summary,
+   .checkout-card {
+      padding: 18px;
+   }
+
+   .vouchers-list {
+      max-height: 210px;
+      padding: 10px;
+   }
+
+   .voucher-card {
+      padding: 9px 10px;
+   }
 }
 
 @media (max-width: 420px) {

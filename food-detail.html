@@ -186,16 +186,60 @@
                         <button data-tab="tab-reviews">Đánh giá</button>
                     </div>
                     <div class="tab-panel active" id="tab-desc">
-                        <p id="detail-long-desc" style="color:var(--c-gray-600);max-width:760px;line-height:1.8"></p>
+                        <p id="detail-long-desc" style="color:var(--c-gray-600);max-width:760px;line-height:1.8;margin-bottom:24px"></p>
+                        
+                        <h4 style="font-size:16px;margin-bottom:12px">Thông tin dinh dưỡng (Ước tính mỗi phần)</h4>
+                        <div class="nutrition-grid" id="detail-nutrition">
+                            <!-- Sẽ được điền bằng JS -->
+                        </div>
+
+                        <div class="commitment-card">
+                            <h4>🛡️ Cam kết chất lượng từ FoodKTAHP</h4>
+                            <p>100% nguyên liệu tươi sạch được kiểm duyệt kỹ càng mỗi ngày. Không sử dụng phẩm màu độc hại và chất bảo quản. Quy trình chế biến khép kín chuẩn vệ sinh. Đồ ăn được bọc màng nhôm giữ nhiệt, đóng gói trong hộp giấy tự phân hủy thân thiện môi trường, giao tới tay bạn nóng hổi nguyên vị.</p>
+                        </div>
                     </div>
                     <div class="tab-panel" id="tab-ingredients">
-                        <p style="color:var(--c-gray-600);max-width:760px">Nguyên liệu chính được lựa chọn kỹ càng, chế
-                            biến theo công thức riêng của đầu bếp, đảm bảo hương vị đặc trưng và độ tươi ngon trong từng
-                            phần ăn.</p>
+                        <p style="color:var(--c-gray-600);max-width:760px;margin-bottom:18px">Nguyên liệu chính của món ăn được tuyển lựa nghiêm ngặt từ các trang trại VietGAP, đảm bảo sự tươi ngon tự nhiên nhất:</p>
+                        <div class="ingredients-list" id="detail-ingredients-list">
+                            <!-- Sẽ được điền bằng JS -->
+                        </div>
                     </div>
                     <div class="tab-panel" id="tab-reviews">
-                        <div id="detail-reviews"
-                            style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:760px"></div>
+                        <div class="reviews-layout">
+                            <!-- Cột trái: Thống kê & Form viết đánh giá -->
+                            <div class="reviews-summary-col">
+                                <div class="rating-summary-card">
+                                    <div class="rating-big-num" id="rating-avg">0.0</div>
+                                    <div class="rating-stars-row" id="rating-stars-summary"></div>
+                                    <div class="rating-total-count" id="rating-total-text">0 đánh giá</div>
+                                    
+                                    <div class="rating-bars" id="rating-bars-container">
+                                        <!-- Bars 5 sao -> 1 sao -->
+                                    </div>
+                                </div>
+
+                                <div class="review-form-container">
+                                    <h4>✍️ Viết đánh giá của bạn</h4>
+                                    <div class="review-star-selector" id="review-stars-selector">
+                                        <span class="review-star-btn active" data-star="1">★</span>
+                                        <span class="review-star-btn active" data-star="2">★</span>
+                                        <span class="review-star-btn active" data-star="3">★</span>
+                                        <span class="review-star-btn active" data-star="4">★</span>
+                                        <span class="review-star-btn active" data-star="5">★</span>
+                                    </div>
+                                    <form id="add-review-form">
+                                        <input type="text" id="review-username" class="review-form-input" placeholder="Tên người dùng" required>
+                                        <textarea id="review-text" class="review-form-input review-form-textarea" placeholder="Nhận xét của bạn về hương vị, cách trình bày, giao hàng..." required></textarea>
+                                        <button type="submit" class="btn btn-primary review-form-btn">Gửi nhận xét</button>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <!-- Cột phải: Danh sách đánh giá -->
+                            <div class="reviews-list-col" id="detail-reviews-list">
+                                <!-- Đánh giá sẽ được load động ở đây -->
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -210,6 +254,156 @@
         </section>
 
         <script>
+            // Các hàm bổ sung thông tin động cho món ăn (Antigravity custom logic)
+            function getIngredientsForFood(food) {
+                const list = [];
+                const name = food.name.toLowerCase();
+                
+                if (food.category === 'pho-bun') {
+                    if (name.includes('phở')) {
+                        list.push({ name: 'Bánh phở tươi', emoji: '🍜' });
+                        list.push({ name: 'Nước cốt hầm xương 12h', emoji: '🥣' });
+                    } else {
+                        list.push({ name: 'Sợi bún tươi mềm', emoji: '🍜' });
+                        list.push({ name: 'Nước dùng thanh ngọt', emoji: '🥣' });
+                    }
+                    list.push({ name: 'Rau thơm & Hành lá', emoji: '🌿' });
+                } else if (food.category === 'com') {
+                    list.push({ name: 'Cơm tám dẻo thơm', emoji: '🍚' });
+                    list.push({ name: 'Dưa góp ăn kèm', emoji: '🥒' });
+                    list.push({ name: 'Nước mắm pha', emoji: '🏺' });
+                } else if (food.category === 'banh-mi') {
+                    list.push({ name: 'Vỏ bánh mì giòn tan', emoji: '🥖' });
+                    list.push({ name: 'Pate nhà làm thơm béo', emoji: '🧈' });
+                    list.push({ name: 'Đồ chua & Dưa leo', emoji: '🥒' });
+                    list.push({ name: 'Rau ngò, ớt tươi', emoji: '🌿' });
+                } else if (food.category === 'ca-phe') {
+                    list.push({ name: 'Cà phê hạt pha phin', emoji: '☕' });
+                    if (name.includes('sữa')) {
+                        list.push({ name: 'Sữa đặc Ông Thọ', emoji: '🥛' });
+                    }
+                    list.push({ name: 'Đá viên tinh khiết', emoji: '🧊' });
+                } else if (food.category === 'tra-sua-nuoc-ep') {
+                    if (name.includes('trà sữa')) {
+                        list.push({ name: 'Trà ô long/Hồng trà', emoji: '🍃' });
+                        list.push({ name: 'Sữa béo nguyên kem', emoji: '🥛' });
+                        list.push({ name: 'Trân châu dẻo thơm', emoji: '🧋' });
+                    } else {
+                        list.push({ name: 'Trái cây nguyên chất', emoji: '🍊' });
+                        list.push({ name: 'Đường phèn thanh mát', emoji: '🍬' });
+                    }
+                    list.push({ name: 'Đá viên tinh khiết', emoji: '🧊' });
+                } else if (food.category === 'che-trang-mieng') {
+                    list.push({ name: 'Nước cốt dừa thơm béo', emoji: '🥥' });
+                    list.push({ name: 'Đá bào nhuyễn', emoji: '🧊' });
+                    if (name.includes('bưởi')) list.push({ name: 'Cùi bưởi giòn ngọt', emoji: '🍊' });
+                    else if (name.includes('thái')) list.push({ name: 'Sợi lọt thơm lá dứa', emoji: '🍮' });
+                    else list.push({ name: 'Đỗ xanh hầm nhừ', emoji: '🫘' });
+                } else {
+                    list.push({ name: 'Nguyên liệu VietGAP', emoji: '🥬' });
+                    list.push({ name: 'Gia vị đặc sản', emoji: '🧂' });
+                    list.push({ name: 'Bí quyết đầu bếp', emoji: '👨‍🍳' });
+                }
+
+                if (name.includes('bò')) list.unshift({ name: 'Thịt bò tươi ngon', emoji: '🥩' });
+                if (name.includes('gà')) list.unshift({ name: 'Thịt gà ta chắc ngọt', emoji: '🍗' });
+                if (name.includes('heo') || name.includes('thịt heo') || name.includes('xá xíu') || name.includes('sườn')) {
+                    list.unshift({ name: 'Thịt heo/Sườn sụn', emoji: '🥩' });
+                }
+                if (name.includes('tôm')) list.unshift({ name: 'Tôm sú tươi ngọt', emoji: '🦐' });
+                if (name.includes('hải sản') || name.includes('mực')) list.unshift({ name: 'Hải sản tươi sống', emoji: '🦑' });
+                if (name.includes('trứng')) list.push({ name: 'Trứng trần/Trứng cút', emoji: '🥚' });
+                if (name.includes('phô mai') || name.includes('cheese')) list.push({ name: 'Phô mai béo ngậy', emoji: '🧀' });
+                if (name.includes('bơ')) list.push({ name: 'Quả bơ sáp chín', emoji: '🥑' });
+                if (name.includes('xoài')) list.push({ name: 'Xoài chín thơm ngọt', emoji: '🥭' });
+                if (name.includes('dâu')) list.push({ name: 'Dâu tây mọng nước', emoji: '🍓' });
+                if (name.includes('cay') || name.includes('thái')) list.push({ name: 'Ớt tươi/Sa tế cay nồng', emoji: '🌶️' });
+
+                const unique = [];
+                const seen = new Set();
+                for (const item of list) {
+                    if (!seen.has(item.name)) {
+                        seen.add(item.name);
+                        unique.push(item);
+                    }
+                }
+                return unique;
+            }
+
+            function getNutritionForFood(food) {
+                let calories = 350;
+                let protein = 15;
+                let carbs = 45;
+                let fat = 8;
+
+                const cat = food.category;
+                const name = food.name.toLowerCase();
+
+                if (cat === 'pho-bun') {
+                    calories = name.includes('bò') ? 480 : 420;
+                    protein = name.includes('bò') ? 26 : 22;
+                    carbs = 62;
+                    fat = name.includes('bò') ? 14 : 10;
+                } else if (cat === 'com') {
+                    calories = name.includes('sườn') ? 680 : 580;
+                    protein = 24;
+                    carbs = 78;
+                    fat = 18;
+                } else if (cat === 'banh-mi') {
+                    calories = 390;
+                    protein = 14;
+                    carbs = 44;
+                    fat = 13;
+                } else if (cat === 'lau-hai-san') {
+                    calories = 540;
+                    protein = 34;
+                    carbs = 38;
+                    fat = 16;
+                } else if (cat === 'ca-phe') {
+                    calories = name.includes('sữa') ? 180 : 15;
+                    protein = name.includes('sữa') ? 3 : 0.5;
+                    carbs = name.includes('sữa') ? 22 : 1.2;
+                    fat = name.includes('sữa') ? 4 : 0;
+                } else if (cat === 'tra-sua-nuoc-ep') {
+                    if (name.includes('trà sữa')) {
+                        calories = 360;
+                        protein = 4;
+                        carbs = 52;
+                        fat = 11;
+                    } else {
+                        calories = 110;
+                        protein = 1;
+                        carbs = 26;
+                        fat = 0.2;
+                    }
+                } else if (cat === 'che-trang-mieng') {
+                    calories = 290;
+                    protein = 3;
+                    carbs = 50;
+                    fat = 6;
+                }
+
+                return { calories, protein, carbs, fat };
+            }
+
+            function getInitialReviews(food) {
+                const name = food.name;
+                const cat = food.category;
+                if (cat === 'ca-phe' || cat === 'tra-sua-nuoc-ep') {
+                    return [
+                        { name: 'Khánh Linh', rating: 5, date: '2026-07-28', text: `Nước uống rất ngon, vị ngọt vừa vặn không bị gắt. Món ${name} ở đây pha chế chuẩn vị luôn.`, avatar: 'https://i.pravatar.cc/100?img=32', role: 'Khách hàng thân thiết' },
+                        { name: 'Minh Quân', rating: 4, date: '2026-07-25', text: `Giao hàng siêu nhanh, đá vẫn chưa tan hết. ${name} đậm vị thơm béo. Sẽ ủng hộ tiếp!`, avatar: 'https://i.pravatar.cc/100?img=12', role: 'Người sành uống' },
+                        { name: 'Ánh Tuyết', rating: 5, date: '2026-07-22', text: `Rất ưng ý! Bao bì đóng gói cẩn thận không lo đổ nước ra ngoài. Điểm 10 chất lượng.`, avatar: 'https://i.pravatar.cc/100?img=47', role: 'Khách hàng' }
+                    ];
+                } else {
+                    return [
+                        { name: 'Nguyễn Văn Hùng', rating: 5, date: '2026-07-28', text: `Món ${name} ngon xuất sắc! Nóng hổi khi giao đến, thịt thà đầy đặn. Đầu bếp nêm nếm rất hợp khẩu vị mình.`, avatar: 'https://i.pravatar.cc/100?img=33', role: 'Khách hàng' },
+                        { name: 'Quỳnh Chi', rating: 5, date: '2026-07-26', text: `Đồ ăn sạch sẽ, rau sống ăn kèm tươi rói. Đóng gói hộp giấy rất lịch sự bảo vệ môi trường.`, avatar: 'https://i.pravatar.cc/100?img=45', role: 'Blogger ẩm thực' },
+                        { name: 'Hoàng Long', rating: 4, date: '2026-07-24', text: `Hương vị rất ngon, chuẩn vị truyền thống. Chỉ có điều hôm nay shipper đi hơi chậm tí do trời mưa, nhưng đồ ăn vẫn ấm.`, avatar: 'https://i.pravatar.cc/100?img=8', role: 'Người sành ăn' }
+                    ];
+                }
+            }
+
             document.addEventListener('DOMContentLoaded', () => {
                 const params = new URLSearchParams(window.location.search);
                 const food = findFood(params.get('id')) || FOODS[0];
@@ -224,11 +418,165 @@
                     .map((src, i) => `<img src="${src}" class="${i === 0 ? 'active' : ''}">`).join('');
                 document.getElementById('detail-rest-name').textContent = rest ? rest.name : '';
                 document.getElementById('detail-name').textContent = food.name;
-                document.getElementById('detail-rating').innerHTML = starsHtml(food.rating, 16) + ' ' + food.rating.toFixed(1);
-                document.getElementById('detail-rating-count').textContent = `(${food.ratingCount} đánh giá)`;
                 document.getElementById('detail-time').textContent = food.time;
                 document.getElementById('detail-desc').textContent = food.desc;
                 document.getElementById('detail-long-desc').textContent = food.desc + ' Món ăn được chế biến tươi mỗi ngày bởi đầu bếp giàu kinh nghiệm, sử dụng nguyên liệu chọn lọc nhằm mang lại trải nghiệm ẩm thực trọn vẹn nhất cho bạn.';
+                
+                // 1. Render giá trị dinh dưỡng
+                const nutrition = getNutritionForFood(food);
+                document.getElementById('detail-nutrition').innerHTML = `
+                    <div class="nutrition-card">
+                        <span class="nutrition-val">${nutrition.calories}</span>
+                        <span class="nutrition-lbl">Kcal</span>
+                    </div>
+                    <div class="nutrition-card">
+                        <span class="nutrition-val">${nutrition.protein}g</span>
+                        <span class="nutrition-lbl">Đạm (Prot)</span>
+                    </div>
+                    <div class="nutrition-card">
+                        <span class="nutrition-val">${nutrition.carbs}g</span>
+                        <span class="nutrition-lbl">Đường (Carb)</span>
+                    </div>
+                    <div class="nutrition-card">
+                        <span class="nutrition-val">${nutrition.fat}g</span>
+                        <span class="nutrition-lbl">Béo (Fat)</span>
+                    </div>
+                `;
+
+                // 2. Render nguyên liệu
+                const ingredients = getIngredientsForFood(food);
+                document.getElementById('detail-ingredients-list').innerHTML = ingredients.map(ing => `
+                    <div class="ingredient-badge">
+                        <span class="ingredient-emoji">${ing.emoji}</span>
+                        <span>${ing.name}</span>
+                    </div>
+                `).join('');
+
+                // 3. Quản lý Đánh giá qua LocalStorage
+                const LS_REVIEWS_KEY = `food_reviews_${food.id}`;
+                let reviews = JSON.parse(localStorage.getItem(LS_REVIEWS_KEY));
+                if (!reviews || !reviews.length) {
+                    reviews = getInitialReviews(food);
+                    localStorage.setItem(LS_REVIEWS_KEY, JSON.stringify(reviews));
+                }
+
+                function renderReviews() {
+                    const avg = reviews.length ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length : 0;
+                    
+                    // Cập nhật rating ở phần đầu thông tin món ăn
+                    document.getElementById('detail-rating').innerHTML = starsHtml(avg, 16) + ' ' + avg.toFixed(1);
+                    document.getElementById('detail-rating-count').textContent = `(${reviews.length} đánh giá)`;
+                    
+                    // Cập nhật hộp tổng quan đánh giá
+                    document.getElementById('rating-avg').textContent = avg.toFixed(1);
+                    document.getElementById('rating-stars-summary').innerHTML = starsHtml(avg, 20);
+                    document.getElementById('rating-total-text').textContent = `${reviews.length} đánh giá`;
+
+                    // Tính tỷ lệ sao (5->1)
+                    const starCounts = {5: 0, 4: 0, 3: 0, 2: 0, 1: 0};
+                    reviews.forEach(r => {
+                        const score = Math.round(r.rating);
+                        if (starCounts[score] !== undefined) {
+                            starCounts[score]++;
+                        }
+                    });
+
+                    const barsContainer = document.getElementById('rating-bars-container');
+                    barsContainer.innerHTML = [5, 4, 3, 2, 1].map(stars => {
+                        const count = starCounts[stars];
+                        const pct = reviews.length ? ((count / reviews.length) * 100).toFixed(0) : 0;
+                        return `
+                            <div class="rating-bar-row">
+                                <span class="rating-bar-lbl">${stars} sao</span>
+                                <div class="rating-bar-track">
+                                    <div class="rating-bar-fill" style="width: ${pct}%"></div>
+                                </div>
+                                <span class="rating-bar-pct">${pct}%</span>
+                            </div>
+                        `;
+                    }).join('');
+
+                    // Render danh sách đánh giá cụ thể
+                    const listContainer = document.getElementById('detail-reviews-list');
+                    if (reviews.length === 0) {
+                        listContainer.innerHTML = `<div class="review-empty-state">Món ăn này chưa có đánh giá nào. Hãy là người đầu tiên chia sẻ nhận xét của bạn!</div>`;
+                    } else {
+                        // Sắp xếp đánh giá mới nhất lên trước
+                        const sortedReviews = [...reviews].sort((a, b) => new Date(b.date) - new Date(a.date));
+                        listContainer.innerHTML = sortedReviews.map(r => `
+                            <div class="review-card">
+                                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+                                    <div>${starsHtml(r.rating, 14)}</div>
+                                    <span style="font-size:12px;color:var(--c-gray-400)">${r.date}</span>
+                                </div>
+                                <p style="font-size:14px;color:var(--c-gray-600);margin-bottom:12px;font-style:italic">"${r.text}"</p>
+                                <div class="review-user">
+                                    <img src="${r.avatar || 'https://i.pravatar.cc/100?img=33'}" alt="${r.name}" style="width:36px;height:36px;border-radius:50%;object-fit:cover">
+                                    <div>
+                                        <b style="font-size:13.5px">${r.name}</b>
+                                        <span style="font-size:11px;color:var(--c-gray-400);display:block">${r.role || 'Khách hàng'}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+                }
+
+                // Chức năng Star selector trong form viết đánh giá
+                let selectedRating = 5;
+                const starBtns = document.querySelectorAll('.review-star-btn');
+                
+                function updateFormStars(rating) {
+                    starBtns.forEach(s => {
+                        const starVal = Number(s.dataset.star);
+                        if (starVal <= rating) {
+                            s.classList.add('active');
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
+                }
+                
+                starBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        selectedRating = Number(btn.dataset.star);
+                        updateFormStars(selectedRating);
+                    });
+                });
+
+                // Submit Form đánh giá
+                const reviewForm = document.getElementById('add-review-form');
+                reviewForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const username = document.getElementById('review-username').value.trim();
+                    const text = document.getElementById('review-text').value.trim();
+                    
+                    if (!username || !text) return;
+
+                    const newReview = {
+                        name: username,
+                        rating: selectedRating,
+                        date: new Date().toISOString().split('T')[0],
+                        text: text,
+                        avatar: `https://i.pravatar.cc/100?img=${Math.floor(Math.random() * 70) + 1}`,
+                        role: 'Khách hàng'
+                    };
+
+                    reviews.push(newReview);
+                    localStorage.setItem(LS_REVIEWS_KEY, JSON.stringify(reviews));
+                    
+                    // Render lại đánh giá
+                    renderReviews();
+                    
+                    // Reset form
+                    reviewForm.reset();
+                    selectedRating = 5;
+                    updateFormStars(5);
+                });
+
+                // Chạy hàm render đánh giá lần đầu
+                renderReviews();
+
                 // Render các nhóm tùy chọn riêng theo từng món (nếu món có khai báo 'options')
                 const optionsWrap = document.getElementById('detail-options');
                 if (food.options && food.options.length) {
@@ -292,11 +640,6 @@
                 const relatedGrid = document.getElementById('related-grid');
                 const related = FOODS.filter(f => f.category === food.category && f.id !== food.id).slice(0, 4);
                 renderFoodGrid(relatedGrid, related.length ? related : FOODS.filter(f => f.id !== food.id).slice(0, 4));
-
-                document.getElementById('detail-reviews').innerHTML = REVIEWS.slice(0, 4).map(r => `
-                    <div class="review-card">${starsHtml(r.rating)}<p>"${r.text}"</p>
-                    <div class="review-user"><img src="${r.avatar}" alt="${r.name}"><div><b>${r.name}</b><span>${r.role}</span></div></div>
-                    </div>`).join('');
 
                 initReveal();
             });

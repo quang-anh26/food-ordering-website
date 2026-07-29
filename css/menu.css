@@ -593,3 +593,334 @@ body.dark-mode .tab-heads button.active {
 .related-foods {
    margin-top: 70px;
 }
+
+/* =========================================================
+   CẢI TIẾN TRANG CHI TIẾT MÓN ĂN (Antigravity custom styling)
+   ========================================================= */
+
+/* 1. Thông tin dinh dưỡng */
+.nutrition-grid {
+   display: grid;
+   grid-template-columns: repeat(4, 1fr);
+   gap: 16px;
+   margin-top: 24px;
+   margin-bottom: 24px;
+}
+
+.nutrition-card {
+   background: var(--c-white);
+   border: 1.5px solid var(--c-gray-100);
+   border-radius: var(--r-sm);
+   padding: 12px 10px;
+   text-align: center;
+   transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+}
+
+body.dark-mode .nutrition-card {
+   border-color: var(--c-gray-200);
+}
+
+.nutrition-card:hover {
+   transform: translateY(-3px);
+   box-shadow: var(--shadow-sm);
+   border-color: var(--c-orange-light);
+}
+
+.nutrition-val {
+   display: block;
+   font-family: var(--f-display);
+   font-size: 18px;
+   font-weight: 700;
+   color: var(--c-orange-dark);
+}
+
+.nutrition-lbl {
+   display: block;
+   font-size: 11px;
+   color: var(--c-gray-600);
+   text-transform: uppercase;
+   letter-spacing: 0.05em;
+   margin-top: 2px;
+}
+
+/* 2. Thẻ nguyên liệu (Ingredients) */
+.ingredients-list {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 12px;
+   margin-top: 10px;
+}
+
+.ingredient-badge {
+   display: inline-flex;
+   align-items: center;
+   gap: 8px;
+   background: var(--c-white);
+   border: 1.5px solid var(--c-gray-200);
+   padding: 10px 18px;
+   border-radius: var(--r-pill);
+   font-weight: 600;
+   font-size: 14px;
+   color: var(--c-gray-900);
+   transition: all .2s var(--ease);
+}
+
+body.dark-mode .ingredient-badge {
+   border-color: var(--c-gray-200);
+}
+
+.ingredient-badge:hover {
+   border-color: var(--c-orange);
+   background: var(--c-orange-light);
+   color: var(--c-orange-dark);
+   transform: scale(1.03);
+}
+
+body.dark-mode .ingredient-badge:hover {
+   background: rgba(255, 90, 31, 0.15);
+   color: #FF8A57;
+}
+
+.ingredient-emoji {
+   font-size: 16px;
+}
+
+/* 3. Phân bố sao đánh giá (Rating Summary) */
+.reviews-layout {
+   display: grid;
+   grid-template-columns: 300px 1fr;
+   gap: 40px;
+   align-items: flex-start;
+   max-width: 100%;
+}
+
+@media (max-width: 768px) {
+   .reviews-layout {
+      grid-template-columns: 1fr;
+      gap: 30px;
+   }
+}
+
+.rating-summary-card {
+   background: var(--c-white);
+   border: 1.5px solid var(--c-gray-100);
+   border-radius: var(--r-md);
+   padding: 24px;
+   text-align: center;
+   box-shadow: var(--shadow-sm);
+}
+
+body.dark-mode .rating-summary-card {
+   border-color: var(--c-gray-200);
+}
+
+.rating-big-num {
+   font-family: var(--f-display);
+   font-size: 48px;
+   font-weight: 800;
+   color: var(--c-black);
+   line-height: 1;
+   margin-bottom: 6px;
+}
+
+body.dark-mode .rating-big-num {
+   color: var(--c-gray-900);
+}
+
+.rating-stars-row {
+   display: flex;
+   justify-content: center;
+   gap: 4px;
+   margin-bottom: 12px;
+}
+
+.rating-stars-row svg {
+   color: #FFB800;
+}
+
+.rating-total-count {
+   font-size: 13px;
+   color: var(--c-gray-600);
+   margin-bottom: 20px;
+}
+
+.rating-bars {
+   display: flex;
+   flex-direction: column;
+   gap: 8px;
+}
+
+.rating-bar-row {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   font-size: 12px;
+   color: var(--c-gray-600);
+}
+
+.rating-bar-lbl {
+   min-width: 40px;
+   text-align: left;
+}
+
+.rating-bar-track {
+   flex: 1;
+   height: 6px;
+   background: var(--c-gray-100);
+   border-radius: var(--r-pill);
+   overflow: hidden;
+}
+
+body.dark-mode .rating-bar-track {
+   background: var(--c-gray-200);
+}
+
+.rating-bar-fill {
+   height: 100%;
+   background: #FFB800;
+   border-radius: var(--r-pill);
+   transition: width .8s ease-out;
+}
+
+.rating-bar-pct {
+   min-width: 32px;
+   text-align: right;
+}
+
+/* 4. Form viết đánh giá */
+.review-form-container {
+   margin-top: 24px;
+   border-top: 1px dashed var(--c-gray-200);
+   padding-top: 24px;
+   text-align: left;
+}
+
+.review-form-container h4 {
+   font-size: 15px;
+   margin-bottom: 8px;
+}
+
+.review-star-selector {
+   display: flex;
+   gap: 8px;
+   margin-bottom: 14px;
+}
+
+.review-star-btn {
+   color: var(--c-gray-200);
+   font-size: 24px;
+   cursor: pointer;
+   transition: color .15s;
+}
+
+body.dark-mode .review-star-btn {
+   color: var(--c-gray-200);
+}
+
+.review-star-btn.active,
+.review-star-btn:hover {
+   color: #FFB800;
+}
+
+.review-form-input {
+   width: 100%;
+   background: var(--c-cream);
+   border: 1.5px solid var(--c-gray-200);
+   border-radius: var(--r-sm);
+   padding: 10px 14px;
+   font-size: 13.5px;
+   color: var(--c-gray-900);
+   margin-bottom: 12px;
+   transition: border-color .2s;
+}
+
+body.dark-mode .review-form-input {
+   background: var(--c-cream);
+   border-color: var(--c-gray-200);
+}
+
+.review-form-input:focus {
+   outline: none;
+   border-color: var(--c-orange);
+}
+
+.review-form-textarea {
+   height: 80px;
+   resize: none;
+}
+
+.review-form-btn {
+   width: 100%;
+   padding: 10px;
+   font-size: 13.5px;
+}
+
+/* 5. Khối cam kết nhà hàng */
+.commitment-card {
+   background: var(--c-orange-light);
+   border-radius: var(--r-md);
+   padding: 20px;
+   margin-top: 30px;
+   border: 1px solid rgba(255, 90, 31, 0.15);
+}
+
+body.dark-mode .commitment-card {
+   background: rgba(255, 90, 31, 0.08);
+   border-color: rgba(255, 90, 31, 0.1);
+}
+
+.commitment-card h4 {
+   font-size: 15px;
+   color: var(--c-orange-dark);
+   margin-bottom: 8px;
+   display: flex;
+   align-items: center;
+   gap: 8px;
+}
+
+body.dark-mode .commitment-card h4 {
+   color: #FF8A57;
+}
+
+.commitment-card p {
+   font-size: 13px;
+   color: var(--c-gray-600);
+   line-height: 1.6;
+}
+
+/* Đánh giá list container */
+.reviews-list-col {
+   display: flex;
+   flex-direction: column;
+   gap: 16px;
+}
+
+.reviews-list-col .review-card {
+   background: var(--c-white);
+   border: 1.5px solid var(--c-gray-100);
+   border-radius: var(--r-md);
+   padding: 20px;
+   box-shadow: var(--shadow-sm);
+   transition: all .2s;
+}
+
+body.dark-mode .reviews-list-col .review-card {
+   border-color: var(--c-gray-200);
+}
+
+.reviews-list-col .review-card:hover {
+   border-color: var(--c-gray-200);
+   box-shadow: var(--shadow-md);
+}
+
+body.dark-mode .reviews-list-col .review-card:hover {
+   border-color: var(--c-orange);
+}
+
+.review-empty-state {
+   text-align: center;
+   padding: 40px 20px;
+   color: var(--c-gray-400);
+   font-style: italic;
+   font-size: 14px;
+}
