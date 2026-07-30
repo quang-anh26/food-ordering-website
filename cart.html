@@ -133,7 +133,13 @@
                 <div class="cart-layout" id="cart-layout">
                     <div class="cart-list">
                         <div class="cart-list-head">
-                            <h3>Món ăn trong giỏ</h3>
+                            <div class="cart-list-head__left">
+                                <h3>Món ăn trong giỏ</h3>
+                                <label class="select-all-label">
+                                    <input type="checkbox" id="select-all-cart">
+                                    <span>Chọn tất cả</span>
+                                </label>
+                            </div>
                             <button id="clear-cart-btn">Xóa tất cả</button>
                         </div>
                         <div id="cart-list-body"></div>
@@ -146,7 +152,7 @@
                                 id="sum-discount">-0₫</span></div>
                         <div class="summary-row"><span>Phí giao hàng</span><span id="sum-delivery">0₫</span></div>
                         <div class="summary-row total"><span>Tổng cộng</span><span id="sum-total">0₫</span></div>
-                        <a href="checkout.html" class="btn btn-primary btn-block" style="margin-top:18px">Thanh toán</a>
+                        <a href="checkout.html" id="go-checkout-btn" class="btn btn-primary btn-block" style="margin-top:18px">Thanh toán</a>
                     </div>
                 </div>
             </div>

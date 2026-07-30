@@ -1,17 +1,9 @@
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-/* ---- Desktop lớn (màn hình rộng, 2K/4K...) ---- */
-
-
 @media (min-width: 1800px) {
    .container {
       max-width: 1680px;
    }
 }
 
-/* ---- Laptop / small desktop ---- */
 @media (max-width: 1180px) {
 
    .foods-grid,
@@ -40,7 +32,6 @@
    }
 }
 
-/* ---- Tablet ---- */
 @media (max-width: 992px) {
    .main-nav {
       display: none;
@@ -51,6 +42,28 @@
    }
 
    .search-box {
+      display: none;
+   }
+
+   .header-actions {
+      gap: 6px;
+   }
+
+   .header-actions .dark-toggle,
+   .header-actions .icon-btn {
+      width: 38px;
+      height: 38px;
+   }
+
+   .user-chip span {
+      display: none;
+   }
+
+   .user-chip {
+      padding: 4px;
+   }
+
+   .auth-links {
       display: none;
    }
 
@@ -75,7 +88,8 @@
    .cart-layout,
    .checkout-layout,
    .profile-layout,
-   .detail-layout {
+   .detail-layout,
+   .contact-grid {
       grid-template-columns: 1fr;
    }
 
@@ -99,8 +113,17 @@
       display: none;
    }
 
-   .auth-wrap {
+   .auth-wrap,
+   .auth-wrap.register-wide {
       grid-template-columns: 1fr;
+   }
+
+   .auth-wrap.register-wide .auth-form {
+      max-width: 100%;
+   }
+
+   .auth-wrap.register-wide .auth-form-side {
+      padding: 40px 20px;
    }
 
    .footer-grid {
@@ -124,15 +147,40 @@
    }
 }
 
-/* ---- Mobile ---- */
 @media (max-width: 640px) {
 
-   .foods-grid,
    .restaurants-grid,
    .why-grid,
-   .wishlist-grid,
    #team-grid {
       grid-template-columns: 1fr;
+   }
+
+   .foods-grid,
+   .wishlist-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+   }
+
+   .food-card__body {
+      padding: 12px 12px 14px;
+   }
+
+   .food-card__desc {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+   }
+
+   .food-card__meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      font-size: 12px;
+   }
+
+   .food-card__price {
+      font-size: 15px;
    }
 
    .category-scroll {
@@ -193,8 +241,6 @@
       font-size: 26px;
    }
 
-   /* Khung tóm tắt đơn hàng rộng hơn 1 chút trên mobile, để voucher
-      bớt xuống dòng, thẻ ngắn lại và danh sách nhìn gọn hơn. */
    .cart-summary,
    .checkout-card {
       padding: 18px;

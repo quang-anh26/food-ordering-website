@@ -1,9 +1,3 @@
-/* =========================================================
-   FOODIO — search.js
-   Live search suggestions in the header dropdown, plus the
-   hero search bar which redirects to menu.html?q=...
-   ========================================================= */
-
 function searchFoods(query) {
    const q = query.trim().toLowerCase();
    if (!q) return [];

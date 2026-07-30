@@ -1,9 +1,3 @@
-/* =========================================================
-   FOODIO — validation.js
-   Client-side validation for register, login, checkout and
-   newsletter forms. No backend — everything is simulated.
-   ========================================================= */
-
 function setFieldState(fieldEl, valid, message) {
    fieldEl.classList.toggle('invalid', !valid);
    fieldEl.classList.toggle('valid', valid);
@@ -14,9 +8,6 @@ function setFieldState(fieldEl, valid, message) {
 const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 const isValidPhone = (v) => /^[0-9+\s()-]{8,15}$/.test(v);
 
-/* ---------------------------------------------------------
-   REGISTER FORM
-   --------------------------------------------------------- */
 function initRegisterForm() {
    const form = document.getElementById('register-form');
    if (!form) return;
@@ -68,7 +59,6 @@ function initRegisterForm() {
       if (!result.ok) { showToast(result.message, 'error'); return; }
       showToast('Tạo tài khoản thành công! Chào mừng bạn đến với FoodKTAHP 🎉', 'success');
 
-      // Nếu trước đó bấm "Thêm vào giỏ" lúc chưa đăng nhập -> thêm lại món đó vào giỏ ngay bây giờ
       const pending = typeof consumePendingCartAction === 'function' ? consumePendingCartAction() : null;
       if (pending && typeof addToCart === 'function') {
          addToCart(pending.foodId, pending.qty, pending.selectedOptions || []);
@@ -80,9 +70,6 @@ function initRegisterForm() {
    });
 }
 
-/* ---------------------------------------------------------
-   LOGIN FORM
-   --------------------------------------------------------- */
 function initLoginForm() {
    const form = document.getElementById('login-form');
    if (!form) return;
@@ -106,7 +93,7 @@ function initLoginForm() {
       if (!result.ok) { showToast(result.message, 'error'); return; }
       showToast('Chào mừng bạn quay lại! Đang chuyển hướng...', 'success');
 
-      // Nếu trước đó bấm "Thêm vào giỏ" lúc chưa đăng nhập -> thêm lại món đó vào giỏ ngay bây giờ
+      
       const pending = typeof consumePendingCartAction === 'function' ? consumePendingCartAction() : null;
       if (pending && typeof addToCart === 'function') {
          addToCart(pending.foodId, pending.qty, pending.selectedOptions || []);
@@ -118,9 +105,6 @@ function initLoginForm() {
    });
 }
 
-/* ---------------------------------------------------------
-   PASSWORD SHOW/HIDE TOGGLE (login + register)
-   --------------------------------------------------------- */
 function initPassToggles() {
    document.querySelectorAll('.pass-toggle button').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -129,12 +113,8 @@ function initPassToggles() {
       });
    });
 }
-/* ---------------------------------------------------------
-   CHECKOUT FORM — chọn địa chỉ đã lưu hoặc thêm địa chỉ mới
-   Chỉ cần Họ tên, SĐT, Địa chỉ (không còn Thành phố riêng) +
-   Ghi chú. Địa chỉ mới nhập sẽ được lưu lại cho lần đặt sau.
-   --------------------------------------------------------- */
-let ckSelectedAddressId = null; // null = đang dùng form nhập địa chỉ mới
+
+let ckSelectedAddressId = null; 
 
 function renderCheckoutAddressList() {
    const wrap = document.getElementById('ck-address-list');
@@ -143,7 +123,6 @@ function renderCheckoutAddressList() {
 
    const user = typeof getCurrentUser === 'function' ? getCurrentUser() : null;
    if (!user) {
-      // Khách chưa đăng nhập -> không có gì để chọn, chỉ hiện form nhập tay
       wrap.style.display = 'none';
       newForm.style.display = 'block';
       ckSelectedAddressId = null;
@@ -169,7 +148,6 @@ function renderCheckoutAddressList() {
       input.addEventListener('change', () => applyCheckoutAddressChoice(input.value, addresses));
    });
 
-   // Mặc định: có địa chỉ đã lưu -> chọn cái đầu tiên; chưa có -> chọn "Thêm địa chỉ mới"
    const first = wrap.querySelector('input[name="ck-address-choice"]');
    if (first) {
       first.checked = true;
@@ -264,9 +242,7 @@ function initCheckoutSaveAddressButton() {
       }
    });
 }
-/* ---------------------------------------------------------
-   CHECKOUT FORM
-   --------------------------------------------------------- */
+
 function initCheckoutForm() {
    const form = document.getElementById('checkout-form');
    if (!form) return;
@@ -289,7 +265,7 @@ function initCheckoutForm() {
       const phone = document.getElementById('ck-phone');
       if (phone.value && !isValidPhone(phone.value)) { setFieldState(phone.closest('.field'), false, 'Vui lòng nhập số điện thoại hợp lệ.'); valid = false; }
 
-      // Bắt buộc chọn vị trí trên bản đồ khi đang nhập địa chỉ mới
+     
       const mapField = document.getElementById('ck-map-field');
       if (!ckSelectedAddressId && !window.ckSelectedLatLng) {
          mapField?.classList.add('invalid');
@@ -304,7 +280,6 @@ function initCheckoutForm() {
       const phoneVal = document.getElementById('ck-phone').value.trim();
       const addressVal = document.getElementById('ck-address').value.trim();
 
-      // Nếu đang nhập địa chỉ mới (chưa chọn từ danh sách đã lưu) -> lưu lại cho lần đặt sau
       if (!ckSelectedAddressId && typeof saveUserAddress === 'function') {
          const coords = window.ckSelectedLatLng || null;
          saveUserAddress({ name, phone: phoneVal, address: addressVal, lat: coords?.lat, lng: coords?.lng });
@@ -324,9 +299,6 @@ function initCheckoutForm() {
    });
 }
 
-/* ---------------------------------------------------------
-   NEWSLETTER FORM
-   --------------------------------------------------------- */
 function initNewsletterForm() {
    const form = document.getElementById('newsletter-form');
    if (!form) return;
@@ -344,9 +316,6 @@ function initNewsletterForm() {
    });
 }
 
-/* ---------------------------------------------------------
-   CONTACT FORM
-   --------------------------------------------------------- */
 function initContactForm() {
    const form = document.getElementById('contact-form');
    if (!form) return;
@@ -366,9 +335,6 @@ function initContactForm() {
    });
 }
 
-/* ---------------------------------------------------------
-   CHANGE PASSWORD FORM (change-password.html)
-   --------------------------------------------------------- */
 function initChangePasswordForm() {
    const form = document.getElementById('change-password-form');
    if (!form) return;

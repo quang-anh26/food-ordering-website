@@ -1,12 +1,3 @@
-/* =========================================================
-   FOODIO — filter.js
-   Category filtering, price range, rating filter and sorting
-   used on the Menu page + the featured-foods tabs on Home.
-   ========================================================= */
-
-/* ---------------------------------------------------------
-   HOME PAGE — simple category tab filter over featured foods
-   --------------------------------------------------------- */
 function initHomeFilterTabs() {
    const tabs = document.querySelectorAll('.filter-tabs [data-cat]');
    const grid = document.getElementById('featured-grid');
@@ -24,9 +15,6 @@ function initHomeFilterTabs() {
    });
 }
 
-/* ---------------------------------------------------------
-   MENU PAGE — full filter/sort sidebar
-   --------------------------------------------------------- */
 const menuState = { categories: [], maxPrice: 200000, minRating: 0, sort: 'popular', query: '', restaurant: null };
 
 function applyMenuFilters() {
@@ -92,7 +80,6 @@ function initMenuPage() {
    const grid = document.getElementById('menu-grid');
    if (!grid) return;
 
-   // Read ?q=, ?category= and ?restaurant= from URL
    const params = new URLSearchParams(window.location.search);
    if (params.get('q')) menuState.query = params.get('q');
    if (params.get('category')) menuState.categories = [params.get('category')];
@@ -105,17 +92,18 @@ function initMenuPage() {
       searchField.addEventListener('input', () => { menuState.query = searchField.value; applyMenuFilters(); });
    }
 
-   // Category checkboxes
    document.querySelectorAll('.cat-check').forEach(cb => {
       if (menuState.categories.includes(cb.value)) cb.checked = true;
       cb.addEventListener('change', () => {
          menuState.categories = Array.from(document.querySelectorAll('.cat-check:checked')).map(c => c.value);
+
+         menuState.query = '';
+         if (searchField) searchField.value = '';
+
          applyMenuFilters();
       });
    });
 
-   // Price range — sync slider ceiling with the actual highest-priced item,
-   // so items never become unreachable if a pricier dish is added later.
    const priceRange = document.getElementById('price-range');
    const priceLabel = document.getElementById('price-range-label');
    if (priceRange) {
@@ -133,7 +121,6 @@ function initMenuPage() {
       });
    }
 
-   // Rating filter
    document.querySelectorAll('.rating-check').forEach(cb => {
       cb.addEventListener('change', () => {
          const checked = Array.from(document.querySelectorAll('.rating-check:checked')).map(c => Number(c.value));
@@ -142,19 +129,21 @@ function initMenuPage() {
       });
    });
 
-   // Sort select
    const sortSelect = document.getElementById('sort-select');
    if (sortSelect) {
       sortSelect.addEventListener('change', () => { menuState.sort = sortSelect.value; applyMenuFilters(); });
    }
 
-   // Category quick tabs (top of page)
    document.querySelectorAll('.menu-tab').forEach(tab => {
       tab.addEventListener('click', () => {
          document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
          tab.classList.add('active');
          menuState.categories = tab.dataset.cat === 'all' ? [] : [tab.dataset.cat];
          document.querySelectorAll('.cat-check').forEach(cb => { cb.checked = menuState.categories.includes(cb.value); });
+
+         menuState.query = '';
+         if (searchField) searchField.value = '';
+
          applyMenuFilters();
       });
    });

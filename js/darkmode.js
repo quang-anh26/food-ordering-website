@@ -1,8 +1,3 @@
-/* =========================================================
-   FOODIO — darkmode.js
-   Toggles a `dark-mode` class on <body> and persists choice.
-   ========================================================= */
-
 function applyStoredTheme() {
    const theme = localStorage.getItem(LS.THEME);
    if (theme === 'dark') document.body.classList.add('dark-mode');

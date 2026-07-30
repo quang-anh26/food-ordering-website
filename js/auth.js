@@ -11,9 +11,6 @@ function setSession(email, remember) {
 }
 function clearSession() { localStorage.removeItem(LS.SESSION); }
 
-/* ---------------------------------------------------------
-   SEED A DEMO ACCOUNT (so graders can log in instantly)
-   --------------------------------------------------------- */
 function seedDemoUser() {
    const users = getStore(LS.USERS, []);
    if (!users.find(u => u.email === 'demo@foodio.com')) {
@@ -33,10 +30,6 @@ function seedDemoUser() {
 }
 seedDemoUser();
 
-/* ---------------------------------------------------------
-   ĐỊA CHỈ GIAO HÀNG ĐÃ LƯU (dùng ở trang thanh toán)
-   Mỗi user có mảng addresses: [{ id, name, phone, address }]
-   --------------------------------------------------------- */
 function getUserAddresses() {
    const user = getCurrentUser();
    return user && Array.isArray(user.addresses) ? user.addresses : [];
@@ -50,7 +43,6 @@ function saveUserAddress({ name, phone, address, lat, lng }) {
    if (idx === -1) return null;
    if (!Array.isArray(users[idx].addresses)) users[idx].addresses = [];
 
-   // Tránh lưu trùng lặp một địa chỉ đã có sẵn
    const dup = users[idx].addresses.find(a => a.name === name && a.phone === phone && a.address === address);
    if (dup) {
       if (lat != null && lng != null) { dup.lat = lat; dup.lng = lng; }
@@ -65,9 +57,6 @@ function saveUserAddress({ name, phone, address, lat, lng }) {
    return newAddr;
 }
 
-/* ---------------------------------------------------------
-   REGISTER
-   --------------------------------------------------------- */
 function registerUser({ name, email, password, phone }) {
    const users = getStore(LS.USERS, []);
    if (users.find(u => u.email.toLowerCase() === email.toLowerCase())) {
@@ -79,9 +68,6 @@ function registerUser({ name, email, password, phone }) {
    return { ok: true };
 }
 
-/* ---------------------------------------------------------
-   LOGIN
-   --------------------------------------------------------- */
 function loginUser(email, password, remember) {
    const users = getStore(LS.USERS, []);
    const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
@@ -91,18 +77,12 @@ function loginUser(email, password, remember) {
    return { ok: true };
 }
 
-/* ---------------------------------------------------------
-   LOGOUT
-   --------------------------------------------------------- */
 function logoutUser() {
    clearSession();
    showToast('Bạn đã đăng xuất.', 'default');
    setTimeout(() => { window.location.href = 'index.html'; }, 600);
 }
 
-/* ---------------------------------------------------------
-   HEADER STATE — swap Login/Register vs user chip dropdown
-   --------------------------------------------------------- */
 function renderAuthHeader() {
    const authSlot = document.getElementById('auth-slot');
    if (!authSlot) return;
@@ -148,12 +128,6 @@ function renderAuthHeader() {
    });
 }
 
-/* ---------------------------------------------------------
-   LOGIN REQUIRED MODAL
-   Any restricted action (Add to Cart, Checkout, Favorite,
-   Profile) calls requireAuth() first. Returns true if the
-   user may proceed, false (and shows modal) otherwise.
-   --------------------------------------------------------- */
 function ensureLoginModal() {
    if (document.getElementById('login-required-modal')) return;
    const div = document.createElement('div');
@@ -182,7 +156,7 @@ function ensureLoginModal() {
 }
 function showLoginModal() {
    ensureLoginModal();
-   // Nhớ lại trang hiện tại để quay về đúng chỗ sau khi đăng nhập/đăng ký
+  
    sessionStorage.setItem('foodio_after_login', window.location.pathname + window.location.search);
    document.getElementById('login-required-modal').classList.add('show');
    document.body.style.overflow = 'hidden';
@@ -198,10 +172,6 @@ function requireAuth() {
    return false;
 }
 
-/* ---------------------------------------------------------
-   PAGE GUARD — for pages that must never be viewed by guests
-   (profile.html, orders.html). Redirects home with a toast.
-   --------------------------------------------------------- */
 function guardPage() {
    if (!isLoggedIn()) {
       sessionStorage.setItem('foodio_redirect_msg', '1');
@@ -209,9 +179,6 @@ function guardPage() {
    }
 }
 
-/* ---------------------------------------------------------
-   QUÊN MẬT KHẨU (modal ở login.html)
-   --------------------------------------------------------- */
 function initForgotPasswordModal() {
    const openLink = document.getElementById('open-forgot-modal');
    const modal = document.getElementById('forgot-password-modal');

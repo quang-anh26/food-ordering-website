@@ -1,7 +1,3 @@
-/* =========================================================
-   PROFILE / ORDER HISTORY
-   ========================================================= */
-
 .profile-layout {
    display: grid;
    grid-template-columns: 280px 1fr;
@@ -164,7 +160,6 @@
    gap: 20px;
 }
 
-/* ---- Auth pages (login/register) ---- */
 .auth-wrap {
    min-height: 100vh;
    display: grid;
@@ -362,7 +357,6 @@
    background: #1B7A3D;
 }
 
-/* ---- Login page - nền ảnh full-bleed + form dạng thẻ kính nổi ---- */
 #login-auth-wrap {
    background:
       linear-gradient(90deg, rgba(20, 16, 14, .55) 0%, rgba(20, 16, 14, .25) 45%, rgba(20, 16, 14, .05) 70%),

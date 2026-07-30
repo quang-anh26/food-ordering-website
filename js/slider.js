@@ -1,9 +1,3 @@
-/* =========================================================
-   FOODIO — slider.js
-   Reviews carousel: renders review slides in groups of 3
-   and handles prev/next + dot navigation + autoplay.
-   ========================================================= */
-
 function initReviewSlider() {
    const track = document.getElementById('review-track');
    const dotsWrap = document.getElementById('review-dots');

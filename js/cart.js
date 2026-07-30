@@ -1,17 +1,5 @@
-/* =========================================================
-   FOODIO — cart.js
-   Add/remove/update cart items, favorites (wishlist), cart
-   page rendering, promo codes, and checkout order placement.
-   All state lives in localStorage so it survives refreshes.
-   ========================================================= */
-
 const TAX_RATE = 0.08;
-/* ---------------------------------------------------------
-   PHÍ GIAO HÀNG — ngẫu nhiên mỗi phiên thanh toán, nhưng giao
-   hỏa tốc LUÔN đắt hơn giao nhanh (chênh 10.000 - 20.000đ).
-   Lưu trong sessionStorage để không đổi giá liên tục khi
-   người dùng qua lại giữa các bước trong cùng 1 lần đặt hàng.
-   --------------------------------------------------------- */
+
 function getDeliveryFees() {
    let fees = null;
    try { fees = JSON.parse(sessionStorage.getItem('foodio_delivery_fees')); } catch (e) { fees = null; }
@@ -36,7 +24,7 @@ function getDeliveryFee() {
 }
 function renderDeliveryOptions() {
    const wrap = document.getElementById('ck-delivery-options');
-   if (!wrap) return; // không phải trang thanh toán
+   if (!wrap) return;
    const fees = getDeliveryFees();
    const method = getDeliveryMethod();
    wrap.innerHTML = `
@@ -57,23 +45,23 @@ function renderDeliveryOptions() {
       });
    });
 }
-// Mỗi mã có thể khai báo thêm maxOrder (đơn tối đa được áp dụng) và maxUses (số lần dùng tối đa / khách)
+
 const PROMO_CODES = {
    FOODIO10: { rate: 0.10, maxOrder: 500000, maxUses: 2, label: 'Giảm 10%', desc: 'Giảm 10% cho đơn hàng tối đa 500.000₫, tối đa 2 lần/khách.' },
-   WELCOME15: { rate: 0.15, maxUses: 1, label: 'Giảm 15%', desc: 'Giảm 15% cho khách hàng mới áp dụng cho đơn đầu tiên.' },
+   WELCOME15: { rate: 0.15, maxOrder: 300000, maxUses: 1, label: 'Giảm 15%', desc: 'Giảm 15% cho đơn hàng tối đa 300.000₫, áp dụng cho đơn đầu tiên.' },
    HEMTOP20: { rate: 0.20, minOrder: 100000, maxDiscount: 50000, maxUses: 2, label: 'Giảm 20%', desc: 'Giảm 20% (tối đa 50k) cho đơn từ 100.000₫.' },
    KTAHP50: { rate: 0.50, minOrder: 200000, maxDiscount: 100000, maxUses: 1, label: 'Giảm 50%', desc: 'Giảm 50% (tối đa 100k) cho đơn từ 200.000₫.' },
    FREESHIP: { freeShip: true, minOrder: 80000, maxShipDiscount: 30000, rate: 0, label: 'Freeship', desc: 'Miễn phí giao hàng (tối đa 30k) cho đơn từ 80.000₫.' },
    DEMO30: { rate: 0.30, minOrder: 60000, maxDiscount: 40000, maxUses: 3, label: 'Giảm 30%', desc: 'Mã dùng thử giảm 30% (tối đa 40k) cho đơn từ 60.000₫.' }
 };
 
-/* ---------------------------------------------------------
-   PROMO USAGE TRACKING — lưu số lần đã dùng theo từng khách
-   (khách chưa đăng nhập dùng chung bộ đếm "guest")
-   --------------------------------------------------------- */
 function promoUsageKey() {
    const user = typeof getCurrentUser === 'function' ? getCurrentUser() : null;
    return 'foodio_promo_usage_' + (user ? user.email : 'guest');
+}
+function promoNoAutoKey() {
+   const user = typeof getCurrentUser === 'function' ? getCurrentUser() : null;
+   return 'foodio_promo_no_auto_' + (user ? user.email : 'guest');
 }
 function getPromoUsage(code) {
    const usage = getStore(promoUsageKey(), {});
@@ -85,12 +73,6 @@ function incPromoUsage(code) {
    setStore(promoUsageKey(), usage);
 }
 
-/* ---------------------------------------------------------
-   AUTO-ÁP DỤNG MÃ GIẢM GIÁ TỐT NHẤT — giống các app đặt đồ ăn
-   khác: khi giỏ hàng đủ điều kiện, hệ thống tự tính mã nào lợi
-   nhất cho đơn hiện tại rồi tự động áp dụng luôn cho khách,
-   không cần khách phải tự dò từng mã.
-   --------------------------------------------------------- */
 function isPromoEligible(code, subtotal) {
    const cfg = PROMO_CODES[code];
    if (!cfg) return false;
@@ -110,7 +92,6 @@ function computePromoDiscount(code, subtotal, delivery) {
    return rateDiscount + shipDiscount;
 }
 
-// Trả về { code, discount } của mã giảm được nhiều tiền nhất cho đơn hiện tại, hoặc null nếu không có mã nào đủ điều kiện
 function getBestEligiblePromo(subtotal, delivery) {
    let best = null;
    Object.keys(PROMO_CODES).forEach(code => {
@@ -122,13 +103,10 @@ function getBestEligiblePromo(subtotal, delivery) {
    return best;
 }
 
-// Chạy trước mỗi lần tính tổng tiền: tự chọn mã tốt nhất nếu khách
-// chưa áp dụng mã nào (hoặc mã đang áp dụng không còn hợp lệ), trừ
-// khi khách đã chủ động bấm hủy áp dụng trước đó (foodio_promo_no_auto).
 function ensureBestPromoApplied() {
-   const cart = getStore(cartStorageKey(), []);
+   const cart = getSelectedCartItems();
    if (!cart.length) {
-      localStorage.removeItem('foodio_promo_no_auto'); // giỏ trống -> reset để lần đặt hàng sau vẫn được tự gợi ý
+      localStorage.removeItem(promoNoAutoKey());
       return;
    }
    const subtotal = cart.reduce((sum, i) => {
@@ -139,33 +117,23 @@ function ensureBestPromoApplied() {
    const delivery = getDeliveryFee();
    const currentCode = getStore('foodio_promo', null);
 
-   if (currentCode && isPromoEligible(currentCode, subtotal)) return; // mã đang dùng vẫn hợp lệ -> giữ nguyên lựa chọn của khách
-   if (localStorage.getItem('foodio_promo_no_auto') === '1') return; // khách đã chủ động bỏ mã -> không tự gợi ý lại
+   if (currentCode && isPromoEligible(currentCode, subtotal)) return;
+   if (localStorage.getItem(promoNoAutoKey()) === '1') return;
 
    const best = getBestEligiblePromo(subtotal, delivery);
    if (best && best.code !== currentCode) {
       setStore('foodio_promo', best.code);
       showToast(`🎉 Đã tự động áp dụng mã tốt nhất cho bạn: ${best.code} (-${formatPrice(best.discount)})`, 'success');
    } else if (!best && currentCode) {
-      localStorage.removeItem('foodio_promo'); // mã cũ hết hợp lệ và không còn mã nào thay thế được
+      localStorage.removeItem('foodio_promo');
    }
 }
 
-/* ---------------------------------------------------------
-   CART STORAGE KEY — giỏ hàng gắn theo từng tài khoản, không
-   dùng chung 1 key cho tất cả mọi người. Khách chưa đăng nhập
-   dùng key riêng (luôn trống vì addToCart yêu cầu đăng nhập).
-   --------------------------------------------------------- */
 function cartStorageKey() {
    const user = typeof getCurrentUser === 'function' ? getCurrentUser() : null;
    return user ? 'foodio_cart_' + user.email : 'foodio_cart_guest';
 }
 
-/* ---------------------------------------------------------
-   PENDING ADD-TO-CART — khi khách chưa đăng nhập bấm "Thêm vào
-   giỏ", lưu tạm món đó lại. Sau khi đăng nhập/đăng ký thành
-   công, món sẽ được tự động thêm vào giỏ (xem validation.js).
-   --------------------------------------------------------- */
 function savePendingCartAction(foodId, qty, selectedOptions) {
    sessionStorage.setItem('foodio_pending_cart', JSON.stringify({ foodId, qty, selectedOptions }));
 }
@@ -176,9 +144,6 @@ function consumePendingCartAction() {
    try { return JSON.parse(raw); } catch (e) { return null; }
 }
 
-/* ---------------------------------------------------------
-   CART CRUD
-   --------------------------------------------------------- */
 function addToCart(foodId, qty = 1, selectedOptions = []) {
    if (!isLoggedIn()) {
       savePendingCartAction(foodId, qty, selectedOptions);
@@ -190,11 +155,11 @@ function addToCart(foodId, qty = 1, selectedOptions = []) {
    const optionsPrice = selectedOptions.reduce((s, o) => s + o.price, 0);
    const unitPrice = food.price + optionsPrice;
    const optionsLabel = selectedOptions.map(o => o.label).join(', ');
-   const lineId = foodId + '::' + optionsLabel; // món + tùy chọn khác nhau -> dòng riêng trong giỏ
+   const lineId = foodId + '::' + optionsLabel;
    const cart = getStore(cartStorageKey(), []);
    const existing = cart.find(i => i.lineId === lineId);
    if (existing) existing.qty += qty;
-   else cart.push({ lineId, id: foodId, qty, unitPrice, optionsLabel });
+   else cart.push({ lineId, id: foodId, qty, unitPrice, optionsLabel, selected: true });
    setStore(cartStorageKey(), cart);
    updateCartBadge();
    showToast(`Đã thêm ${food.name} vào giỏ hàng!`, 'success');
@@ -222,14 +187,33 @@ function updateCartQty(lineId, delta) {
 function clearCart() {
    setStore(cartStorageKey(), []);
    localStorage.removeItem('foodio_promo');
-   localStorage.removeItem('foodio_promo_no_auto');
+   localStorage.removeItem(promoNoAutoKey());
    updateCartBadge();
    renderCartPage();
 }
 
+function isItemSelected(item) {
+   return item.selected !== false;
+}
+function getSelectedCartItems() {
+   return getStore(cartStorageKey(), []).filter(isItemSelected);
+}
+function setCartItemSelected(lineId, selected) {
+   const cart = getStore(cartStorageKey(), []);
+   const item = cart.find(i => (i.lineId || i.id) === lineId);
+   if (!item) return;
+   item.selected = selected;
+   setStore(cartStorageKey(), cart);
+}
+function setAllCartItemsSelected(selected) {
+   const cart = getStore(cartStorageKey(), []);
+   cart.forEach(i => i.selected = selected);
+   setStore(cartStorageKey(), cart);
+}
+
 function cartTotals() {
    ensureBestPromoApplied();
-   const cart = getStore(cartStorageKey(), []);
+   const cart = getSelectedCartItems();
    const subtotal = cart.reduce((sum, i) => {
       const f = findFood(i.id);
       const price = i.unitPrice ?? (f ? f.price : 0);
@@ -259,9 +243,6 @@ function cartTotals() {
    return { subtotal, discount, delivery, total, count: cart.reduce((s, i) => s + i.qty, 0) };
 }
 
-/* ---------------------------------------------------------
-   WISHLIST (Favorites)
-   --------------------------------------------------------- */
 function toggleFavorite(foodId) {
    if (!requireAuth()) return;
    let wishlist = getStore(LS.WISHLIST, []);
@@ -281,15 +262,16 @@ function toggleFavorite(foodId) {
    });
 }
 
-/* ---------------------------------------------------------
-   CART PAGE RENDER
-   --------------------------------------------------------- */
 function cartItemRow(item) {
    const food = findFood(item.id);
    if (!food) return '';
    const price = item.unitPrice ?? food.price;
+   const selected = isItemSelected(item);
    return `
-  <div class="cart-item" data-line="${item.lineId || food.id}">
+  <div class="cart-item ${selected ? '' : 'cart-item--unselected'}" data-line="${item.lineId || food.id}">
+      <label class="cart-item__check">
+         <input type="checkbox" data-select-item ${selected ? 'checked' : ''} aria-label="Chọn món để thanh toán">
+      </label>
       <div class="cart-item__img"><img src="${food.image}" alt="${food.name}"></div>
       <div class="cart-item__info">
          <h4>${food.name}</h4>
@@ -334,8 +316,24 @@ function renderCartPage() {
    listEl.querySelectorAll('[data-remove]').forEach(btn => {
       btn.addEventListener('click', () => removeFromCart(btn.closest('.cart-item').dataset.line));
    });
+   listEl.querySelectorAll('[data-select-item]').forEach(chk => {
+      chk.addEventListener('change', () => {
+         const lineId = chk.closest('.cart-item').dataset.line;
+         setCartItemSelected(lineId, chk.checked);
+         renderCartPage();
+      });
+   });
 
+   updateSelectAllCheckbox(cart);
    renderSummary();
+}
+
+function updateSelectAllCheckbox(cart) {
+   const selectAll = document.getElementById('select-all-cart');
+   if (!selectAll) return;
+   const selectedCount = cart.filter(isItemSelected).length;
+   selectAll.checked = selectedCount === cart.length && cart.length > 0;
+   selectAll.indeterminate = selectedCount > 0 && selectedCount < cart.length;
 }
 
 function renderSummary() {
@@ -355,14 +353,9 @@ function renderSummary() {
    renderVoucherSelector();
 }
 
-/* ---------------------------------------------------------
-   VOUCHER SELECTOR — vẽ danh sách 6 mã giảm giá dạng thẻ,
-   cho phép người dùng bấm để áp dụng/hủy áp dụng trực tiếp,
-   dùng chung cho cả trang Giỏ hàng và trang Thanh toán.
-   --------------------------------------------------------- */
 function renderVoucherSelector() {
    const container = document.getElementById('voucher-selector-container');
-   if (!container) return; // trang hiện tại không có khung chọn voucher
+   if (!container) return;
 
    const { subtotal } = cartTotals();
    const appliedCode = getStore('foodio_promo', null);
@@ -370,7 +363,7 @@ function renderVoucherSelector() {
 
    const tagIconSvg = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 11 3.83A2 2 0 0 0 9.59 3.24L4 3a1 1 0 0 0-1 1l.24 5.59a2 2 0 0 0 .59 1.41l9.58 9.59a2 2 0 0 0 2.83 0l4.35-4.35a2 2 0 0 0 0-2.83Z"/><circle cx="7.5" cy="7.5" r="1.2" fill="currentColor" stroke="none"/></svg>`;
 
-   // Sắp xếp: mã đang áp dụng (mã tốt nhất) lên đầu -> mã đủ điều kiện khác -> mã chưa đủ điều kiện xuống cuối
+
    const sortedEntries = Object.entries(PROMO_CODES).sort(([codeA], [codeB]) => {
       const rank = (code) => {
          if (code === appliedCode) return 0;
@@ -393,11 +386,16 @@ function renderVoucherSelector() {
       if (isApplied) btnLabel = 'Đang dùng';
       else if (disabled) btnLabel = 'Không đủ ĐK';
 
+      const usageInfo = cfg.maxUses
+         ? `<div class="voucher-usage">Đã dùng ${getPromoUsage(code)}/${cfg.maxUses} lần</div>`
+         : '';
+
       return `
       <div class="voucher-card ${isApplied ? 'applied' : ''} ${disabled ? 'disabled' : ''}" data-code="${code}">
          <div class="voucher-info">
             <div class="voucher-code">${code}${isBest ? ' <span class="voucher-best-tag">Tốt nhất</span>' : ''}</div>
             <div class="voucher-desc">${cfg.desc}</div>
+            ${usageInfo}
          </div>
          <button type="button" class="btn-apply-voucher ${isApplied ? 'applied' : ''} ${disabled ? 'locked' : ''}" data-voucher-btn="${code}" ${disabled ? 'disabled' : ''}>${btnLabel}</button>
       </div>`;
@@ -429,7 +427,7 @@ function renderVoucherSelector() {
 
 function removePromo() {
    localStorage.removeItem('foodio_promo');
-   localStorage.setItem('foodio_promo_no_auto', '1'); // khách tự bỏ mã -> không tự động gợi ý lại nữa cho đến khi làm mới giỏ hàng
+   localStorage.setItem(promoNoAutoKey(), '1');
    showToast('Đã hủy áp dụng mã giảm giá.', 'default');
    renderCartPage();
    renderCheckoutSummary();
@@ -447,53 +445,27 @@ function applyPromo(code) {
       showToast(`Mã ${clean} chỉ áp dụng cho đơn hàng tối đa ${formatPrice(cfg.maxOrder)}.`, 'error');
       return;
    }
-   if (cfg.minOrder && subtotal < cfg.minOrder) {
-      showToast(`Mã ${clean} chỉ áp dụng cho đơn hàng từ ${formatPrice(cfg.minOrder)}.`, 'error');
-      return;
-   }
    if (cfg.maxUses && getPromoUsage(clean) >= cfg.maxUses) {
       showToast(`Mã ${clean} đã hết lượt sử dụng (tối đa ${cfg.maxUses} lần).`, 'error');
       return;
    }
    setStore('foodio_promo', clean);
-   showToast(`Áp dụng mã giảm giá thành công: -${cfg.rate * 100}%`, 'success');
+   const successMsg = cfg.freeShip && !cfg.rate
+      ? `Áp dụng mã ${clean} thành công: Miễn phí phí giao hàng!`
+      : `Áp dụng mã ${clean} thành công: -${cfg.rate * 100}%`;
+   showToast(successMsg, 'success');
    renderCartPage();
    renderCheckoutSummary();
 }
 
-function applyPromo(code) {
-   const clean = code.trim().toUpperCase();
-   const cfg = PROMO_CODES[clean];
-   if (!cfg) {
-      showToast('Mã giảm giá không hợp lệ.', 'error');
-      return;
-   }
-   const { subtotal } = cartTotals();
-   if (cfg.maxOrder && subtotal > cfg.maxOrder) {
-      showToast(`Mã ${clean} chỉ áp dụng cho đơn hàng tối đa ${formatPrice(cfg.maxOrder)}.`, 'error');
-      return;
-   }
-   if (cfg.maxUses && getPromoUsage(clean) >= cfg.maxUses) {
-      showToast(`Mã ${clean} đã hết lượt sử dụng (tối đa ${cfg.maxUses} lần).`, 'error');
-      return;
-   }
-   setStore('foodio_promo', clean);
-   showToast(`Áp dụng mã giảm giá thành công: -${cfg.rate * 100}%`, 'success');
-   renderCartPage();
-   renderCheckoutSummary();
-}
-
-/* ---------------------------------------------------------
-   CHECKOUT PAGE
-   --------------------------------------------------------- */
 function renderCheckoutSummary() {
    const el = document.getElementById('checkout-items');
    if (!el) return;
    renderDeliveryOptions();
-   const cart = getStore(cartStorageKey(), []);
    const isSuccess = new URLSearchParams(window.location.search).get('success');
+   const cart = getSelectedCartItems();
    if (!cart.length) {
-      if (!isSuccess) window.location.href = 'cart.html';   // chỉ redirect khi KHÔNG phải trang success
+      if (!isSuccess) window.location.href = 'cart.html';
       return;
    }
    el.innerHTML = cart.map(item => {
@@ -508,7 +480,7 @@ function renderCheckoutSummary() {
 }
 
 function placeOrder(formData) {
-   const cart = getStore(cartStorageKey(), []);
+   const cart = getSelectedCartItems();
    if (!cart.length) return;
    const t = cartTotals();
    const orders = getStore(LS.ORDERS, []);
@@ -528,13 +500,13 @@ function placeOrder(formData) {
    orders.unshift(order);
    setStore(LS.ORDERS, orders);
 
-   // Đã dùng mã giảm giá thành công -> trừ vào số lượt còn lại của khách
    const promo = getStore('foodio_promo', null);
    if (promo && t.discount > 0) incPromoUsage(promo);
 
-   setStore(cartStorageKey(), []);
+   const remainingCart = getStore(cartStorageKey(), []).filter(i => !isItemSelected(i));
+   setStore(cartStorageKey(), remainingCart);
    localStorage.removeItem('foodio_promo');
-   localStorage.removeItem('foodio_promo_no_auto');
+   localStorage.removeItem(promoNoAutoKey());
    sessionStorage.removeItem('foodio_delivery_fees');
    sessionStorage.removeItem('foodio_delivery_method');
    updateCartBadge();
@@ -556,7 +528,26 @@ document.addEventListener('DOMContentLoaded', () => {
    const clearBtn = document.getElementById('clear-cart-btn');
    if (clearBtn) clearBtn.addEventListener('click', clearCart);
 
-   // Delegate add-to-cart / favorite clicks site-wide
+   const selectAll = document.getElementById('select-all-cart');
+   if (selectAll) {
+      selectAll.addEventListener('change', () => {
+         setAllCartItemsSelected(selectAll.checked);
+         renderCartPage();
+      });
+   }
+
+   const goCheckoutBtn = document.getElementById('go-checkout-btn');
+   if (goCheckoutBtn) {
+      goCheckoutBtn.addEventListener('click', (e) => {
+         e.preventDefault();
+         if (!getSelectedCartItems().length) {
+            showToast('Vui lòng chọn ít nhất 1 món để thanh toán.', 'error');
+            return;
+         }
+         window.location.href = 'checkout.html';
+      });
+   }
+
    document.body.addEventListener('click', (e) => {
       const addBtn = e.target.closest('[data-add]');
       if (addBtn) { addToCart(addBtn.dataset.add, 1); return; }
@@ -567,9 +558,6 @@ document.addEventListener('DOMContentLoaded', () => {
    renderCheckoutSummary();
 });
 
-/* ---------------------------------------------------------
-   PROMO CODE BOX — sao chép mã + đếm ngược 2 tiếng từ lúc đăng nhập
-   --------------------------------------------------------- */
 function initPromoCountdown() {
    const box = document.getElementById('promo-code-box');
    if (!box) return;
@@ -577,10 +565,8 @@ function initPromoCountdown() {
    const session = getStore(LS.SESSION, null);
    if (!session) { box.style.display = 'none'; return; }
 
-   const EXPIRY_MS = 2 * 60 * 60 * 1000; // 2 tiếng
+   const EXPIRY_MS = 2 * 60 * 60 * 1000;
 
-   // Mốc bắt đầu đếm giờ RIÊNG cho từng tài khoản, chỉ set 1 LẦN DUY NHẤT.
-   // Đăng xuất/đăng nhập lại không reset, vì chỉ đọc lại giá trị đã lưu.
    const promoTimers = getStore(LS.PROMO_TIMERS, {});
    if (!promoTimers[session.email]) {
       promoTimers[session.email] = Date.now();
@@ -589,7 +575,7 @@ function initPromoCountdown() {
    const expiry = promoTimers[session.email] + EXPIRY_MS;
    const timerEl = document.getElementById('promo-code-timer');
 
-   let interval;                    // 👈 THÊM dòng này lên trước hàm tick
+   let interval;
    const tick = () => {
       const remain = expiry - Date.now();
       if (remain <= 0) {
@@ -602,8 +588,8 @@ function initPromoCountdown() {
       const s = String(Math.floor((remain % 60000) / 1000)).padStart(2, '0');
       timerEl.textContent = `⏳ ${h}:${m}:${s}`;
    };
-   interval = setInterval(tick, 1000);   // 👈 ĐỔI: bỏ chữ "const", gọi setInterval TRƯỚC
-   tick();                               // 👈 ĐỔI: gọi tick() SAU khi interval đã có giá trị
+   interval = setInterval(tick, 1000);
+   tick();
 
    document.getElementById('promo-copy-btn')?.addEventListener('click', () => {
       const code = document.getElementById('promo-code-value').textContent.trim();

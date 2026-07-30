@@ -1,12 +1,3 @@
-/* =========================================================
-   FOODIO — animation.js
-   Mobile nav toggle, FAQ accordion, food-detail tabs/gallery,
-   animated stat counters, and reveal-on-scroll orchestration.
-   ========================================================= */
-
-/* ---------------------------------------------------------
-   MOBILE NAVIGATION
-   --------------------------------------------------------- */
 function initMobileNav() {
    const toggle = document.getElementById('mobile-toggle');
    const nav = document.getElementById('mobile-nav');
@@ -23,9 +14,6 @@ function initMobileNav() {
    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', shut));
 }
 
-/* ---------------------------------------------------------
-   FAQ ACCORDION
-   --------------------------------------------------------- */
 function initFaq() {
    const list = document.getElementById('faq-list');
    if (!list) return;
@@ -44,9 +32,6 @@ function initFaq() {
    });
 }
 
-/* ---------------------------------------------------------
-   ANIMATED STAT COUNTERS (hero section)
-   --------------------------------------------------------- */
 function initCounters() {
    const counters = document.querySelectorAll('[data-counter]');
    counters.forEach(el => {
@@ -62,9 +47,6 @@ function initCounters() {
    });
 }
 
-/* ---------------------------------------------------------
-   FOOD DETAIL TABS
-   --------------------------------------------------------- */
 function initDetailTabs() {
    const heads = document.querySelectorAll('.tab-heads button');
    if (!heads.length) return;
@@ -78,9 +60,6 @@ function initDetailTabs() {
    });
 }
 
-/* ---------------------------------------------------------
-   FOOD DETAIL GALLERY THUMBNAILS
-   --------------------------------------------------------- */
 function initGallery() {
    const thumbs = document.querySelectorAll('.detail-gallery__thumbs img');
    const main = document.getElementById('gallery-main-img');

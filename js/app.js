@@ -1,7 +1,3 @@
-
-/* ---------------------------------------------------------
-   1. MOCK DATA
-   --------------------------------------------------------- */
 const CATEGORIES = [
    { id: 'pho-bun', name: 'Phở & Bún', icon: '🍜' },
    { id: 'com', name: 'Cơm', icon: '🍚' },
@@ -2127,9 +2123,6 @@ const FAQS = [
    { q: 'Tôi có thể hủy đơn hàng sau khi đặt không?', a: 'Bạn có thể hủy đơn trong vòng 5 phút sau khi đặt tại mục Đơn hàng của tôi, trước khi nhà hàng xác nhận chế biến.' },
 ];
 
-/* ---------------------------------------------------------
-   2. STORAGE KEYS
-   --------------------------------------------------------- */
 const LS = {
    USERS: 'foodio_users',
    SESSION: 'foodio_session',
@@ -2140,9 +2133,6 @@ const LS = {
    PROMO_TIMERS: 'foodio_promo_timers',
 };
 
-/* ---------------------------------------------------------
-   3. GENERIC HELPERS
-   --------------------------------------------------------- */
 function getStore(key, fallback) {
    try {
       const raw = localStorage.getItem(key);
@@ -2166,9 +2156,6 @@ function starsHtml(rating, size = 14) {
    return html;
 }
 
-/* ---------------------------------------------------------
-   4. TOAST NOTIFICATIONS
-   --------------------------------------------------------- */
 function ensureToastWrap() {
    let wrap = document.querySelector('.toast-wrap');
    if (!wrap) {
@@ -2195,17 +2182,11 @@ function showToast(message, type = 'default') {
    }, 3200);
 }
 
-/* ---------------------------------------------------------
-   5. LOADING SCREEN
-   --------------------------------------------------------- */
 window.addEventListener('load', () => {
    const loader = document.getElementById('loading-screen');
    if (loader) setTimeout(() => loader.classList.add('hidden'), 400);
 });
 
-/* ---------------------------------------------------------
-   6. SCROLL PROGRESS + SCROLL TO TOP + HEADER SHADOW
-   --------------------------------------------------------- */
 function initScrollFx() {
    const progress = document.getElementById('scroll-progress');
    const topBtn = document.getElementById('scroll-top');
@@ -2222,9 +2203,6 @@ function initScrollFx() {
    if (topBtn) topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
 
-/* ---------------------------------------------------------
-   7. CART BADGE (used by every page's header)
-   --------------------------------------------------------- */
 function updateCartBadge() {
    const cart = getStore(typeof cartStorageKey === 'function' ? cartStorageKey() : LS.CART, []);
    const count = cart.reduce((sum, i) => sum + i.qty, 0);
@@ -2234,9 +2212,6 @@ function updateCartBadge() {
    });
 }
 
-/* ---------------------------------------------------------
-   8. FOOD CARD RENDERER (shared by home / menu / detail / wishlist)
-   --------------------------------------------------------- */
 function foodCardHtml(food) {
    const wishlist = getStore(LS.WISHLIST, []);
    const isFav = wishlist.includes(food.id);
@@ -2288,9 +2263,6 @@ function renderFoodGrid(container, foods) {
    container.innerHTML = foods.map(foodCardHtml).join('');
 }
 
-/* ---------------------------------------------------------
-   9. REVEAL ON SCROLL (basic init, refined in animation.js)
-   --------------------------------------------------------- */
 function initReveal() {
    const items = document.querySelectorAll('.reveal');
    const io = new IntersectionObserver((entries) => {
@@ -2304,9 +2276,6 @@ function initReveal() {
    items.forEach(el => io.observe(el));
 }
 
-/* ---------------------------------------------------------
-   10. INIT ON EVERY PAGE
-   --------------------------------------------------------- */
 function highlightActiveNav() {
    const page = window.location.pathname.split('/').pop().replace('.html', '') || 'index';
    document.querySelectorAll('.main-nav a[data-nav]').forEach(a => {

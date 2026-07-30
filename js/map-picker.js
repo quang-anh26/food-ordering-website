@@ -1,15 +1,8 @@
-/* ---------------------------------------------------------
-   CHỌN VỊ TRÍ GIAO HÀNG TRÊN BẢN ĐỒ (trang thanh toán)
-   Dùng Leaflet + OpenStreetMap (miễn phí, không cần API key).
-   Sau khi xác nhận: tự điền vào ô Địa chỉ + lưu toạ độ
-   (lat/lng) vào window.ckSelectedLatLng để validation.js lưu
-   kèm theo địa chỉ khi đặt hàng.
-   --------------------------------------------------------- */
 let ckMap = null;
 let ckMapMarker = null;
 let ckPickedLocation = null; // { lat, lng, address }
 
-const CK_MAP_DEFAULT_CENTER = [10.7769, 106.7009]; // Trung tâm TP.HCM
+const CK_MAP_DEFAULT_CENTER = [10.7769, 106.7009]; 
 
 function initCkMapIfNeeded() {
    if (ckMap || typeof L === 'undefined') return;
@@ -58,7 +51,7 @@ function openCkMapModal() {
    if (!modal) return;
    modal.classList.add('show');
    document.body.style.overflow = 'hidden';
-   // Leaflet cần biết kích thước container SAU KHI modal đã hiện ra
+
    setTimeout(() => {
       initCkMapIfNeeded();
       ckMap.invalidateSize();
@@ -70,7 +63,6 @@ function closeCkMapModal() {
    document.body.style.overflow = '';
 }
 
-// Dùng ở validation.js khi người dùng đổi sang địa chỉ khác -> xoá lựa chọn bản đồ cũ
 function resetCkMapField() {
    const openBtn = document.getElementById('ck-open-map-btn');
    const field = document.getElementById('ck-map-field');
@@ -86,7 +78,7 @@ function resetCkMapField() {
 document.addEventListener('DOMContentLoaded', () => {
    const openBtn = document.getElementById('ck-open-map-btn');
    const modal = document.getElementById('ck-map-modal');
-   if (!openBtn || !modal) return; // Trang không có phần chọn vị trí (VD: không phải trang thanh toán)
+   if (!openBtn || !modal) return; 
 
    const closeBtn = document.getElementById('ck-map-close');
    const useMyLocationBtn = document.getElementById('ck-use-my-location');
@@ -126,13 +118,12 @@ document.addEventListener('DOMContentLoaded', () => {
          addressInput.value = resolvedAddress;
          addressInput.closest('.field')?.classList.remove('invalid');
       }
-      // Cập nhật nút chọn bản đồ để hiện lại địa chỉ đã chọn + bỏ trạng thái lỗi bắt buộc
       if (openBtn) {
          openBtn.textContent = `📍 ${resolvedAddress}`;
          openBtn.classList.add('has-location');
       }
       document.getElementById('ck-map-field')?.classList.remove('invalid');
-      // Lưu toạ độ lại để validation.js gắn kèm khi lưu địa chỉ mới
+     
       window.ckSelectedLatLng = { lat: ckPickedLocation.lat, lng: ckPickedLocation.lng };
       closeCkMapModal();
       showToast('Đã chọn vị trí trên bản đồ!', 'success');
